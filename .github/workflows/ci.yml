@@ -1,0 +1,96 @@
+name: Notebook CI
+
+on:
+  push:
+    branches: [dev, master]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  lint:
+    name: nbformat lint (all notebooks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install nbformat
+        run: pip install nbformat
+      - name: Validate all notebooks
+        run: |
+          python - << 'EOF'
+          import glob, sys, nbformat
+          errors = []
+          for path in glob.glob("notebooks/*.ipynb"):
+              try:
+                  nb = nbformat.read(path, as_version=4)
+                  nbformat.validate(nb)
+                  print(f"  OK  {path}")
+              except nbformat.ValidationError as e:
+                  errors.append(f"  FAIL {path}: {e}")
+          if errors:
+              print("\n".join(errors))
+              sys.exit(1)
+          print(f"\n{len(glob.glob('notebooks/*.ipynb'))} notebooks validated.")
+          EOF
+
+  execute:
+    name: Execute notebooks (non-GPU)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install system dependencies
+        run: sudo apt-get install -y ffmpeg
+      - name: Install Python dependencies
+        run: |
+          pip install jupyter nbconvert ipykernel
+          pip install edge-tts httpx uvicorn[standard] mcp
+          pip install pydantic>=2.0
+          # Install OVOS servers and plugins from source (feature branches)
+          # In CI these would be installed from the published packages once merged
+          pip install ovos-tts-plugin-beepspeak || true
+          pip install ovos-pydantic-models || true
+          pip install speakeronnx || true
+          pip install ovos-ww-verifier-plugin-speaker || true
+          pip install ovos-tts-server || true
+          pip install ovos-stt-http-server || true
+      - name: Execute notebooks
+        run: |
+          python - << 'EOF'
+          import glob, json, subprocess, sys
+
+          SKIP_TAG = "skip_execute"
+          notebooks = sorted(glob.glob("notebooks/*.ipynb"))
+          executed = []
+          skipped = []
+          failed = []
+
+          for path in notebooks:
+              nb = json.load(open(path))
+              meta = nb.get("metadata", {}).get("ngi_deliverable", {})
+              if meta.get("skip_execute"):
+                  skipped.append(path)
+                  print(f"  SKIP  {path}  ({meta.get('work_item', '')})")
+                  continue
+              print(f"  EXEC  {path} ...")
+              result = subprocess.run(
+                  ["jupyter", "nbconvert", "--to", "notebook", "--execute",
+                   "--ExecutePreprocessor.timeout=600",
+                   "--output", path, path],
+                  capture_output=True, text=True
+              )
+              if result.returncode == 0:
+                  executed.append(path)
+                  print(f"        OK")
+              else:
+                  failed.append(path)
+                  print(f"        FAILED\n{result.stderr[-2000:]}")
+
+          print(f"\nExecuted: {len(executed)}  Skipped: {len(skipped)}  Failed: {len(failed)}")
+          if failed:
+              sys.exit(1)
+          EOF

@@ -1,0 +1,4 @@
+edge-tts
+# optional: faster-whisper (CPU-only int8 mode)
+# faster-whisper
+# ffmpeg must be available as a system binary

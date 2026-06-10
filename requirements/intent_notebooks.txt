@@ -1,0 +1,11 @@
+# Shared requirements for all three intent classification notebooks
+model2vec[train]
+datasets
+torch
+onnx
+onnxruntime
+onnxscript
+numpy
+scikit-learn
+matplotlib
+seaborn

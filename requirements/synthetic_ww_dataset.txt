@@ -1,0 +1,2 @@
+edge-tts
+# ffmpeg must be available as a system binary

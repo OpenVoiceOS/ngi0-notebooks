@@ -1,0 +1,2 @@
+ovos-pydantic-models
+pydantic>=2.0

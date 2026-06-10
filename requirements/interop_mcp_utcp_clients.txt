@@ -1,0 +1,10 @@
+# ovos-tts-server[mcp] (feat/mcp-utcp branch)
+# Install from source: pip install -e path/to/ovos-tts-server[mcp]
+# ovos-stt-http-server (feat/mcp-utcp branch)
+# Install from source: pip install -e path/to/ovos-stt-http-server
+ovos-tts-plugin-beepspeak
+edge-tts
+httpx
+uvicorn[standard]
+mcp
+ffmpeg-python

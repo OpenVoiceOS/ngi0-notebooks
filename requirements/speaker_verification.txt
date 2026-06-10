@@ -1,0 +1,4 @@
+speakeronnx
+ovos-ww-verifier-plugin-speaker
+edge-tts
+# ffmpeg must be available as a system binary
