@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install nbformat
-        run: pip install nbformat
+        run: pip install "nbformat>=5.9"
       - name: Validate all notebooks
         run: |
           python - << 'EOF'
@@ -47,7 +47,7 @@ jobs:
         run: sudo apt-get install -y ffmpeg
       - name: Install Python dependencies
         run: |
-          pip install jupyter nbconvert ipykernel
+          pip install jupyter nbconvert ipykernel nest_asyncio
           pip install edge-tts httpx uvicorn[standard] mcp
           pip install pydantic>=2.0
           # Install OVOS servers and plugins from source (feature branches)
@@ -77,10 +77,16 @@ jobs:
                   print(f"  SKIP  {path}  ({meta.get('work_item', '')})")
                   continue
               print(f"  EXEC  {path} ...")
+              # --output is resolved relative to the input file's directory,
+              # so it must be a bare filename, not the full "notebooks/..." path
+              # (passing the full path here previously wrote to
+              # "notebooks/notebooks/<name>.ipynb" and failed with
+              # FileNotFoundError).
+              import os
               result = subprocess.run(
                   ["jupyter", "nbconvert", "--to", "notebook", "--execute",
                    "--ExecutePreprocessor.timeout=600",
-                   "--output", path, path],
+                   "--output", os.path.basename(path), path],
                   capture_output=True, text=True
               )
               if result.returncode == 0:
