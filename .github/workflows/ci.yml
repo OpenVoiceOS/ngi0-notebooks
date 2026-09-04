@@ -50,14 +50,12 @@ jobs:
           pip install jupyter nbconvert ipykernel nest_asyncio
           pip install edge-tts httpx uvicorn[standard] mcp
           pip install pydantic>=2.0
-          # Install OVOS servers and plugins from source (feature branches)
-          # In CI these would be installed from the published packages once merged
-          pip install ovos-tts-plugin-beepspeak || true
-          pip install ovos-pydantic-models || true
-          pip install speakeronnx || true
-          pip install ovos-ww-verifier-plugin-speaker || true
-          pip install ovos-tts-server || true
-          pip install ovos-stt-http-server || true
+          pip install --pre ovos-tts-plugin-beepspeak
+          pip install --pre ovos-pydantic-models
+          pip install --pre speakeronnx
+          pip install --pre ovos-ww-verifier-plugin-speaker
+          pip install --pre ovos-tts-server
+          pip install --pre ovos-stt-http-server
       - name: Execute notebooks
         run: |
           python - << 'EOF'

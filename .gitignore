@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*.out.ipynb
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+scratch/
