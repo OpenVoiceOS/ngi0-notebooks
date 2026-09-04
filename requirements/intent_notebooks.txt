@@ -1,11 +1,12 @@
 # Shared requirements for all three intent classification notebooks
-model2vec[train]
-datasets
-torch
-onnx
-onnxruntime
-onnxscript
-numpy
-scikit-learn
-matplotlib
-seaborn
+# Pre-release channel: pip install --pre -r this file
+model2vec[train]>=0.9.0
+datasets>=5.0.1
+torch>=2.14.0
+onnx>=1.22.0
+onnxruntime>=1.29.0
+onnxscript>=0.7.1
+numpy>=2.0
+scikit-learn>=1.9.0
+matplotlib>=3.11.1
+seaborn>=0.13.2
