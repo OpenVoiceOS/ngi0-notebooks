@@ -8,3 +8,8 @@ venv/
 .pytest_cache/
 .mypy_cache/
 scratch/
+
+# default notebook output directories
+notebooks/synth_ww_output/
+notebooks/ww_output/
+notebooks/asr2tts_workspace/
