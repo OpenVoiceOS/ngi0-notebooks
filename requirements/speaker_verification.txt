@@ -1,4 +1,7 @@
-speakeronnx
-ovos-ww-verifier-plugin-speaker
-edge-tts
+# Pre-release channel: pip install --pre -r this file
+ovos-plugin-manager>=2.11.6a1
+ovos-ww-verifier-plugin-speaker>=0.0.2a4
+speakeronnx>=0.0.2a2
+edge-tts>=7.2.8
+nest-asyncio>=1.6.0
 # ffmpeg must be available as a system binary

@@ -1,4 +1,4 @@
 # GPU training notebook — not executed in CI
-# uv + phoonnx[train] installed inside the notebook via a dedicated venv
-# See notebook cell 2 for full installation instructions
+# uv + phoonnx[train] from PyPI, installed into a dedicated venv by the notebook
+# See notebook section 2 for full installation instructions
 uv

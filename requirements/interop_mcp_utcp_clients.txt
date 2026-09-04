@@ -1,10 +1,12 @@
-# ovos-tts-server[mcp] (feat/mcp-utcp branch)
-# Install from source: pip install -e path/to/ovos-tts-server[mcp]
-# ovos-stt-http-server (feat/mcp-utcp branch)
-# Install from source: pip install -e path/to/ovos-stt-http-server
-ovos-tts-plugin-beepspeak
-edge-tts
-httpx
-uvicorn[standard]
-mcp
-ffmpeg-python
+# Pre-release channel: pip install --pre -r this file
+ovos-tts-server[mcp]>=1.15.0a1
+ovos-stt-http-server>=0.27.0a1
+ovos-tts-plugin-beepspeak>=0.1.0a2
+ovos-plugin-manager>=2.11.6a1
+edge-tts>=7.2.8
+httpx>=0.28
+uvicorn[standard]>=0.35
+mcp>=1.29
+nest-asyncio>=1.6.0
+ffmpeg-python>=0.2.0
+# ffmpeg must be available as a system binary
