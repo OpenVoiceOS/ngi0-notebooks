@@ -91,6 +91,9 @@ jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 \
     notebooks/speaker_verification.ipynb --output notebooks/speaker_verification.ipynb
 ```
 
+Each notebook installs its own pinned dependencies in its first code cell; the
+same pins are also listed in `requirements/<notebook>.txt`.
+
 ---
 
 ## CI
