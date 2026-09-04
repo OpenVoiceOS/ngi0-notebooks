@@ -1,2 +1,4 @@
-edge-tts
+# edge-tts calls the Microsoft Edge read-aloud service: outbound internet is required
+edge-tts>=7.2.8
+nest_asyncio>=1.6
 # ffmpeg must be available as a system binary
