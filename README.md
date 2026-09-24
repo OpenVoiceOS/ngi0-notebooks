@@ -54,6 +54,17 @@ Edge TTS service, and its local install needs the `nest_asyncio` package (see
 
 ---
 
+## TTS dataset pipeline
+
+The TTS dataset notebooks form a chain: each one reads a manifest, does one step, and writes a
+manifest for the next. Clips are measured once, and selection is a separate step. The chain,
+the manifest format and the language registry are described in:
+
+- [docs/pipeline.md](docs/pipeline.md): the steps and how they connect.
+- [docs/manifest.md](docs/manifest.md): the manifest and selection file formats.
+- [docs/registry.md](docs/registry.md): the per-language registry of admitted donors, corpora and
+  judges ([registry/tts.yaml](registry/tts.yaml)).
+
 ## TTS voice datasets
 
 OpenVoiceOS publishes single-speaker TTS datasets for two voice identities,
@@ -155,6 +166,10 @@ same pins are also listed in `requirements/<notebook>.txt`.
 ```
 notebooks/
   *.ipynb          - all deliverable notebooks
+docs/
+  *.md             - pipeline, manifest and registry reference
+registry/
+  tts.yaml         - admitted donors, corpora and judges per language
 requirements/
   *.txt            - per-notebook extra dependencies
 docs/
