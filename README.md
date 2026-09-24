@@ -54,6 +54,52 @@ Edge TTS service, and its local install needs the `nest_asyncio` package (see
 
 ---
 
+## TTS voice datasets
+
+OpenVoiceOS publishes single-speaker TTS datasets for two voice identities,
+miro (male) and dii (female), across two Hugging Face collections:
+[synthetic datasets](https://huggingface.co/collections/TigreGotico/synthetic-tts-datasets)
+and [voice-converted datasets](https://huggingface.co/collections/TigreGotico/tts-voice-converted-datasets).
+The source for each language is listed in [`docs/tts-data-sources.md`](docs/tts-data-sources.md).
+
+| Language | miro | dii | Sources |
+|---|---|---|---|
+| Arabic, Modern Standard, diacritized | [9,994 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_ar-diacritics) | [9,995 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_ar-diacritics) | [Arabic, Modern Standard, diacritized](docs/tts-data-sources.md#arabic-modern-standard-diacritized-ar) |
+| Arabic, Najdi and Hijazi | [1,099 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_ar-SA)<br>[8,189 clips](https://huggingface.co/datasets/TigreGotico/tts-vc-miro_ar-SA) | — | [Arabic, Najdi and Hijazi](docs/tts-data-sources.md#arabic-najdi-and-hijazi-ar-sa) |
+| Arabic, Qatari | [7,592 clips](https://huggingface.co/datasets/TigreGotico/tts-vc-miro_ar-QA) | — | [Arabic, Qatari](docs/tts-data-sources.md#arabic-qatari-ar-qa) |
+| Aragonese | [7,592 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_mcv-scripted-v23.0_an_miro) | [7,592 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_mcv-scripted-v23.0_an_dii) | [Aragonese](docs/tts-data-sources.md#aragonese-an) |
+| Asturian | [720 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_mcv-scripted-v23.0_ast_miro) | [720 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_mcv-scripted-v23.0_ast_dii) | [Asturian](docs/tts-data-sources.md#asturian-ast) |
+| Basque | [2,790 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_eu-ES) | [2,790 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_eu-ES) | [Basque](docs/tts-data-sources.md#basque-eu) |
+| Catalan (Balearic) | [726 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_LaFrescat-ca-ES-balear_miro) | — | [Catalan (Balearic)](docs/tts-data-sources.md#catalan-ca) |
+| Catalan (Central) | [899 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_LaFrescat-ca-ES-central_miro) | — | [Catalan (Central)](docs/tts-data-sources.md#catalan-ca) |
+| Catalan (Occidental) | [659 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_LaFrescat-ca-ES-occidental_miro) | — | [Catalan (Occidental)](docs/tts-data-sources.md#catalan-ca) |
+| Catalan (Valencian) | [574 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_LaFrescat-ca-ES-valencia_miro) | — | [Catalan (Valencian)](docs/tts-data-sources.md#catalan-ca) |
+| Danish | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_da-DK) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_da-DK) | [Danish](docs/tts-data-sources.md#danish-da-dk) |
+| Dutch, Netherlands | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_nl-NL) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_nl-NL) | [Dutch, Netherlands](docs/tts-data-sources.md#dutch-netherlands-nl-nl) |
+| English, American | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_en-US) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_en-US) | [English, American](docs/tts-data-sources.md#english-american-en-us) |
+| English, British and Irish | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_en-GB) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_en-GB) | [English, British and Irish](docs/tts-data-sources.md#english-british-and-irish-en-gb) |
+| French | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_fr-FR_slow) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_fr-FR_slow) | [French](docs/tts-data-sources.md) |
+| Galician | [9,999 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_sabela_gl-ES_miro) | [9,999 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_sabela_gl-ES_dii) | [Galician](docs/tts-data-sources.md#galician-gl) |
+| German | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_de-DE) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_de-DE) | [German](docs/tts-data-sources.md#german-de-de) |
+| Hebrew | [952 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_ILSpeech_he_miro) | [952 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_ILSpeech_he_dii) | [Hebrew](docs/tts-data-sources.md#hebrew-he-il) |
+| Hindi | [1,100 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_hi-IN) | — | [Hindi](docs/tts-data-sources.md#hindi-hi-in) |
+| Italian | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_it-IT)<br>[300 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_paola_it-IT_miro) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_it-IT)<br>[300 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_paola_it-IT_dii) | [Italian](docs/tts-data-sources.md) |
+| Japanese | [1,100 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_ja-JP) | [1,100 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_ja-JP) | [Japanese](docs/tts-data-sources.md#japanese-ja-jp) |
+| Kabyle | [57,383 clips](https://huggingface.co/datasets/fdemelo/tts-vc-kabyle-22khz-kab-dz-miro) | [57,383 clips](https://huggingface.co/datasets/fdemelo/tts-vc-kabyle-22khz-kab-dz-dii) | [Kabyle](docs/tts-data-sources.md#kabyle-kab) |
+| Marwari | [4,247 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_Vaani_marwari_mwr_miro) | [4,247 clips](https://huggingface.co/datasets/TigreGotico/tts_vc_Vaani_marwari_mwr_dii) | [Marwari](docs/tts-data-sources.md#marwari-mwr-in) |
+| Mirandese | [346 clips](https://huggingface.co/datasets/TigreGotico/vc-mwl-miro) | [345 clips](https://huggingface.co/datasets/TigreGotico/vc-mwl-dii) | [Mirandese](docs/tts-data-sources.md#mirandese-mwl) |
+| Persian | [1,996 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_fa-IR) | [1,997 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_fa-IR) | [Persian](docs/tts-data-sources.md#persian-fa-ir) |
+| Polish | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_pl-PL) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_pl-PL) | [Polish](docs/tts-data-sources.md#polish-pl) |
+| Portuguese, Brazilian | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_pt-BR) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_pt-BR) | [Portuguese, Brazilian](docs/tts-data-sources.md#portuguese-brazilian-pt-br) |
+| Portuguese, European | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_pt-PT_v2)<br>[1,349 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_pt-PT) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_pt-PT_v2)<br>[1,349 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_pt-PT) | [Portuguese, European](docs/tts-data-sources.md#portuguese-european-pt-pt) |
+| Romanian | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_ro-RO) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_ro-RO) | [Romanian](docs/tts-data-sources.md#romanian-ro) |
+| Spanish, Castilian | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_es-ES) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_es-ES) | [Spanish, Castilian](docs/tts-data-sources.md#spanish-castilian-es-es) |
+| Spanish, Colombian | [5,192 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_es-CO) | [5,192 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_es-CO) | [Spanish, Colombian](docs/tts-data-sources.md#spanish-colombian-es-co) |
+| Swedish | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-miro_sv-SE) | [1,150 clips](https://huggingface.co/datasets/TigreGotico/tts-train-synthetic-dii_sv-SE) | [Swedish](docs/tts-data-sources.md#swedish-sv-se) |
+| West Frisian | [9,676 clips](https://huggingface.co/datasets/TigreGotico/tts-vc-mcv-scripted-v24.0-fy-nl-miro) | [9,676 clips](https://huggingface.co/datasets/TigreGotico/tts-vc-mcv-scripted-v24.0-fy-nl-dii) | [West Frisian](docs/tts-data-sources.md#west-frisian-fy-nl) |
+
+---
+
 ## Notebook index
 
 | Notebook | NGI work item | Cloud |
@@ -111,6 +157,8 @@ notebooks/
   *.ipynb          - all deliverable notebooks
 requirements/
   *.txt            - per-notebook extra dependencies
+docs/
+  tts-data-sources.md - speech sources for TTS dataset generation, by language
 .github/workflows/
   ci.yml
 LICENSE            - Apache License 2.0
