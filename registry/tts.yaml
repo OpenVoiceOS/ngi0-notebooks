@@ -1,0 +1,4 @@
+# Language registry for the TTS dataset notebooks.
+# Format and admission rules: docs/registry.md.
+# An entry holds only a donor, corpora and judge seats that passed admission.
+entries: []
