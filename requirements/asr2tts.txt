@@ -1,0 +1,17 @@
+# GPU pipeline. resemble-enhance pins torch, torchaudio, soundfile and pandas
+# to exact legacy versions, so it cannot be installed alongside the floors
+# used elsewhere in this repo; install it in its own environment. The smoke
+# path (SMOKE=True) skips the resemble-enhance denoising step and does not
+# need it. The punctuation-restoration step runs on both paths and needs
+# torch through deepmultilingualpunctuation's transformers pipeline, so it
+# is a floor here rather than a runtime `pip install`.
+pydub>=0.25.1
+librosa>=1.0.0
+soundfile>=0.14.0
+pandas>=2.2
+tqdm>=4.66
+torch>=2.2
+deepmultilingualpunctuation>=1.0.1
+tf-keras>=2.21.0
+# denoising stage only, in its own environment:
+#   resemble-enhance>=0.0.1  (pins torch, torchaudio, soundfile, pandas exactly)

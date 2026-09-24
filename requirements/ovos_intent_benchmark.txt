@@ -1,5 +1,4 @@
-# Shared requirements for all three intent classification notebooks
-# Pre-release channel: pip install --pre -r this file
+# GPU benchmark suite; not executed in CI (full multilingual sweep exceeds a CI time budget)
 model2vec[train]>=0.9.0
 datasets>=5.0.1
 torch>=2.14.0

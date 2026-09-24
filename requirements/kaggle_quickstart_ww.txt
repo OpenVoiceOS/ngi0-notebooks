@@ -1,0 +1,4 @@
+# GPU trainer; not executed in CI. wakeforge is published on PyPI, imported as ww_trainer.
+wakeforge[datagen,torchcodec]>=0.4.1a3
+ovos-ww-plugin-precise-onnx
+ovos-vad-plugin-silero
