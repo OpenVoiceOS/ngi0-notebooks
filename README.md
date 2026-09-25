@@ -1,6 +1,6 @@
 # NGI0 Commons Fund: OpenVoiceOS Deliverable Notebooks
 
-Developed by [TigreGótico](https://tigregotico.pt) for
+Developed by [TigreGotico](https://tigregotico.pt) for
 [OpenVoiceOS](https://openvoiceos.org).
 
 [![NGI0 Commons Fund](./ngi.png)](https://nlnet.nl/project/OpenVoiceOS)
