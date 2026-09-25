@@ -3,14 +3,13 @@
 wakeforge[datagen,torchcodec]>=0.4.1a3
 torch>=2.14.0
 torchaudio>=2.4
-onnx>=1.16
+onnx>=1.22.0
 onnxruntime>=1.30.0
 numpy>=2.0
 soundfile>=0.14.0
 librosa>=0.10.2
-scikit-learn>=1.4
-matplotlib>=3.8
+scikit-learn>=1.9.0
+matplotlib>=3.11.1
 tqdm>=4.66
 click>=8.1
 ovos-ww-plugin-wakeforge>=0.0.4a1
-ovos-vad-plugin-silero>=0.1.0
