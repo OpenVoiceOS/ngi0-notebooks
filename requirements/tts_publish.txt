@@ -1,8 +1,5 @@
 # Pre-release channel: pip install --pre -r this file
-# Capped below 2.0: datasets>=5.0.1 (tts_corpus_ingest, the intent notebooks)
-# requires huggingface_hub<2.0, and nothing this notebook calls (upload_folder,
-# upload_large_folder, list_repo_files) needs 2.0 or newer.
-huggingface_hub>=0.36.0,<2.0
+huggingface_hub>=0.36.0
 # Only needed for the built-in demo path (no manifest given):
 edge-tts>=7.2.8
 nest-asyncio>=1.6.0
