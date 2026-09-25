@@ -9,5 +9,5 @@ rich>=13.7
 tqdm>=4.66
 ovos-utils>=0.14.1a1
 librosa>=0.10.2
-soundfile>=0.12.1
-numpy>=1.26
+soundfile>=0.14.0
+numpy>=2.0
