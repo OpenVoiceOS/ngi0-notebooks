@@ -1,4 +1,8 @@
-# GPU training notebook — not executed in CI
-# uv + phoonnx[train] from PyPI, installed into a dedicated venv by the notebook
-# See notebook section 2 for full installation instructions
-uv
+# GPU training notebook. phoonnx[train] and torch are installed by the
+# notebook into its own venv (see section "Install dependencies"); this file
+# covers only what the outer kernel needs: uv itself, downloading the
+# dataset, and synthesising the smoke-path fixture with the OVOS edge-tts
+# plugin.
+uv>=0.4.0
+huggingface_hub>=0.36.0
+ovos-tts-plugin-edge-tts>=0.3.5a1

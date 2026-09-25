@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+        args:
+          - --extra-keys=metadata.kernelspec.name
+        exclude: >
+          (?x)^(
+            notebooks/arena_prediction_runner\.ipynb|
+            notebooks/bus_message_validation\.ipynb|
+            notebooks/interop_mcp_utcp_clients\.ipynb|
+            notebooks/speaker_verification\.ipynb
+          )$
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-json

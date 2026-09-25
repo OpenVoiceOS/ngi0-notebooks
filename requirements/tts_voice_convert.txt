@@ -1,0 +1,8 @@
+# Pre-release channel: pip install --pre -r this file
+voiceclonnx>=0.0.3a3
+onnxruntime>=1.30.0
+tqdm>=4.70.1
+# Only needed for the built-in SMOKE demo path (VC_MANIFEST does not exist yet):
+edge-tts>=7.2.8
+nest-asyncio>=1.6.0
+# ffmpeg must be available as a system binary (only for the built-in demo)

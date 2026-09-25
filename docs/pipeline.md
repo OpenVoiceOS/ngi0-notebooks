@@ -16,15 +16,14 @@ synthesis notebook stops with a message.
 
 | Step | Notebook | Reads | Writes |
 |---|---|---|---|
-| 1 | Prompts | text sources | manifest of text rows |
-| 2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): donor synthesis | text manifest and the registry's donor | manifest with audio |
-| 2b | Corpus ingest | a real speech corpus | manifest with audio |
-| 3 | Enhancement | manifest with audio | manifest with enhanced audio; each row keeps its parent |
-| 4 | Measure | any manifest with audio | the same manifest with scores added |
-| 5 | Select | manifest with scores, and selection rules | selection file |
-| 6 | Voice conversion | manifest (or a selection) and one reference clip per identity | one manifest per identity; each row keeps its parent |
-| 7 | Measure | converted manifest | converted manifest with scores added |
-| 8 | Select | converted manifest with scores | selection file for training |
+| 1-2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): prompts and donor synthesis | text sources and the registry's donor | manifest with audio |
+| 2b | [`tts_corpus_ingest.ipynb`](../notebooks/tts_corpus_ingest.ipynb): corpus ingest | a real speech corpus | manifest with audio |
+| 3 | [`tts_enhance.ipynb`](../notebooks/tts_enhance.ipynb): enhancement | manifest with audio | manifest with enhanced audio; each row keeps its parent |
+| 4 | [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb): measure | any manifest with audio | the same manifest with scores added |
+| 5 | [`tts_select.ipynb`](../notebooks/tts_select.ipynb): select | manifest with scores, and selection rules | selection file |
+| 6 | [`tts_voice_convert.ipynb`](../notebooks/tts_voice_convert.ipynb): voice conversion | manifest (or a selection) and one reference clip per identity | one manifest per identity; each row keeps its parent |
+| 7 | [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb): measure | converted manifest | converted manifest with scores added |
+| 8 | [`tts_select.ipynb`](../notebooks/tts_select.ipynb): select | converted manifest with scores | selection file for training |
 | 9 | [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb): publish | manifest and selection | Hugging Face dataset: audio, `metadata.csv` and the full manifest |
 | 10 | [`train_vits.ipynb`](../notebooks/train_vits.ipynb) | published dataset and a selection | TTS model |
 
@@ -50,7 +49,9 @@ source. For this reason, the registry admits a donor or a corpus on its linguist
 
 ## Hardware
 
-Every model in the chain runs on onnxruntime. The default install is CPU-only. For an NVIDIA card,
-install `onnxruntime-gpu`. For an AMD card, install AMD's onnxruntime ROCm or MIGraphX build. Each
-notebook takes the execution providers from the `ONNX_PROVIDERS` variable, and `auto` selects the
-best provider that the installed build offers.
+Every model in the chain runs on onnxruntime, except a donor plugin itself in step 1-2a: it runs on
+whatever backend that OVOS TTS plugin uses, onnxruntime or otherwise, and only that step's optional
+super-resolution stage is onnxruntime. The default install is CPU-only. For an NVIDIA card, install
+`onnxruntime-gpu`. For an AMD card, install AMD's onnxruntime ROCm or MIGraphX build. Each notebook
+takes the execution providers from the `ONNX_PROVIDERS` variable, and `auto` selects the best
+provider that the installed build offers.
