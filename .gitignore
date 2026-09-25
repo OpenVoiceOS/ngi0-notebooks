@@ -17,3 +17,7 @@ notebooks/tts_select_demo/
 notebooks/tts_publish_demo/
 corpus_ingest_out/
 notebooks/corpus_ingest_out/
+tts_select_demo/
+tts_measure_demo/
+tts_publish_demo/
+voice_convert_output/
