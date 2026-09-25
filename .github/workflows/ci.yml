@@ -76,13 +76,13 @@ jobs:
           - notebook: tts2ww_full_pipeline
           - notebook: tts_dataset_gen
           - notebook: kaggle_quickstart_ww
+          - notebook: ovos_intent_benchmark
+          - notebook: ovos_intent_classifier_monolingual
+          - notebook: ovos_intent_classifier_multilingual
           # The notebooks below have a known smoke-path failure. The step runs
           # and its log shows the failure, and `continue-on-error` keeps the
           # job green until the named cause is fixed. Each cause is the one
           # the CI log shows.
-          - notebook: ovos_intent_benchmark                 # KeyError 'label': the dataset has columns lang, domain, intent, sentence
-          - notebook: ovos_intent_classifier_monolingual    # AttributeError: tokenizers.Tokenizer has no attribute 'get_vocab' (model2vec API change)
-          - notebook: ovos_intent_classifier_multilingual   # KeyError 'label': the dataset has columns lang, domain, intent, sentence
           - notebook: train_vits                            # phoonnx_train.preprocess exits non-zero on the smoke fixture
           - notebook: asr2tts                                # TypeError: TokenClassificationPipeline got an unexpected keyword argument 'grouped_entities' (transformers API change)
     steps:
@@ -105,7 +105,7 @@ jobs:
           uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
           uv pip install --prerelease=allow -r requirements/${{ matrix.notebook }}.txt
       - name: Run smoke path
-        continue-on-error: ${{ contains(fromJSON('["ovos_intent_benchmark","ovos_intent_classifier_monolingual","ovos_intent_classifier_multilingual","train_vits","asr2tts"]'), matrix.notebook) }}
+        continue-on-error: ${{ contains(fromJSON('["train_vits","asr2tts"]'), matrix.notebook) }}
         run: |
           source .venv/bin/activate
           papermill --log-output notebooks/${{ matrix.notebook }}.ipynb /tmp/out.ipynb \

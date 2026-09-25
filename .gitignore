@@ -23,3 +23,9 @@ synth_ww_output/
 ww_output/
 asr2tts_workspace/
 tts_dataset/
+benchmark_reports/
+notebooks/benchmark_reports/
+exported_models_*/
+notebooks/exported_models_*/
+ovos-intents-*/
+notebooks/ovos-intents-*/

@@ -1,5 +1,8 @@
-# GPU benchmark suite; not executed in CI (full multilingual sweep exceeds a CI time budget)
+# CPU smoke path (SMOKE=True) runs in CI; the full multilingual sweep needs a GPU.
 model2vec[train]>=0.9.0
+# tokenizers>=1.0 release candidates drop Tokenizer.get_vocab(), which
+# model2vec's tokenizer glue still calls; capped until model2vec follows.
+tokenizers>=0.20,<1.0.0
 datasets>=5.0.1
 torch>=2.14.0
 onnx>=1.22.0
