@@ -26,9 +26,13 @@ Notebooks form four independent pipelines; pick the one matching your goal
 and run its notebooks in order.
 
 - **Wake word**: run [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb)
-  locally on CPU to build a small wake-word dataset, then take that dataset
-  into [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb)
-  on Kaggle for GPU training. For a larger dataset with augmentation, use
+  locally on CPU to build a small labelled wake-word dataset (positives and
+  adversarial negatives, written as a `path,label` metadata CSV), then point
+  [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) at that
+  dataset directory through its `DATASET_DIR` variable to train on Kaggle's
+  GPU. `kaggle_quickstart_ww.ipynb` can also build its own dataset from
+  scratch without `synthetic_ww_dataset.ipynb`. For a larger dataset with
+  augmentation, use
   [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) instead
   of the synthetic mini-dataset notebook.
 - **TTS voice**: build or expand a voice dataset with
@@ -124,7 +128,7 @@ The source for each language is listed in [`docs/tts-data-sources.md`](docs/tts-
 | [`tts_corpus_ingest.ipynb`](notebooks/tts_corpus_ingest.ipynb) | WP3: TTS dataset corpus ingest | CPU | depends on corpus size | lint only |
 | [`tts_select.ipynb`](notebooks/tts_select.ipynb) | WP3: TTS dataset selection | CPU | < 1 min | lint only |
 | [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | CPU | depends on dataset size | lint only |
-| [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU (T4 or better) | 25-40 min | syntax check only |
+| [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU (T4 or better) | 25-40 min | executed |
 | [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | GPU (T4 or better) | ~90 min | syntax check only |
 | [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb) | WP4: Intent classification (monolingual) | GPU (T4 or better) recommended | ~15 min | syntax check only |
 | [`ovos_intent_classifier_multilingual.ipynb`](notebooks/ovos_intent_classifier_multilingual.ipynb) | WP4: Intent classification (multilingual) | GPU (T4 or better) recommended | ~40 min | syntax check only |

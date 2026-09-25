@@ -1,4 +1,16 @@
-# GPU trainer; not executed in CI. wakeforge is published on PyPI, imported as ww_trainer.
+# wakeforge is published on PyPI, imported as ww_trainer. A usable model
+# still needs a GPU; the SMOKE path (a few minutes) runs on CPU in CI.
 wakeforge[datagen,torchcodec]>=0.4.1a3
-ovos-ww-plugin-precise-onnx
-ovos-vad-plugin-silero
+torch>=2.14.0
+torchaudio>=2.4
+onnx>=1.16
+onnxruntime>=1.20
+numpy>=2.0
+soundfile>=0.14.0
+librosa>=1.0.0
+scikit-learn>=1.4
+matplotlib>=3.8
+tqdm>=4.66
+click>=8.1
+ovos-ww-plugin-wakeforge>=0.0.4a1
+ovos-vad-plugin-silero>=0.1.0
