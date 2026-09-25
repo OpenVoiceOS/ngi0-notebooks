@@ -59,6 +59,11 @@ jobs:
             fi
           done
           exit $fail
+      - name: Scan every notebook for private paths and identifiers
+        # nbstripout --verify above only looks at the non-allowlisted notebooks;
+        # the four evidence notebooks commit their outputs on purpose and are
+        # never scanned for a maintainer's home directory or address without this.
+        run: python tools/scan_private_paths.py
 
   discover:
     name: Discover notebook matrix
@@ -133,3 +138,50 @@ jobs:
           source .venv/bin/activate
           papermill --log-output notebooks/${{ matrix.notebook }}.ipynb /tmp/out.ipynb \
             -p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1
+
+  evidence:
+    name: Execute evidence notebook (${{ matrix.notebook }})
+    needs: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        notebook:
+          - arena_prediction_runner
+          - bus_message_validation
+          - interop_mcp_utcp_clients
+          - speaker_verification
+    env:
+      # A neutral, non-home HOME so a plugin's cache directory (vosk's model,
+      # for example) resolves under /tmp instead of the runner account's home
+      # and the committed evidence never depends on who or where ran it.
+      HOME: /tmp/evidence-home
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg sox espeak-ng
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - name: Create venv and install notebook requirements
+        run: |
+          mkdir -p "$HOME"
+          uv python install 3.12
+          uv venv .venv --python 3.12
+          source .venv/bin/activate
+          uv pip install --prerelease=allow pip
+          uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
+          uv pip install --prerelease=allow -r requirements/${{ matrix.notebook }}.txt
+      - name: Execute the notebook in place, from a neutral HOME
+        # This is the WP deliverable's own run, not the CI smoke path: no
+        # SMOKE/N_SAMPLES/EPOCHS override, so it runs whatever the notebook's
+        # own parameters cell declares as its full-run default.
+        run: |
+          source .venv/bin/activate
+          papermill --log-output notebooks/${{ matrix.notebook }}.ipynb notebooks/${{ matrix.notebook }}.ipynb
+      - name: Scan the executed notebook for private paths and identifiers
+        run: python tools/scan_private_paths.py notebooks/${{ matrix.notebook }}.ipynb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: evidence-${{ matrix.notebook }}
+          path: notebooks/${{ matrix.notebook }}.ipynb

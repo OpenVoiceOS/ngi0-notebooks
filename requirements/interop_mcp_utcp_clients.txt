@@ -9,5 +9,5 @@ httpx>=0.28,<1.0  # httpx 1.0 dev prereleases drop the module-level get/post hel
 uvicorn[standard]>=0.35
 mcp>=1.29,<2.0
 nest-asyncio>=1.6.0
-ffmpeg-python>=0.2.0
-# ffmpeg and sox must be available as system binaries (sox for ovos-tts-plugin-beepspeak)
+# ffmpeg and sox must be available as system binaries (sox for ovos-tts-plugin-beepspeak);
+# the notebook calls the ffmpeg binary directly, not the ffmpeg-python package
