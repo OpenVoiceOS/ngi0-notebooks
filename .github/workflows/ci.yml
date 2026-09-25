@@ -76,6 +76,7 @@ jobs:
           - notebook: tts2ww_full_pipeline
           - notebook: tts_dataset_gen
           - notebook: kaggle_quickstart_ww
+          - notebook: asr2tts
           # The notebooks below have a known smoke-path failure. The step runs
           # and its log shows the failure, and `continue-on-error` keeps the
           # job green until the named cause is fixed. Each cause is the one
@@ -84,7 +85,6 @@ jobs:
           - notebook: ovos_intent_classifier_monolingual    # AttributeError: tokenizers.Tokenizer has no attribute 'get_vocab' (model2vec API change)
           - notebook: ovos_intent_classifier_multilingual   # KeyError 'label': the dataset has columns lang, domain, intent, sentence
           - notebook: train_vits                            # phoonnx_train.preprocess exits non-zero on the smoke fixture
-          - notebook: asr2tts                                # TypeError: TokenClassificationPipeline got an unexpected keyword argument 'grouped_entities' (transformers API change)
     steps:
       - uses: actions/checkout@v4
       - name: Install system dependencies
@@ -97,15 +97,16 @@ jobs:
           uv venv .venv --python 3.12
           source .venv/bin/activate
           # A uv-created venv ships no `pip`. Several notebooks run a bare
-          # `!pip install ...` cell for a step-specific package (e.g. the
-          # chatterbox-tts / torchaudio reinstall in asr2tts and
-          # kaggle_quickstart_ww). Without this, that line is a silent no-op
-          # and the next import raises ModuleNotFoundError.
+          # `!pip install ...` or `%pip install ...` cell for a step-specific
+          # package (e.g. the audiosronnx / voiceclonnx installs in asr2tts
+          # and the wake-word plugin reinstall in kaggle_quickstart_ww).
+          # Without this, that line is a silent no-op and the next import
+          # raises ModuleNotFoundError.
           uv pip install --prerelease=allow pip
           uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
           uv pip install --prerelease=allow -r requirements/${{ matrix.notebook }}.txt
       - name: Run smoke path
-        continue-on-error: ${{ contains(fromJSON('["ovos_intent_benchmark","ovos_intent_classifier_monolingual","ovos_intent_classifier_multilingual","train_vits","asr2tts"]'), matrix.notebook) }}
+        continue-on-error: ${{ contains(fromJSON('["ovos_intent_benchmark","ovos_intent_classifier_monolingual","ovos_intent_classifier_multilingual","train_vits"]'), matrix.notebook) }}
         run: |
           source .venv/bin/activate
           papermill --log-output notebooks/${{ matrix.notebook }}.ipynb /tmp/out.ipynb \

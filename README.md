@@ -34,7 +34,8 @@ and run its notebooks in order.
 - **TTS voice**: build or expand a voice dataset with
   [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) or
   [`asr2tts.ipynb`](notebooks/asr2tts.ipynb), then train the model in
-  [`train_vits.ipynb`](notebooks/train_vits.ipynb). All three need a GPU.
+  [`train_vits.ipynb`](notebooks/train_vits.ipynb). `asr2tts` runs on CPU;
+  `tts_dataset_gen` and `train_vits` need a GPU.
 - **Intent classifier**: train a monolingual model with
   [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb)
   or a multilingual one with
@@ -116,7 +117,7 @@ The source for each language is listed in [`docs/tts-data-sources.md`](docs/tts-
 | Notebook | Task | Hardware | Wall time (full run) | CI |
 |---|---|---|---|---|
 | [`train_vits.ipynb`](notebooks/train_vits.ipynb) | WP3: TTS model training & export | GPU (T4 or better) | several hours | syntax check only |
-| [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) | WP3: Hybrid low-resource TTS dataset pipeline | GPU (T4 or better) | ~40 min | syntax check only |
+| [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) | WP3: Hybrid low-resource TTS dataset pipeline | CPU (`onnxruntime`) | depends on dataset size | executed on the smoke path |
 | [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) | WP3: Synthetic TTS dataset generation | GPU (T4 or better) | ~30 min | syntax check only |
 | [`tts_measure.ipynb`](notebooks/tts_measure.ipynb) | WP3: TTS dataset measurement | CPU (GPU optional) | depends on dataset size | lint only |
 | [`tts_voice_convert.ipynb`](notebooks/tts_voice_convert.ipynb) | WP3: TTS voice conversion | CPU (GPU optional) | depends on dataset size | lint only |
