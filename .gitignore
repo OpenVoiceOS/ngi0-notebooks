@@ -14,3 +14,6 @@ notebooks/synth_ww_output/
 notebooks/ww_output/
 notebooks/asr2tts_workspace/
 notebooks/tts_select_demo/
+notebooks/tts_publish_demo/
+corpus_ingest_out/
+notebooks/corpus_ingest_out/
