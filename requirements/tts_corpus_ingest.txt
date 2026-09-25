@@ -1,9 +1,9 @@
 # CORPUS_KIND=hf needs outbound internet access to stream from the Hugging Face Hub
 datasets>=5.0.1
 # datasets>=5.0.1 itself requires huggingface_hub<2.0
-huggingface_hub>=0.25.0,<2.0
+huggingface_hub>=0.36.0,<2.0
 soundfile>=0.14.0
 # numpy>=2.5.3 requires Python>=3.12; this notebook only calls np.zeros to
 # build the SMOKE fixture's silent audio, stable since well before 2.5, so
 # the floor stays low enough to install on Python 3.11 too.
-numpy>=1.26
+numpy>=2.0

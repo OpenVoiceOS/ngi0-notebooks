@@ -33,6 +33,7 @@ tts_dataset_gen_out/
 notebooks/tts_dataset_gen_out/
 tts_select_demo/
 tts_measure_demo/
+notebooks/tts_measure_demo/
 tts_publish_demo/
 tts_enhance_demo/
 tts_voice_convert_demo/
@@ -42,3 +43,5 @@ voice_convert_output/
 notebooks/voice_convert_output/
 ww/
 notebooks/ww/
+train_vits_out/
+notebooks/train_vits_out/

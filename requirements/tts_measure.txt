@@ -7,7 +7,7 @@ speechonnxmetrics>=0.0.2a3
 # floors stay low enough to install on Python 3.11 too.
 librosa>=0.10.2
 soundfile>=0.14.0
-numpy>=1.26
+numpy>=2.0
 tqdm>=4.70.1
 # Only needed for the built-in demo path (MANIFEST_PATH left empty):
 edge-tts>=7.2.8

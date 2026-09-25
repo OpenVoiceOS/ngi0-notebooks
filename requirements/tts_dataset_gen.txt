@@ -3,12 +3,12 @@
 # offline candidate) is named through DONOR_PLUGIN/DONOR_PIP or an admitted registry entry, and
 # installed by the notebook's own install cells (docs/registry.md).
 PyYAML>=6.0
-ovos-plugin-manager>=2.11.6a1
+ovos-plugin-manager>=2.12.4a1
 nest-asyncio>=1.6
-tqdm>=4.66
+tqdm>=4.70.1
 librosa>=0.10.2
-soundfile>=0.12.1
-numpy>=1.26
+soundfile>=0.14.0
+numpy>=2.0
 audiosronnx>=0.9.0a2
 onnxruntime>=1.30.0
-ovos-tts-plugin-edge-tts>=0.3.2a2
+ovos-tts-plugin-edge-tts>=0.3.5a1

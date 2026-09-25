@@ -1,7 +1,8 @@
 # Manifest format
 
 A manifest is a JSON Lines file: one JSON object per line, and one line per clip. A sidecar file
-with the same name and the suffix `.meta.json` records the notebooks that wrote the manifest.
+with the same name and the suffix `.meta.json` records the notebooks that wrote the manifest, each
+by its plain stem (for example `asr2tts`, not `asr2tts.ipynb` or `tts_measure (demo)`).
 
 Audio paths are relative to the manifest's directory. So you can move or upload a dataset as one
 directory.
@@ -19,7 +20,9 @@ directory.
 | `source` | object | synthesis, ingest | Where the speech comes from: `{"kind": "tts", "plugin": ..., "voice": ..., "version": ...}` or `{"kind": "corpus", "name": ..., "url": ..., "item": ...}`. |
 | `speaker` | string | ingest | The source speaker, where the corpus names one. |
 | `parent_id` | string | enhancement, conversion | The `id` of the row that this audio was made from. |
-| `identity` | string | conversion | `miro` or `dii`. |
+| `identity` | string | conversion | The target voice name: any value in `IDENTITIES` (`miro` and `dii` for the published TTS voice datasets), a notebook's own reference-voice names (`asr2tts` writes its `REF_VOICES_DIR` file stems, for example `ref_a`), or `demo` for a notebook's built-in demo. |
+| `provenance` | object | enhancement | The engine and options behind each enhancement stage applied: `{"denoise": {"engine": ..., "options": ...} or null, "enhance": {"engine": ..., "options": ...} or null}`. |
+| `selected` | boolean | publish | Whether the row passed selection and was copied into the published dataset. |
 | `scores` | object | measure | One key for each measurement (see below). |
 
 A step adds fields. It does not change a field that an earlier step wrote. A step that makes new

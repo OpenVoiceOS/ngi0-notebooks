@@ -77,8 +77,11 @@ collections:
 [synthetic datasets](https://huggingface.co/collections/TigreGotico/synthetic-tts-datasets)
 and [voice-converted datasets](https://huggingface.co/collections/TigreGotico/tts-voice-converted-datasets).
 Most language rows link a `TigreGotico` dataset; Kabyle links a dataset
-published by [fdemelo](https://huggingface.co/fdemelo). The source for each
-language is listed in [`docs/tts-data-sources.md`](docs/tts-data-sources.md).
+published by [fdemelo](https://huggingface.co/fdemelo). The candidate real-speech
+corpora and donor TTS engines behind each language are listed in
+[`docs/tts-data-sources.md`](docs/tts-data-sources.md); French and Italian have
+no dedicated section yet (only their regional varieties do), so those two rows
+link the page itself rather than a section.
 
 | Language | miro | dii | Sources |
 |---|---|---|---|
@@ -128,7 +131,7 @@ and hardware; no full-run number is stated here because none was measured.
 | Notebook | Task | Hardware | Wall time (smoke) | CI |
 |---|---|---|---|---|
 | [`train_vits.ipynb`](notebooks/train_vits.ipynb) | WP3: TTS model training & export | GPU (T4 or better) for a full run | 47 s | executed |
-| [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) | WP3: Hybrid low-resource TTS dataset pipeline | CPU (`onnxruntime`) | 93 s | executed |
+| [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) | WP3: Hybrid low-resource TTS dataset pipeline | CPU (`onnxruntime`) | 117 s | executed |
 | [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) | WP3: TTS dataset generation, prompts and donor synthesis | CPU | 6 s | executed |
 | [`tts_measure.ipynb`](notebooks/tts_measure.ipynb) | WP3: TTS dataset measurement | CPU (GPU optional) | 29 s | executed |
 | [`tts_voice_convert.ipynb`](notebooks/tts_voice_convert.ipynb) | WP3: TTS voice conversion | CPU (GPU optional) | 73 s | executed |
@@ -137,7 +140,7 @@ and hardware; no full-run number is stated here because none was measured.
 | [`tts_select.ipynb`](notebooks/tts_select.ipynb) | WP3: TTS dataset selection | CPU | 2 s | executed |
 | [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | CPU | 6 s | executed |
 | [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU (T4 or better) for a full run | 30 s | executed |
-| [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | CPU (GPU optional) | 13 s | executed |
+| [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | CPU (GPU optional) | 12 s | executed |
 | [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb) | WP4: Intent classification (monolingual) | CPU; GPU recommended for a full run | 19 s | executed |
 | [`ovos_intent_classifier_multilingual.ipynb`](notebooks/ovos_intent_classifier_multilingual.ipynb) | WP4: Intent classification (multilingual) | CPU; GPU recommended for a full run | 16 s | executed |
 | [`ovos_intent_benchmark.ipynb`](notebooks/ovos_intent_benchmark.ipynb) | WP4: Intent classification benchmark | CPU; GPU recommended for a full run | 18 s | executed |
@@ -166,8 +169,8 @@ notebook under Python 3.11 and 3.12, magics stripped, which catches a
 Python 3.11 and 3.12 are supported, matching what CI tests: every
 `requirements/*.txt` resolves on both, and the `compile` job compiles every
 notebook under both. `lint` runs on 3.11 and `smoke` runs on 3.12; neither
-choice is load-bearing, since installation and compilation are already
-proven on both versions. Python 3.14 is not supported:
+choice is load-bearing, since resolution and compilation are already
+proven on both versions (a notebook is executed by CI on 3.12 only). Python 3.14 is not supported:
 `nest_asyncio`, which several notebooks use to run `edge-tts` inside a
 Jupyter kernel's already-running event loop, raises `RuntimeError: Timeout
 should be used inside a task` there. Pass `--python 3.12` (or `3.11`) when
@@ -187,16 +190,18 @@ Every notebook has its own `requirements/<notebook-stem>.txt`. Install with
 ```bash
 uv venv .venv --python 3.12
 source .venv/bin/activate
-uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
+uv pip install --prerelease=allow pip jupyter papermill ipykernel nest_asyncio
 uv pip install --prerelease=allow -r requirements/speaker_verification.txt
 
 papermill notebooks/speaker_verification.ipynb /tmp/out.ipynb \
     -p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1
 ```
 
-Drop `-p SMOKE True ...` to run the notebook at full size. A full
-`train_vits` run needs a GPU; every other notebook runs on CPU, and the
-onnxruntime-based steps use a GPU when an onnxruntime GPU build is installed. See `CONTRIBUTING.md` for the
+Drop `-p SMOKE True ...` to run the notebook at full size. A full `train_vits`
+or `kaggle_quickstart_ww` run needs a GPU; the three `ovos_intent_*` notebooks
+can train a full model on CPU, but a GPU is recommended; every other notebook
+runs on CPU, and the onnxruntime-based steps use a GPU when an onnxruntime GPU
+build is installed. See `CONTRIBUTING.md` for the
 header template and the `SMOKE`/`N_SAMPLES`/`EPOCHS`/`MODEL_ID` parameter
 cell every notebook carries.
 

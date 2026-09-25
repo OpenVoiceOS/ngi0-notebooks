@@ -120,7 +120,7 @@ Python 3.11 or 3.12 (matching CI); Python 3.14 fails `nest_asyncio` with
 ```bash
 uv venv .venv --python 3.12
 source .venv/bin/activate
-uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
+uv pip install --prerelease=allow pip jupyter papermill ipykernel nest_asyncio
 uv pip install --prerelease=allow -r requirements/<notebook-stem>.txt
 papermill notebooks/<notebook-stem>.ipynb /tmp/out.ipynb \
     -p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1
@@ -130,7 +130,7 @@ A CPU machine is enough for every notebook's `SMOKE=True` path, including the
 ones that train (`train_vits`, `kaggle_quickstart_ww`, and the three
 `ovos_intent_*` notebooks): the smoke path runs to its last cell on CPU, the
 same as every other notebook here. A GPU is only needed for a **full**
-(`SMOKE=False`) run of those four, where CPU would still finish but too
+(`SMOKE=False`) run of those five, where CPU would still finish but too
 slowly to produce a usable model in practice.
 
 ## Before opening a PR

@@ -28,7 +28,7 @@ name, not from the registry.
 | 7 | [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb): measure | converted manifest | converted manifest with scores added |
 | 8 | [`tts_select.ipynb`](../notebooks/tts_select.ipynb): select | converted manifest with scores | selection file for training |
 | 9 | [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb): publish | manifest and selection | Hugging Face dataset: audio, `metadata.csv` and the full manifest |
-| 10 | [`train_vits.ipynb`](../notebooks/train_vits.ipynb) | published dataset and a selection | TTS model |
+| 10 | [`train_vits.ipynb`](../notebooks/train_vits.ipynb) | published dataset (`metadata.csv`) | TTS model |
 
 Steps 5 and 8 are optional. When you skip step 5, voice conversion takes every row.
 
@@ -52,9 +52,14 @@ source. For this reason, the registry admits a donor or a corpus on its linguist
 
 ## Hardware
 
-Every model in the chain runs on onnxruntime, except a donor plugin itself in step 1-2a: it runs on
+Every model in the chain runs on onnxruntime, except: a donor plugin itself in step 1-2a (it runs on
 whatever backend that OVOS TTS plugin uses, onnxruntime or otherwise, and only that step's optional
-super-resolution stage is onnxruntime. The default install is CPU-only. For an NVIDIA card, install
+super-resolution stage is onnxruntime); the recogniser in steps 4 and 7 (`STT_MODULE` names an OVOS
+STT plugin, and the default, vosk, runs on Kaldi, not onnxruntime); and step 10 (`train_vits.ipynb`
+trains and exports with phoonnx and PyTorch in a separate virtual environment; the ONNX export is
+for inference elsewhere, not for this notebook's own training run).
+
+The default install is CPU-only. For an NVIDIA card, install
 `onnxruntime-gpu`. For an AMD card, install AMD's onnxruntime ROCm or MIGraphX build. Each notebook
 takes the execution providers from the `ONNX_PROVIDERS` variable, and `auto` selects the best
 provider that the installed build offers.
