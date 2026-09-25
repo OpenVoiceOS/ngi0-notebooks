@@ -125,7 +125,7 @@ The source for each language is listed in [`docs/tts-data-sources.md`](docs/tts-
 | [`tts_select.ipynb`](notebooks/tts_select.ipynb) | WP3: TTS dataset selection | CPU | < 1 min | lint only |
 | [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | CPU | depends on dataset size | lint only |
 | [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU (T4 or better) | 25-40 min | syntax check only |
-| [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | GPU (T4 or better) | ~90 min | syntax check only |
+| [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | CPU (GPU optional) | ~90 min, a few minutes on the CPU smoke path | executed |
 | [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb) | WP4: Intent classification (monolingual) | GPU (T4 or better) recommended | ~15 min | syntax check only |
 | [`ovos_intent_classifier_multilingual.ipynb`](notebooks/ovos_intent_classifier_multilingual.ipynb) | WP4: Intent classification (multilingual) | GPU (T4 or better) recommended | ~40 min | syntax check only |
 | [`ovos_intent_benchmark.ipynb`](notebooks/ovos_intent_benchmark.ipynb) | WP4: Intent classification benchmark | GPU (T4 or better) | several hours | syntax check only |

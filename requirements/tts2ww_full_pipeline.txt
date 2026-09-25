@@ -1,14 +1,10 @@
-# GPU pipeline; the smoke path skips the Chatterbox voice-conversion stages.
-# librosa/soundfile/numpy stay at chatterbox_onnx's own pins: forcing the
-# repo-wide unified floor breaks dependency resolution here.
 requests>=2.32
 click>=8.1
 ovos_tts_plugin_edge_tts>=0.3.2a2
 ovos_tts_plugin_google_tx>=1.0.5a4
 ovos_tts_plugin_piper>=0.2.6a2
-chatterbox_onnx>=0.2.2a6
-torch>=2.4
-torchaudio>=2.4
+voiceclonnx>=0.0.3a3
+onnxruntime>=1.30.0
 rich>=13.7
 tqdm>=4.66
 ovos-utils>=0.14.1a1
