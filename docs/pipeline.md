@@ -16,8 +16,7 @@ synthesis notebook stops with a message.
 
 | Step | Notebook | Reads | Writes |
 |---|---|---|---|
-| 1 | Prompts | text sources | manifest of text rows |
-| 2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): donor synthesis | text manifest and the registry's donor | manifest with audio |
+| 1-2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): prompts and donor synthesis | text sources and the registry's donor | manifest with audio |
 | 2b | Corpus ingest | a real speech corpus | manifest with audio |
 | 3 | Enhancement | manifest with audio | manifest with enhanced audio; each row keeps its parent |
 | 4 | Measure | any manifest with audio | the same manifest with scores added |
@@ -50,7 +49,9 @@ source. For this reason, the registry admits a donor or a corpus on its linguist
 
 ## Hardware
 
-Every model in the chain runs on onnxruntime. The default install is CPU-only. For an NVIDIA card,
-install `onnxruntime-gpu`. For an AMD card, install AMD's onnxruntime ROCm or MIGraphX build. Each
-notebook takes the execution providers from the `ONNX_PROVIDERS` variable, and `auto` selects the
-best provider that the installed build offers.
+Every model in the chain runs on onnxruntime, except a donor plugin itself in step 1-2a: it runs on
+whatever backend that OVOS TTS plugin uses, onnxruntime or otherwise, and only that step's optional
+super-resolution stage is onnxruntime. The default install is CPU-only. For an NVIDIA card, install
+`onnxruntime-gpu`. For an AMD card, install AMD's onnxruntime ROCm or MIGraphX build. Each notebook
+takes the execution providers from the `ONNX_PROVIDERS` variable, and `auto` selects the best
+provider that the installed build offers.

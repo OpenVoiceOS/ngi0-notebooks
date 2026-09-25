@@ -22,4 +22,5 @@ notebooks/corpus_ingest_out/
 synth_ww_output/
 ww_output/
 asr2tts_workspace/
-tts_dataset/
+tts_dataset_gen_out/
+notebooks/tts_dataset_gen_out/
