@@ -25,7 +25,7 @@ synthesis notebook stops with a message.
 | 6 | Voice conversion | manifest (or a selection) and one reference clip per identity | one manifest per identity; each row keeps its parent |
 | 7 | Measure | converted manifest | converted manifest with scores added |
 | 8 | Select | converted manifest with scores | selection file for training |
-| 9 | Publish | manifest and selection | Hugging Face dataset: audio, `metadata.csv` and the full manifest |
+| 9 | [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb): publish | manifest and selection | Hugging Face dataset: audio, `metadata.csv` and the full manifest |
 | 10 | [`train_vits.ipynb`](../notebooks/train_vits.ipynb) | published dataset and a selection | TTS model |
 
 Steps 5 and 8 are optional. When you skip step 5, voice conversion takes every row.
