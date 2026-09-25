@@ -8,23 +8,25 @@ Each clip is measured once, and the scores stay in the manifest. Selection is a 
 reads the scores and writes a list of the clips it keeps. It never deletes or moves audio. So a
 trainer can make a different selection from the same manifest without scoring again.
 
-The donor TTS and the recognisers for a language come from the registry. The registry is described
-in [registry.md](registry.md). A language that has no registry entry has no donor, and the
-synthesis notebook stops with a message.
+The donor TTS for a language comes from the registry when an entry has been admitted for it
+([registry.md](registry.md)), or from an explicit `DONOR_PLUGIN`/`DONOR_VOICE` pair named as a
+candidate under evaluation. A language with neither stops the synthesis notebook with a message
+naming both options. A donor named explicitly is recorded as a candidate, not as an admitted
+donor. The recogniser used for measurement comes from `STT_MODULE`, an explicit OVOS STT plugin
+name, not from the registry.
 
 ## The chain
 
 | Step | Notebook | Reads | Writes |
 |---|---|---|---|
-| 1 | Prompts | text sources | manifest of text rows |
-| 2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): donor synthesis | text manifest and the registry's donor | manifest with audio |
-| 2b | Corpus ingest | a real speech corpus | manifest with audio |
-| 3 | Enhancement | manifest with audio | manifest with enhanced audio; each row keeps its parent |
-| 4 | Measure | any manifest with audio | the same manifest with scores added |
-| 5 | Select | manifest with scores, and selection rules | selection file |
-| 6 | Voice conversion | manifest (or a selection) and one reference clip per identity | one manifest per identity; each row keeps its parent |
-| 7 | Measure | converted manifest | converted manifest with scores added |
-| 8 | Select | converted manifest with scores | selection file for training |
+| 1-2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): prompts and donor synthesis | text sources and a donor (registry-admitted, or an explicit `DONOR_PLUGIN`/`DONOR_VOICE` candidate) | manifest with audio |
+| 2b | [`tts_corpus_ingest.ipynb`](../notebooks/tts_corpus_ingest.ipynb): corpus ingest | a real speech corpus | manifest with audio |
+| 3 | [`tts_enhance.ipynb`](../notebooks/tts_enhance.ipynb): enhancement | manifest with audio | manifest with enhanced audio; each row keeps its parent |
+| 4 | [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb): measure | any manifest with audio | the same manifest with scores added |
+| 5 | [`tts_select.ipynb`](../notebooks/tts_select.ipynb): select | manifest with scores, and selection rules | selection file |
+| 6 | [`tts_voice_convert.ipynb`](../notebooks/tts_voice_convert.ipynb): voice conversion | manifest (or a selection) and one reference clip per identity | one manifest per identity; each row keeps its parent |
+| 7 | [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb): measure | converted manifest | converted manifest with scores added |
+| 8 | [`tts_select.ipynb`](../notebooks/tts_select.ipynb): select | converted manifest with scores | selection file for training |
 | 9 | [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb): publish | manifest and selection | Hugging Face dataset: audio, `metadata.csv` and the full manifest |
 | 10 | [`train_vits.ipynb`](../notebooks/train_vits.ipynb) | published dataset and a selection | TTS model |
 
@@ -44,13 +46,15 @@ source. For this reason, the registry admits a donor or a corpus on its linguist
 |---|---|
 | Naturalness (UTMOS, DNSMOS, NISQA) | [speechonnxmetrics](https://pypi.org/project/speechonnxmetrics/) |
 | Speaker similarity | [speakeronnx](https://pypi.org/project/speakeronnx/) |
-| Recogniser round trip | OVOS STT plugins, combined with [ovos-stt-plugin-rover](https://pypi.org/project/ovos-stt-plugin-rover/) |
+| Recogniser round trip | one OVOS STT plugin, named explicitly via `STT_MODULE` |
 | Donor synthesis | OVOS TTS plugins, [phoonnx](https://pypi.org/project/phoonnx/) voices where the registry admits one |
 | Voice conversion | [voiceclonnx](https://pypi.org/project/voiceclonnx/) |
 
 ## Hardware
 
-Every model in the chain runs on onnxruntime. The default install is CPU-only. For an NVIDIA card,
-install `onnxruntime-gpu`. For an AMD card, install AMD's onnxruntime ROCm or MIGraphX build. Each
-notebook takes the execution providers from the `ONNX_PROVIDERS` variable, and `auto` selects the
-best provider that the installed build offers.
+Every model in the chain runs on onnxruntime, except a donor plugin itself in step 1-2a: it runs on
+whatever backend that OVOS TTS plugin uses, onnxruntime or otherwise, and only that step's optional
+super-resolution stage is onnxruntime. The default install is CPU-only. For an NVIDIA card, install
+`onnxruntime-gpu`. For an AMD card, install AMD's onnxruntime ROCm or MIGraphX build. Each notebook
+takes the execution providers from the `ONNX_PROVIDERS` variable, and `auto` selects the best
+provider that the installed build offers.

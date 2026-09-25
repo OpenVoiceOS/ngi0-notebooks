@@ -1,0 +1,24 @@
+# CPU pipeline: denoising (audiosronnx), voice conversion (voiceclonnx) and
+# punctuation restoration (Step 7) all run on onnxruntime alone, no torch or
+# CUDA driver needed. Step 7 keeps a third-party checkpoint (no in-house
+# replacement restores punctuation) but runs its onnx export, so no torch,
+# transformers or tf-keras is installed for it; it is skipped on the smoke
+# path (SMOKE=True) because the checkpoint downloads over 1 GB, so this floor
+# is exercised only on a full run.
+pydub>=0.25.1
+# librosa>=1.0.0 requires Python>=3.12; this notebook only calls librosa.load
+# and librosa.effects.trim, stable since well before 1.0, so the floor stays
+# low enough to install on Python 3.11 too.
+librosa>=0.10.2
+soundfile>=0.14.0
+pandas>=2.2
+tqdm>=4.66
+numpy>=1.26
+onnxruntime>=1.30.0
+# tokenizers>=1.0 release candidates drop the fancy-regex backend this
+# checkpoint's tokenizer.json Split pre-tokenizer needs (ValueError: no
+# system-regex backend compiled); capped until fixed upstream.
+tokenizers>=0.20,<1.0.0
+huggingface_hub>=0.25.0
+audiosronnx>=0.9.0a2
+voiceclonnx>=0.0.3a3

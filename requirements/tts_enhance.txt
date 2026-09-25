@@ -1,0 +1,9 @@
+# Pre-release channel: pip install --pre -r this file
+audiosronnx>=0.9.0a2
+onnxruntime>=1.30.0
+soundfile>=0.14.0
+tqdm>=4.70.1
+# Only needed for the built-in SMOKE demo path (ENH_MANIFEST does not exist yet):
+edge-tts>=7.2.8
+nest-asyncio>=1.6.0
+# ffmpeg must be available as a system binary (only for the built-in demo)

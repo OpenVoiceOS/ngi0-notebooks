@@ -5,11 +5,11 @@ Developed by [TigreGótico](https://tigregotico.pt) for
 
 [![NGI0 Commons Fund](./ngi.png)](https://nlnet.nl/project/OpenVoiceOS)
 
-This project was funded through the [NGI0 Commons Fund](https://nlnet.nl/commonsfund),
-a fund established by [NLnet](https://nlnet.nl) with financial support from the
-European Commission's [Next Generation Internet](https://ngi.eu) programme, under
-the aegis of [DG Communications Networks, Content and Technology](https://commission.europa.eu/about-european-commission/departments-and-executive-agencies/communications-networks-content-and-technology_en)
-under grant agreement No [101135429](https://cordis.europa.eu/project/id/101135429).
+This project was funded through the NGI0 Commons Fund, a fund established by NLnet
+with financial support from the European Commission's Next Generation Internet
+programme, under the aegis of DG Communications Networks, Content and Technology
+under grant agreement No 101135429. Additional funding is made available by the
+Swiss State Secretariat for Education, Research and Innovation (SERI).
 The individual project is NGI0 Commons Fund grant 2025-04-289, "OpenVoiceOS —
 From Beta to Breakthrough".
 
@@ -26,15 +26,19 @@ Notebooks form four independent pipelines; pick the one matching your goal
 and run its notebooks in order.
 
 - **Wake word**: run [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb)
-  locally on CPU to build a small wake-word dataset, then take that dataset
-  into [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb)
-  on Kaggle for GPU training. For a larger dataset with augmentation, use
+  locally on CPU to build a small labelled wake-word dataset (positives and
+  adversarial negatives, written as a `path,label` metadata CSV), then point
+  [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) at that
+  dataset directory through its `DATASET_DIR` variable to train on Kaggle's
+  GPU. `kaggle_quickstart_ww.ipynb` can also build its own dataset from
+  scratch without `synthetic_ww_dataset.ipynb`. For a larger dataset with
+  augmentation, use
   [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) instead
   of the synthetic mini-dataset notebook.
 - **TTS voice**: build or expand a voice dataset with
   [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) or
-  [`asr2tts.ipynb`](notebooks/asr2tts.ipynb), then train the model in
-  [`train_vits.ipynb`](notebooks/train_vits.ipynb). All three need a GPU.
+  [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) (both CPU), then train the model in
+  [`train_vits.ipynb`](notebooks/train_vits.ipynb) (GPU).
 - **Intent classifier**: train a monolingual model with
   [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb)
   or a multilingual one with
@@ -67,11 +71,14 @@ the manifest format and the language registry are described in:
 
 ## TTS voice datasets
 
-OpenVoiceOS publishes single-speaker TTS datasets for two voice identities,
-miro (male) and dii (female), across two Hugging Face collections:
+TigreGotico publishes single-speaker TTS datasets for OpenVoiceOS, for two
+voice identities, miro (male) and dii (female), across two Hugging Face
+collections:
 [synthetic datasets](https://huggingface.co/collections/TigreGotico/synthetic-tts-datasets)
 and [voice-converted datasets](https://huggingface.co/collections/TigreGotico/tts-voice-converted-datasets).
-The source for each language is listed in [`docs/tts-data-sources.md`](docs/tts-data-sources.md).
+Most language rows link a `TigreGotico` dataset; Kabyle links a dataset
+published by [fdemelo](https://huggingface.co/fdemelo). The source for each
+language is listed in [`docs/tts-data-sources.md`](docs/tts-data-sources.md).
 
 | Language | miro | dii | Sources |
 |---|---|---|---|
@@ -113,57 +120,107 @@ The source for each language is listed in [`docs/tts-data-sources.md`](docs/tts-
 
 ## Notebook index
 
-| Notebook | NGI work item | Cloud |
-|---|---|---|
-| [`train_vits.ipynb`](notebooks/train_vits.ipynb) | WP3: TTS model training & export | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/train_vits.ipynb) |
-| [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) | WP3: Hybrid low-resource TTS dataset pipeline | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/asr2tts.ipynb) |
-| [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) | WP3: Synthetic TTS dataset generation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_dataset_gen.ipynb) |
-| [`tts_corpus_ingest.ipynb`](notebooks/tts_corpus_ingest.ipynb) | WP3: TTS dataset pipeline, corpus ingest step | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_corpus_ingest.ipynb) |
-| [`tts_enhance.ipynb`](notebooks/tts_enhance.ipynb) | WP3: TTS dataset enhancement | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_enhance.ipynb) |
-| [`tts_measure.ipynb`](notebooks/tts_measure.ipynb) | WP3: TTS dataset measurement | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_measure.ipynb) |
-| [`tts_voice_convert.ipynb`](notebooks/tts_voice_convert.ipynb) | WP3: TTS voice conversion | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_voice_convert.ipynb) |
-| [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/kaggle_quickstart_ww.ipynb) |
-| [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts2ww_full_pipeline.ipynb) |
-| [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb) | WP4: Intent classification (monolingual) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/ovos_intent_classifier_monolingual.ipynb) |
-| [`ovos_intent_classifier_multilingual.ipynb`](notebooks/ovos_intent_classifier_multilingual.ipynb) | WP4: Intent classification (multilingual) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/ovos_intent_classifier_multilingual.ipynb) |
-| [`ovos_intent_benchmark.ipynb`](notebooks/ovos_intent_benchmark.ipynb) | WP4: Intent classification benchmark | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/ovos_intent_benchmark.ipynb) |
-| [`tts_select.ipynb`](notebooks/tts_select.ipynb) | WP3: TTS dataset selection | n/a |
-| [`interop_mcp_utcp_clients.ipynb`](notebooks/interop_mcp_utcp_clients.ipynb) | WP1: MCP/UTCP interoperability | n/a |
-| [`speaker_verification.ipynb`](notebooks/speaker_verification.ipynb) | WP2: Speaker verification & enrollment | n/a |
-| [`bus_message_validation.ipynb`](notebooks/bus_message_validation.ipynb) | WP1: Bus message schema validation | n/a |
-| [`arena_prediction_runner.ipynb`](notebooks/arena_prediction_runner.ipynb) | WP4: STT arena prediction slice | n/a |
-| [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) | WP2: Synthetic wake-word mini-dataset | n/a |
-| [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | n/a |
+Wall time is the measured `SMOKE=True` run (`-p SMOKE True -p N_SAMPLES 4 -p
+EPOCHS 1`, CPU only, one fresh `uv` venv per notebook, `papermill
+--log-output`). A full-size run's time depends on dataset size, epoch count
+and hardware; no full-run number is stated here because none was measured.
 
-Every notebook not tagged `skip_execute` in its metadata is attempted by the
-CI execute job on each push; the [Actions tab](../../actions) shows, for the
-latest run, exactly which notebooks executed successfully and which failed.
-Notebooks tagged `skip_execute` (the ones needing a GPU or a multi-GB
-download) are only syntax-checked by CI and carry a visible `NOT EXECUTED`
-banner in the notebook itself.
+| Notebook | Task | Hardware | Wall time (smoke) | CI |
+|---|---|---|---|---|
+| [`train_vits.ipynb`](notebooks/train_vits.ipynb) | WP3: TTS model training & export | GPU (T4 or better) for a full run | 47 s | executed |
+| [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) | WP3: Hybrid low-resource TTS dataset pipeline | CPU (`onnxruntime`) | 93 s | executed |
+| [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) | WP3: TTS dataset generation, prompts and donor synthesis | CPU | 6 s | executed |
+| [`tts_measure.ipynb`](notebooks/tts_measure.ipynb) | WP3: TTS dataset measurement | CPU (GPU optional) | 29 s | executed |
+| [`tts_voice_convert.ipynb`](notebooks/tts_voice_convert.ipynb) | WP3: TTS voice conversion | CPU (GPU optional) | 73 s | executed |
+| [`tts_enhance.ipynb`](notebooks/tts_enhance.ipynb) | WP3: TTS dataset enhancement | CPU (GPU optional) | 10 s | executed |
+| [`tts_corpus_ingest.ipynb`](notebooks/tts_corpus_ingest.ipynb) | WP3: TTS dataset corpus ingest | CPU | 3 s | executed |
+| [`tts_select.ipynb`](notebooks/tts_select.ipynb) | WP3: TTS dataset selection | CPU | 2 s | executed |
+| [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | CPU | 6 s | executed |
+| [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU (T4 or better) for a full run | 30 s | executed |
+| [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | CPU (GPU optional) | 13 s | executed |
+| [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb) | WP4: Intent classification (monolingual) | CPU; GPU recommended for a full run | 19 s | executed |
+| [`ovos_intent_classifier_multilingual.ipynb`](notebooks/ovos_intent_classifier_multilingual.ipynb) | WP4: Intent classification (multilingual) | CPU; GPU recommended for a full run | 16 s | executed |
+| [`ovos_intent_benchmark.ipynb`](notebooks/ovos_intent_benchmark.ipynb) | WP4: Intent classification benchmark | CPU; GPU recommended for a full run | 18 s | executed |
+| [`interop_mcp_utcp_clients.ipynb`](notebooks/interop_mcp_utcp_clients.ipynb) | WP1: MCP/UTCP interoperability | CPU | 9 s | executed |
+| [`speaker_verification.ipynb`](notebooks/speaker_verification.ipynb) | WP2: Speaker verification & enrollment | CPU | 8 s | executed |
+| [`bus_message_validation.ipynb`](notebooks/bus_message_validation.ipynb) | WP1: Bus message schema validation | CPU | 2 s | executed |
+| [`arena_prediction_runner.ipynb`](notebooks/arena_prediction_runner.ipynb) | WP4: STT arena prediction slice | CPU | 8 s | executed |
+| [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) | WP2: Synthetic wake-word mini-dataset | CPU | 7 s | executed |
+
+The `smoke` CI job runs every notebook in `notebooks/` on every push, with
+`SMOKE=True` and a handful of samples; the matrix is discovered from the
+directory listing, so a new notebook without a matching
+`requirements/<stem>.txt` fails CI rather than sitting outside it silently.
+A green smoke run proves that the notebook runs from top to bottom at a small
+size; it does not prove that a full-size run finishes. papermill raises on a
+cell error, so a smoke job fails the pipeline for every notebook, with no
+exception. A separate `compile` job compiles every code cell of every
+notebook under Python 3.11 and 3.12, magics stripped, which catches a
+`SyntaxError` that `nbformat.validate` (JSON-schema only) would not. The
+[Actions tab](../../actions) shows the result of each job.
 
 ---
 
 ## Running locally
 
-```bash
-pip install jupyter nbformat nbconvert edge-tts nest_asyncio
+Python 3.11 and 3.12 are supported, matching what CI tests: every
+`requirements/*.txt` resolves on both, and the `compile` job compiles every
+notebook under both. `lint` runs on 3.11 and `smoke` runs on 3.12; neither
+choice is load-bearing, since installation and compilation are already
+proven on both versions. Python 3.14 is not supported:
+`nest_asyncio`, which several notebooks use to run `edge-tts` inside a
+Jupyter kernel's already-running event loop, raises `RuntimeError: Timeout
+should be used inside a task` there. Pass `--python 3.12` (or `3.11`) when
+creating the venv rather than taking the system interpreter.
 
-# Execute a single notebook (≤10 min cap)
-jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=600 \
-    notebooks/speaker_verification.ipynb --output notebooks/speaker_verification.ipynb
+Three system packages are needed: `ffmpeg` (audio decoding), `sox` (used by
+`ovos-tts-plugin-beepspeak` in `interop_mcp_utcp_clients`) and `espeak-ng`
+(phonemisation in `train_vits`). On Debian or Ubuntu, including Colab and
+Kaggle: `sudo apt-get install ffmpeg sox espeak-ng`. `train_vits` installs
+`espeak-ng` itself with `apt-get` when it is missing; on other distributions,
+install it with the system package manager first.
+
+Every notebook has its own `requirements/<notebook-stem>.txt`. Install with
+[uv](https://docs.astral.sh/uv/) and run the smoke path with
+[papermill](https://papermill.readthedocs.io/):
+
+```bash
+uv venv .venv --python 3.12
+source .venv/bin/activate
+uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
+uv pip install --prerelease=allow -r requirements/speaker_verification.txt
+
+papermill notebooks/speaker_verification.ipynb /tmp/out.ipynb \
+    -p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1
 ```
 
-Each notebook installs its own pinned dependencies in its first code cell; the
-same pins are also listed in `requirements/<notebook>.txt`.
+Drop `-p SMOKE True ...` to run the notebook at full size. A full
+`train_vits` run needs a GPU; every other notebook runs on CPU, and the
+onnxruntime-based steps use a GPU when an onnxruntime GPU build is installed. See `CONTRIBUTING.md` for the
+header template and the `SMOKE`/`N_SAMPLES`/`EPOCHS`/`MODEL_ID` parameter
+cell every notebook carries.
 
 ---
 
 ## CI
 
-`.github/workflows/ci.yml` runs on every push and does two checks:
-- **nbformat lint** on every notebook.
-- **`jupyter nbconvert --execute`** on notebooks that do not carry the `skip_execute` metadata tag; a missing dependency fails the install step instead of surfacing later as a notebook failure.
+`.github/workflows/ci.yml` runs four jobs on every push:
+
+- **`lint`** — validates notebook structure with `nbformat` and verifies that
+  every notebook except the evidence allowlist
+  (`arena_prediction_runner`, `bus_message_validation`,
+  `interop_mcp_utcp_clients`, `speaker_verification`) has its outputs
+  stripped (`nbstripout --verify`).
+- **`compile`** — compiles every code cell of every notebook under Python
+  3.11 and 3.12, with `!`/`%` magic lines (and their backslash continuations)
+  stripped to blank statements first, so a real `SyntaxError` fails CI.
+- **`discover`** — lists `notebooks/*.ipynb` for the smoke matrix and fails
+  if a notebook has no `requirements/<stem>.txt`.
+- **`smoke`** — a matrix discovered from `notebooks/*.ipynb`, one job per
+  notebook. Each job installs that notebook's `requirements/<stem>.txt` with
+  `uv` on a CPU runner and runs `papermill --log-output ... -p SMOKE True
+  -p N_SAMPLES 4 -p EPOCHS 1`; papermill raises on a cell error, so every job
+  can fail, with no exception.
 
 ---
 
@@ -173,14 +230,14 @@ same pins are also listed in `requirements/<notebook>.txt`.
 notebooks/
   *.ipynb          - all deliverable notebooks
 docs/
-  *.md             - pipeline, manifest and registry reference
+  *.md             - pipeline, manifest, registry and data-source reference
 registry/
   tts.yaml         - admitted donors, corpora and judges per language
 requirements/
-  *.txt            - per-notebook extra dependencies
-docs/
-  tts-data-sources.md - speech sources for TTS dataset generation, by language
+  *.txt            - one file per notebook, PyPI names only
 .github/workflows/
   ci.yml
+CONTRIBUTING.md    - header/footer template, dependency rules, local smoke run
+.pre-commit-config.yaml
 LICENSE            - Apache License 2.0
 ```

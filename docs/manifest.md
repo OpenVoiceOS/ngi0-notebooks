@@ -36,7 +36,7 @@ Each key in `scores` names one measurement:
 | `spk_cos` | Cosine similarity between the clip's speaker embedding and the identity reference |
 | `echo_cos` | Cosine similarity between the clip's loudness envelope and the reference's envelope. A high value means that the clip is the reference itself. |
 | `len_diff_s` | Converted duration minus parent duration, in seconds |
-| `hyp` | The consensus transcript from the judge seats |
+| `hyp` | The transcript from the recogniser named in `STT_MODULE` |
 | `cer` | Character error rate of `hyp` against `text`, after text normalisation |
 | `read_wer` | Word error rate between the readings of the clip and of its parent |
 
