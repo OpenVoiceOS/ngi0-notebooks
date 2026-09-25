@@ -132,6 +132,7 @@ The source for each language is listed in [`docs/tts-data-sources.md`](docs/tts-
 | [`bus_message_validation.ipynb`](notebooks/bus_message_validation.ipynb) | WP1: Bus message schema validation | n/a |
 | [`arena_prediction_runner.ipynb`](notebooks/arena_prediction_runner.ipynb) | WP4: STT arena prediction slice | n/a |
 | [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) | WP2: Synthetic wake-word mini-dataset | n/a |
+| [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | n/a |
 
 Every notebook not tagged `skip_execute` in its metadata is attempted by the
 CI execute job on each push; the [Actions tab](../../actions) shows, for the
