@@ -9,7 +9,9 @@ venv/
 .mypy_cache/
 scratch/
 
-# default notebook output directories
+# default notebook output directories: notebooks write these relative to
+# whatever directory a run is launched from, either notebooks/ (jupyter) or
+# the repo root (papermill in CI and in the smoke-run instructions)
 notebooks/synth_ww_output/
 notebooks/ww_output/
 notebooks/asr2tts_workspace/
@@ -17,3 +19,31 @@ notebooks/tts_select_demo/
 notebooks/tts_publish_demo/
 corpus_ingest_out/
 notebooks/corpus_ingest_out/
+synth_ww_output/
+ww_output/
+asr2tts_workspace/
+tts_dataset/
+benchmark_reports/
+notebooks/benchmark_reports/
+exported_models_*/
+notebooks/exported_models_*/
+ovos-intents-*/
+notebooks/ovos-intents-*/
+tts_dataset_gen_out/
+notebooks/tts_dataset_gen_out/
+tts_select_demo/
+tts_measure_demo/
+notebooks/tts_measure_demo/
+tts_publish_demo/
+tts_enhance_demo/
+tts_voice_convert_demo/
+notebooks/tts_enhance_demo/
+notebooks/tts_voice_convert_demo/
+voice_convert_output/
+notebooks/voice_convert_output/
+ww/
+notebooks/ww/
+train_vits_out/
+notebooks/train_vits_out/
+corpus_ingest_out/wavs.old-*/
+notebooks/corpus_ingest_out/wavs.old-*/

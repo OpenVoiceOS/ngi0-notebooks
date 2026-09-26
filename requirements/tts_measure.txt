@@ -1,0 +1,20 @@
+# Pre-release channel: pip install --pre -r this file
+onnxruntime>=1.30.0
+speakeronnx>=0.0.2a3
+speechonnxmetrics>=0.0.2a3
+# librosa>=1.0.0 and numpy>=2.5.3 both require Python>=3.12; this notebook
+# only calls librosa.load and a handful of stable numpy array ops, so both
+# floors stay low enough to install on Python 3.11 too.
+librosa>=0.10.2
+soundfile>=0.14.0
+numpy>=2.0
+tqdm>=4.70.1
+# Only needed for the built-in demo path (MANIFEST_PATH left empty):
+edge-tts>=7.2.8
+nest-asyncio>=1.6.0
+# ffmpeg must be available as a system binary (only for the built-in demo)
+# The round trip (STT_MODULE): SMOKE defaults to ovos-stt-plugin-vosk, which
+# CI's smoke job installs and runs against the demo manifest; a non-SMOKE run
+# naming a different STT_MODULE needs that package installed instead.
+ovos-plugin-manager>=2.12.4a1
+ovos-stt-plugin-vosk>=0.2.8a2

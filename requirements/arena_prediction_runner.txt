@@ -1,5 +1,6 @@
 # Pre-release channel: pip install --pre -r this file
-edge-tts>=7.2.8
-# optional: faster-whisper (CPU-only int8 mode)
-# faster-whisper
+ovos-tts-plugin-edge-tts>=0.3.5a1
+ovos-stt-plugin-vosk>=0.2.8a2
+ovos-plugin-manager>=2.12.4a1
+nest-asyncio>=1.6.0
 # ffmpeg must be available as a system binary

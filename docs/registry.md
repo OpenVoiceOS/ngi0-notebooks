@@ -1,8 +1,17 @@
 # Language registry
 
-The file [`registry/tts.yaml`](../registry/tts.yaml) has one entry for each language or variety.
-The entry names what the chain may use for that language. The notebooks take a donor or a judge
-only from this file. No notebook picks an engine from a language code.
+The file [`registry/tts.yaml`](../registry/tts.yaml) has one entry for each language or variety
+that has passed admission. A language with no admitted donor, corpus or judge seat has no entry.
+
+[`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb) reads a language's donor from this
+file first; a call may instead name `DONOR_PLUGIN` and `DONOR_VOICE` explicitly, as a candidate
+under evaluation rather than an admitted donor. A language with neither a registry entry nor an
+explicit donor stops the notebook with a message naming both options. No notebook picks a donor
+engine from a language code alone.
+
+[`tts_measure.ipynb`](../notebooks/tts_measure.ipynb) takes its recogniser from `STT_MODULE`, an
+explicit OVOS STT plugin name; it does not read this file. The `judges` list records the
+recognisers that scored an entry's admission.
 
 ## Entry shape
 
@@ -18,7 +27,7 @@ only from this file. No notebook picks an engine from a language code.
       url: <corpus page>
       enhancement: <enhancer, when the audio needs one>
       evidence: <link>
-  judges:                    # OVOS STT plugins, combined with ovos-stt-plugin-rover
+  judges:                    # OVOS STT plugins that scored this entry's admission
     - plugin: <ovos-stt-plugin-...>
       config: {}
   judges_evidence: <link>
