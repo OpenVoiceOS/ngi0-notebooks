@@ -1,0 +1,15 @@
+# wakeforge is published on PyPI, imported as ww_trainer. A usable model
+# still needs a GPU; the SMOKE path (a few minutes) runs on CPU in CI.
+wakeforge[datagen,torchcodec]>=0.4.1a3
+torch>=2.14.0
+torchaudio>=2.4
+onnx>=1.22.0
+onnxruntime>=1.30.0
+numpy>=2.0
+soundfile>=0.14.0
+librosa>=0.10.2
+scikit-learn>=1.9.0
+matplotlib>=3.11.1
+tqdm>=4.70.1
+click>=8.1
+ovos-ww-plugin-wakeforge>=0.0.4a1

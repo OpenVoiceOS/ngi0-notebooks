@@ -1,0 +1,2 @@
+# tts_select reads JSON and computes statistics with the standard library
+# only (json, hashlib, math, pathlib). Nothing to install.
