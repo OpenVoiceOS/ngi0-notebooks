@@ -22,8 +22,9 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 
 ## Start here
 
-Notebooks form four independent pipelines; pick the one matching your goal
-and run its notebooks in order.
+Notebooks form four independent pipelines; pick the one matching your goal.
+The wake-word notebooks each run on their own; the other pipelines run their
+notebooks in order.
 
 Never used a notebook before? [docs/tester-guide.md](docs/tester-guide.md) walks
 through opening the wake-word notebooks on Kaggle or Colab and what each one
