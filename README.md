@@ -25,16 +25,19 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 Notebooks form four independent pipelines; pick the one matching your goal
 and run its notebooks in order.
 
-- **Wake word**: run [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb)
-  locally on CPU to build a small labelled wake-word dataset (positives and
-  adversarial negatives, written as a `path,label` metadata CSV), then point
-  [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) at that
-  dataset directory through its `DATASET_DIR` variable to train on Kaggle's
-  GPU. `kaggle_quickstart_ww.ipynb` can also build its own dataset from
-  scratch without `synthetic_ww_dataset.ipynb`. For a larger dataset with
-  augmentation, use
-  [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) instead
-  of the synthetic mini-dataset notebook.
+Never used a notebook before? [docs/tester-guide.md](docs/tester-guide.md) walks
+through opening the wake-word notebooks on Kaggle or Colab and what each one
+should show at the end.
+
+- **Wake word**: three standalone notebooks, each run on its own.
+  [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) builds a
+  small labelled wake-word dataset (positives and adversarial negatives,
+  written as a `path,label` metadata CSV) on CPU.
+  [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) builds
+  its own dataset and trains a wake-word model; the default is a quick demo,
+  and a full run needs a GPU.
+  [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) builds a
+  larger dataset with augmentation.
 - **TTS voice**: build or expand a voice dataset with
   [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) or
   [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) (both CPU), then train the model in
