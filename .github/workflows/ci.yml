@@ -136,8 +136,12 @@ jobs:
       - name: Run smoke path
         run: |
           source .venv/bin/activate
+          n_samples=4
+          if [ "${{ matrix.notebook }}" = "kaggle_quickstart_ww" ]; then
+            n_samples=32
+          fi
           papermill --log-output notebooks/${{ matrix.notebook }}.ipynb /tmp/out.ipynb \
-            -p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1
+            -p SMOKE True -p N_SAMPLES $n_samples -p EPOCHS 1
 
   evidence:
     name: Execute evidence notebook (${{ matrix.notebook }})

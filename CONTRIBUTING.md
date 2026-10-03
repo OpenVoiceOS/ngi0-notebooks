@@ -67,7 +67,19 @@ The first cell of every notebook is a single markdown cell with:
    paragraph (for example, which branch the SMOKE path takes, or what the
    full run needs that CI does not exercise).
 
-The last cell of every notebook is exactly `Licensed under Apache-2.0.`
+The three wake-word notebooks (`synthetic_ww_dataset`, `kaggle_quickstart_ww`,
+`tts2ww_full_pipeline`) are written for people who do not program, so their
+first cell differs from the template in three ways. It opens with the title
+and the Open in Kaggle and Open in Colab badges, then a "Start here" section
+in plain words: what the notebook does, how long it takes, whether it needs a
+GPU, and the one thing to set (usually nothing). The funding badge, the
+funding sentence and the AI-assistance disclosure move unchanged to the last
+cell, above the licence line. And `SMOKE` defaults to `True` where a full run
+is long, so that Run All with no edits finishes in minutes; the full run is a
+one-word change in the parameters cell. `docs/tester-guide.md` describes these
+three notebooks for a first-time tester.
+
+The last cell of every notebook ends with exactly `Licensed under Apache-2.0.`
 
 The funding sentence and the licence line each appear exactly once, in the
 places above, nowhere else in the notebook.
