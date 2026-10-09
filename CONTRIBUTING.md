@@ -138,11 +138,10 @@ papermill notebooks/<notebook-stem>.ipynb /tmp/out.ipynb \
 ```
 
 A CPU machine is enough for every notebook's `SMOKE=True` path, including the
-ones that train (`train_vits`, `kaggle_quickstart_ww`, and the three
-`ovos_intent_*` notebooks): the smoke path runs to its last cell on CPU, the
-same as every other notebook here. A GPU is only needed for a **full**
-(`SMOKE=False`) run of those five, where CPU would still finish but too
-slowly to produce a usable model in practice.
+ones that train (`train_vits` and `kaggle_quickstart_ww`): the smoke path runs to
+its last cell on CPU, the same as every other notebook here. A GPU is only needed
+for a **full** (`SMOKE=False`) run of those two, where CPU would still finish but
+too slowly to produce a usable model in practice.
 
 ## Before opening a PR
 
