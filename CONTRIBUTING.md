@@ -98,9 +98,8 @@ EPOCHS = 1
 ```
 
 and, where the notebook trains or loads one identifiable model, `MODEL_ID`
-with the notebook's real default (`kaggle_quickstart_ww` names its
-equivalent `SMOKE_WAKE_WORD`, since what it swaps under `SMOKE` is the wake
-phrase, not a model). When `SMOKE` is `True`, the notebook takes the
+with the notebook's real default (`kaggle_quickstart_ww` has neither
+`MODEL_ID` nor an equivalent: under `SMOKE` it shrinks the data, not the model). When `SMOKE` is `True`, the notebook takes the
 smallest realistic path through its own logic: it slices a dataset to
 `N_SAMPLES` rows, trains for `EPOCHS` step or epoch, and swaps in the
 smallest available model where one is configurable. A notebook whose smoke

@@ -34,9 +34,14 @@ should show at the end.
   [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) builds a
   small labelled wake-word dataset (positives and adversarial negatives,
   written as a `path,label` metadata CSV) on CPU.
-  [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) builds
-  its own dataset and trains a wake-word model; the default is a quick demo,
-  and a full run needs a GPU.
+  [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) generates
+  spoken examples of a phrase ("hey mycroft" by default) in about two thousand
+  voices with OmniVoice, trains a WakeHuBERT wake-word head (a small GRU on the
+  frozen `wakehubert-int8` featurizer) with hard negatives mined from a speech
+  and sound stream, chooses its threshold on a held-out stream, loads it through
+  `ovos-ww-plugin-wakeforge`, and reports the detections on held-out synthetic
+  voices and the false wake-ups per hour on two hours of unseen speech, sound
+  and music; the full run needs a GPU and does not use `wakeforge`.
   [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) builds a
   larger dataset with augmentation.
 - **TTS voice**: build or expand a voice dataset with
@@ -143,7 +148,7 @@ and hardware; no full-run number is stated here because none was measured.
 | [`tts_corpus_ingest.ipynb`](notebooks/tts_corpus_ingest.ipynb) | WP3: TTS dataset corpus ingest | CPU | 3 s | executed |
 | [`tts_select.ipynb`](notebooks/tts_select.ipynb) | WP3: TTS dataset selection | CPU | 2 s | executed |
 | [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | CPU | 6 s | executed |
-| [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU (T4 or better) for a full run | 30 s | executed |
+| [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU for a full run; CPU for the smoke path | 343 s | executed |
 | [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | CPU (GPU optional) | 12 s | executed |
 | [`ovos_intent_eval_and_train.ipynb`](notebooks/ovos_intent_eval_and_train.ipynb) | WP4: Intent classification (published models scored on the v6.1 gold split; optional training of one language) | CPU | 88 s | executed |
 | [`interop_mcp_utcp_clients.ipynb`](notebooks/interop_mcp_utcp_clients.ipynb) | WP1: MCP/UTCP interoperability | CPU | 88 s | executed |

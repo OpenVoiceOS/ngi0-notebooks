@@ -42,20 +42,22 @@ set nothing. At the end the last cell lists the folder `synth_ww_output` and
 prints `Dataset ready`. If you want another phrase, change `WAKE_WORD` in the
 Settings cell before you press Run All.
 
-**kaggle_quickstart_ww** trains a wake-word model. By default it runs a quick
-demo for the phrase "hey jarvis": it makes its own spoken examples, trains
-for five short rounds, saves two model files, and checks them. The demo needs
-internet and no GPU, and it takes a few minutes. You set nothing. At the
-end you see scores for sample clips and a line called Margin. The Margin is
-the line to look at: it should be clearly above zero. A message such as
-"LOW - needs more data" next to the demo's confidence score is expected for
-a model trained this briefly, and is not a failure. You also get the two model files `best_f1.onnx` and
-`best_f1_featurizer.onnx`, and a block of settings to paste into an OVOS
-configuration. The demo model proves the pipeline works; it is not good enough
-to use. For a model worth using, change `SMOKE = True` to `SMOKE = False` in
-the second cell and switch the Accelerator to a GPU; that run takes much
-longer and was not timed. Advanced users can chain the notebooks so that one
-feeds the next; that is not needed for a first try.
+**kaggle_quickstart_ww** trains a wake-word model for the phrase "hey mycroft" (or
+any phrase you type). A speech generator, OmniVoice, speaks the phrase in about
+two thousand new voices; the notebook adds ordinary speech, sound and music from
+public datasets, trains a small model, retrains it on the speech and sound it
+wrongly likes, chooses a detection threshold on a separate two-hour stream, and
+loads the model through the OVOS wake-word plugin. Run it with the Accelerator
+set to a GPU and internet on; it takes about 45 minutes to an hour and a half.
+You set nothing. At the end it prints what it measured: how many held-out
+synthetic voices were detected, how many held-out speech, noise and silence
+clips fired by mistake, and how many false wake-ups per hour an unseen two-hour
+stream of speech, sound and music caused, with a 95 % interval. The notebook
+does not judge these numbers, and they are not a claim about how the model
+performs in a home. You also get the model file `best_f1.onnx` and
+`ovos_config.json`. The threshold is chosen on a held-out stream, not calibrated
+in the wakeforge sense. `SMOKE = True` in the second cell runs a few-minute
+check that only proves the steps run.
 
 **tts2ww_full_pipeline** builds a larger practice set. It uses several online
 text-to-speech voices to say your phrase, adds similar-sounding phrases that
@@ -73,7 +75,7 @@ cell; it took more than 45 minutes on a machine without a GPU.
 | Notebook | Runs as is | Time without a GPU | GPU | Must set |
 |---|---|---|---|---|
 | synthetic_ww_dataset | yes | a few minutes | no | nothing (internet on) |
-| kaggle_quickstart_ww | yes, quick demo | a few minutes | no for the demo | nothing (internet on) |
+| kaggle_quickstart_ww | yes | needs a GPU for the full run (about an hour); the smoke check takes a few minutes | yes, for the full run | nothing (internet on) |
 | tts2ww_full_pipeline | yes, quick demo | a few minutes | no | nothing (internet on) |
 
 ## If something goes wrong
@@ -83,12 +85,9 @@ explain the common causes in plain words. The most frequent one is internet
 being off; switch it on in the side panel and press Run All again. If a
 session times out, press Run All again; nothing needs to be repaired by hand.
 
-If `kaggle_quickstart_ww` stops with a red error that says the median positive
-score exceeds the median negative score "by only" a small amount, "at or below
-the 0.1 margin this check requires", the demo did not get enough examples to
-learn from. You did nothing wrong. Change `N_SAMPLES` to 64 in the second cell
-(the one that says `SMOKE = True`) and press Run All; the notebook makes new
-examples by itself.
+If `kaggle_quickstart_ww` stops with a red error that begins with "The real run needs a GPU" or
+mentions the Accelerator, switch the Accelerator to a GPU in the Kaggle settings
+and press Run All again.
 
 If it stops with a message that the disk is almost full, get a fresh disk. On
 Colab choose Runtime, then Disconnect and delete runtime, and open the
