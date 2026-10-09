@@ -8,18 +8,18 @@ Each clip is measured once, and the scores stay in the manifest. Selection is a 
 reads the scores and writes a list of the clips it keeps. It never deletes or moves audio. So a
 trainer can make a different selection from the same manifest without scoring again.
 
-The donor TTS for a language comes from the registry when an entry has been admitted for it
-([registry.md](registry.md)), or from an explicit `DONOR_PLUGIN`/`DONOR_VOICE` pair named as a
-candidate under evaluation. A language with neither stops the synthesis notebook with a message
-naming both options. A donor named explicitly is recorded as a candidate, not as an admitted
-donor. The recogniser used for measurement comes from `STT_MODULE`, an explicit OVOS STT plugin
-name, not from the registry.
+The donor for synthesis is [OmniVoice](https://github.com/k2-fsa/OmniVoice) unless `DONOR_MODEL`
+names another: a voice id from the phoonnx catalog or an OVOS TTS plugin. OmniVoice speaks 646
+languages, runs on a GPU and fixes one voice per run, because a training set needs one speaker.
+A language OmniVoice does not speak stops the synthesis notebook with a message that names
+`DONOR_MODEL`. The notebook keeps no list of models. The recogniser used for measurement comes
+from `STT_MODULE`, an explicit OVOS STT plugin name.
 
 ## The chain
 
 | Step | Notebook | Reads | Writes |
 |---|---|---|---|
-| 1-2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): prompts and donor synthesis | text sources and a donor (registry-admitted, or an explicit `DONOR_PLUGIN`/`DONOR_VOICE` candidate) | manifest with audio |
+| 1-2a | [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb): prompts and donor synthesis | text sources, and a voice (`REF_AUDIO` to clone, `VOICE_PROMPT` to design, or the default design) or a `DONOR_MODEL` | manifest with audio |
 | 2b | [`tts_corpus_ingest.ipynb`](../notebooks/tts_corpus_ingest.ipynb): corpus ingest | a real speech corpus | manifest with audio |
 | 3 | [`tts_enhance.ipynb`](../notebooks/tts_enhance.ipynb): enhancement | manifest with audio | manifest with enhanced audio; each row keeps its parent |
 | 4 | [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb): measure | any manifest with audio | the same manifest with scores added |
@@ -38,7 +38,7 @@ The published datasets carry two voice identities: miro (male) and dii (female).
 turns source speech into each identity with [voiceclonnx](https://github.com/TigreGotico/voiceclonnx).
 The source speech is either a donor TTS rendering or a real corpus recording. After conversion the
 source speaker's timbre is gone. What stays is the pronunciation, the dialect and the prosody of the
-source. For this reason, the registry admits a donor or a corpus on its linguistic accuracy.
+source. For this reason, a donor or a corpus is chosen for its linguistic accuracy.
 
 ## Instruments
 
@@ -47,14 +47,14 @@ source. For this reason, the registry admits a donor or a corpus on its linguist
 | Naturalness (UTMOS, DNSMOS, NISQA) | [speechonnxmetrics](https://pypi.org/project/speechonnxmetrics/) |
 | Speaker similarity | [speakeronnx](https://pypi.org/project/speakeronnx/) |
 | Recogniser round trip | one OVOS STT plugin, named explicitly via `STT_MODULE` |
-| Donor synthesis | OVOS TTS plugins, [phoonnx](https://pypi.org/project/phoonnx/) voices where the registry admits one |
+| Donor synthesis | [OmniVoice](https://pypi.org/project/omnivoice/); or a [phoonnx](https://pypi.org/project/phoonnx/) catalog voice or an OVOS TTS plugin, named in `DONOR_MODEL` |
 | Voice conversion | [voiceclonnx](https://pypi.org/project/voiceclonnx/) |
 
 ## Hardware
 
-Every model in the chain runs on onnxruntime, except: a donor plugin itself in step 1-2a (it runs on
-whatever backend that OVOS TTS plugin uses, onnxruntime or otherwise, and only that step's optional
-super-resolution stage is onnxruntime); the recogniser in steps 4 and 7 (`STT_MODULE` names an OVOS
+Every model in the chain runs on onnxruntime, except: the donor in step 1-2a (OmniVoice runs in
+PyTorch fp16 on a GPU; a `DONOR_MODEL` plugin runs on whatever backend that plugin uses, and only
+that step's optional super-resolution stage is onnxruntime); the recogniser in steps 4 and 7 (`STT_MODULE` names an OVOS
 STT plugin, and the default, vosk, runs on Kaldi, not onnxruntime); and step 10 (`train_vits.ipynb`
 trains and exports with phoonnx and PyTorch in a separate virtual environment; the ONNX export is
 for inference elsewhere, not for this notebook's own training run).

@@ -45,8 +45,9 @@ should show at the end.
   [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) builds a
   larger dataset with augmentation.
 - **TTS voice**: build or expand a voice dataset with
-  [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) or
-  [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) (both CPU; asr2tts takes a Common Voice language
+  [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) (synthetic speech from OmniVoice in one
+  voice, on a GPU) or
+  [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) (CPU; asr2tts takes a Common Voice language
   directory and measures the data with three quality gates, and its default run is a small public
   demo), then train the model in
   [`train_vits.ipynb`](notebooks/train_vits.ipynb) (GPU).
@@ -70,13 +71,11 @@ Edge TTS service, and its local install needs the `nest_asyncio` package (see
 ## TTS dataset pipeline
 
 The TTS dataset notebooks form a chain: each one reads a manifest, does one step, and writes a
-manifest for the next. Clips are measured once, and selection is a separate step. The chain,
-the manifest format and the language registry are described in:
+manifest for the next. Clips are measured once, and selection is a separate step. The chain
+and the manifest format are described in:
 
 - [docs/pipeline.md](docs/pipeline.md): the steps and how they connect.
 - [docs/manifest.md](docs/manifest.md): the manifest and selection file formats.
-- [docs/registry.md](docs/registry.md): the per-language registry of admitted donors, corpora and
-  judges ([registry/tts.yaml](registry/tts.yaml)).
 
 ## TTS voice datasets
 
@@ -141,7 +140,7 @@ and hardware; no full-run number is stated here because none was measured.
 |---|---|---|---|---|
 | [`train_vits.ipynb`](notebooks/train_vits.ipynb) | WP3: TTS model training & export | GPU (T4 or better) for a full run | 47 s | executed |
 | [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) | WP3: Hybrid low-resource TTS dataset pipeline | CPU (`onnxruntime`) | 117 s | executed |
-| [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) | WP3: TTS dataset generation, prompts and donor synthesis | CPU | 6 s | executed |
+| [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) | WP3: TTS dataset generation, prompts and donor synthesis | GPU (T4 or better) for a full run; CPU for the CI path | 6 s | executed |
 | [`tts_measure.ipynb`](notebooks/tts_measure.ipynb) | WP3: TTS dataset measurement | CPU (GPU optional) | 29 s | executed |
 | [`tts_voice_convert.ipynb`](notebooks/tts_voice_convert.ipynb) | WP3: TTS voice conversion | CPU (GPU optional) | 73 s | executed |
 | [`tts_enhance.ipynb`](notebooks/tts_enhance.ipynb) | WP3: TTS dataset enhancement | CPU (GPU optional) | 10 s | executed |
@@ -246,9 +245,7 @@ cell every notebook carries.
 notebooks/
   *.ipynb          - all deliverable notebooks
 docs/
-  *.md             - pipeline, manifest, registry and data-source reference
-registry/
-  tts.yaml         - admitted donors, corpora and judges per language
+  *.md             - pipeline, manifest and data-source reference
 requirements/
   *.txt            - one file per notebook, PyPI names only
 .github/workflows/
