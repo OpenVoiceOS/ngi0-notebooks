@@ -43,12 +43,10 @@ should show at the end.
   [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) or
   [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) (both CPU), then train the model in
   [`train_vits.ipynb`](notebooks/train_vits.ipynb) (GPU).
-- **Intent classifier**: train a monolingual model with
-  [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb)
-  or a multilingual one with
-  [`ovos_intent_classifier_multilingual.ipynb`](notebooks/ovos_intent_classifier_multilingual.ipynb),
-  then compare results with
-  [`ovos_intent_benchmark.ipynb`](notebooks/ovos_intent_benchmark.ipynb).
+- **Intent classifier**: score the published OVOS intent models on the v6.1 gold
+  split, language by language, and optionally train one small language yourself, with
+  [`ovos_intent_eval_and_train.ipynb`](notebooks/ovos_intent_eval_and_train.ipynb)
+  (CPU).
 - **Interoperability and bus validation**: run
   [`interop_mcp_utcp_clients.ipynb`](notebooks/interop_mcp_utcp_clients.ipynb),
   [`bus_message_validation.ipynb`](notebooks/bus_message_validation.ipynb),
@@ -145,10 +143,8 @@ and hardware; no full-run number is stated here because none was measured.
 | [`tts_publish.ipynb`](notebooks/tts_publish.ipynb) | WP3: TTS dataset publish | CPU | 6 s | executed |
 | [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) | WP2: Wake word model training (Kaggle) | GPU (T4 or better) for a full run | 30 s | executed |
 | [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) | WP2: Wake word dataset generation and augmentation (full pipeline) | CPU (GPU optional) | 12 s | executed |
-| [`ovos_intent_classifier_monolingual.ipynb`](notebooks/ovos_intent_classifier_monolingual.ipynb) | WP4: Intent classification (monolingual) | CPU; GPU recommended for a full run | 19 s | executed |
-| [`ovos_intent_classifier_multilingual.ipynb`](notebooks/ovos_intent_classifier_multilingual.ipynb) | WP4: Intent classification (multilingual) | CPU; GPU recommended for a full run | 16 s | executed |
-| [`ovos_intent_benchmark.ipynb`](notebooks/ovos_intent_benchmark.ipynb) | WP4: Intent classification benchmark | CPU; GPU recommended for a full run | 18 s | executed |
-| [`interop_mcp_utcp_clients.ipynb`](notebooks/interop_mcp_utcp_clients.ipynb) | WP1: MCP/UTCP interoperability | CPU | 9 s | executed |
+| [`ovos_intent_eval_and_train.ipynb`](notebooks/ovos_intent_eval_and_train.ipynb) | WP4: Intent classification (published models scored on the v6.1 gold split; optional training of one language) | CPU | 88 s | executed |
+| [`interop_mcp_utcp_clients.ipynb`](notebooks/interop_mcp_utcp_clients.ipynb) | WP1: MCP/UTCP interoperability | CPU | 88 s | executed |
 | [`speaker_verification.ipynb`](notebooks/speaker_verification.ipynb) | WP2: Speaker verification & enrollment | CPU | 8 s | executed |
 | [`bus_message_validation.ipynb`](notebooks/bus_message_validation.ipynb) | WP1: Bus message schema validation | CPU | 2 s | executed |
 | [`arena_prediction_runner.ipynb`](notebooks/arena_prediction_runner.ipynb) | WP4: STT arena prediction slice | CPU | 8 s | executed |
@@ -202,9 +198,8 @@ papermill notebooks/speaker_verification.ipynb /tmp/out.ipynb \
 ```
 
 Drop `-p SMOKE True ...` to run the notebook at full size. A full `train_vits`
-or `kaggle_quickstart_ww` run needs a GPU; the three `ovos_intent_*` notebooks
-can train a full model on CPU, but a GPU is recommended; every other notebook
-runs on CPU, and the onnxruntime-based steps use a GPU when an onnxruntime GPU
+or `kaggle_quickstart_ww` run needs a GPU; every other notebook, including
+`ovos_intent_eval_and_train`, runs on CPU, and the onnxruntime-based steps use a GPU when an onnxruntime GPU
 build is installed. See `CONTRIBUTING.md` for the
 header template and the `SMOKE`/`N_SAMPLES`/`EPOCHS`/`MODEL_ID` parameter
 cell every notebook carries.
