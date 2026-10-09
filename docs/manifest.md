@@ -46,6 +46,8 @@ Each key in `scores` names one measurement:
 The `.meta.json` sidecar records the instrument behind each key: the package, its version and the
 model. A measurement that a step could not make is absent, not zero.
 
+`asr2tts` fills `dnsmos_sig`, `dnsmos_bak`, `dnsmos_ovrl` (and `nisqa_mos` when selected), `hyp` and `cer` on its source rows, and `spk_cos`, `utmos`, `hyp` and `cer` on its converted rows (the transcript check runs on the converted audio too, which is what a TTS model trains on). The DNSMOS and NISQA values of a source row describe its denoised clip before trimming and normalising. Its sidecar also carries `gates` (the threshold, counts and hours of each gate) and `distributions` (n, p10, p50 and p90 of each score).
+
 ## Selection files
 
 A selection file is a JSON Lines file of kept `id` values. Its `.meta.json` sidecar records each

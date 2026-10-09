@@ -41,7 +41,9 @@ should show at the end.
   larger dataset with augmentation.
 - **TTS voice**: build or expand a voice dataset with
   [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) or
-  [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) (both CPU), then train the model in
+  [`asr2tts.ipynb`](notebooks/asr2tts.ipynb) (both CPU; asr2tts takes a Common Voice language
+  directory and measures the data with three quality gates, and its default run is a small public
+  demo), then train the model in
   [`train_vits.ipynb`](notebooks/train_vits.ipynb) (GPU).
 - **Intent classifier**: score the published OVOS intent models on the v6.1 gold
   split, language by language, and optionally train one small language yourself, with

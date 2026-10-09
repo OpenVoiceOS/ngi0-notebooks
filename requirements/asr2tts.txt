@@ -22,3 +22,11 @@ tokenizers>=0.20,<1.0.0
 huggingface_hub>=0.36.0
 audiosronnx>=0.9.0a2
 voiceclonnx>=0.0.3a3
+# Quality gates: speechonnxmetrics scores DNSMOS/NISQA/UTMOS, its `speaker` extra pulls
+# speakeronnx (speaker similarity) and its `asr` extra pulls onnx-asr (the transcript
+# round trip). The demo reads the Hugging Face dataset viewer with urllib, so nothing
+# else is needed. An OVOS STT plugin for the transcript gate (ASR_STT_MODULE) is
+# installed by the notebook only when one is named.
+speechonnxmetrics[audio,speaker,asr]>=0.0.2a3
+speakeronnx>=0.0.2a3
+onnx-asr>=0.12.0
