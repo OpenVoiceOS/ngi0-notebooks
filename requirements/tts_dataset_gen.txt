@@ -1,7 +1,7 @@
-# CPU pipeline. No default donor: the donor plugin package itself (e.g.
-# ovos-tts-plugin-edge-tts for the smoke path, or ovos-tts-plugin-phoonnx / phoonnx for an
-# offline candidate) is named through DONOR_PLUGIN/DONOR_PIP or an admitted registry entry, and
-# installed by the notebook's own install cells (docs/registry.md).
+# CPU pipeline. The built-in demo donor is ovos-tts-plugin-edge-tts (listed below). Any other
+# donor package, e.g. phoonnx (it provides the ovos-tts-plugin-phoonnx entrypoint, an offline
+# voice), is named through DONOR_PLUGIN/DONOR_PIP or an admitted registry entry and installed by
+# the notebook's own install cells (docs/registry.md).
 PyYAML>=6.0
 ovos-plugin-manager>=2.12.4a1
 nest-asyncio>=1.6.0

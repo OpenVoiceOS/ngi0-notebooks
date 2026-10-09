@@ -1,0 +1,25 @@
+{
+  "lang": "ca",
+  "judge": "OpenVoiceOS/nvidia-ca-conformer-transducer-large-onnx",
+  "judge_revision": "4a6522eae6fb83ee34e4fef2780ae4bcdd5c6978",
+  "voices": {
+    "OpenVoiceOS/phoonnx_ca_miro_espeak": {
+      "voice": "OpenVoiceOS/phoonnx_ca_miro_espeak",
+      "revision": "66161af4e61601420198d37a416e8d228db8939e",
+      "sentences": 24,
+      "utmos_median": 3.485,
+      "utmos_p10": 3.157,
+      "cer_median": 0.202,
+      "cer_mean": 0.214
+    }
+  },
+  "tools": {
+    "phoonnx": "1.93.1a2",
+    "ovos-plugin-manager": "2.12.5a1",
+    "ovos-stt-plugin-onnx-asr": "0.6.1a2",
+    "onnx-asr": "0.12.0",
+    "speechonnxmetrics": "0.0.2a3",
+    "speakeronnx": "0.0.2a3",
+    "onnxruntime": "1.30.0"
+  }
+}

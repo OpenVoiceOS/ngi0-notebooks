@@ -1,0 +1,25 @@
+{
+  "lang": "gl-ES",
+  "judge": "OpenVoiceOS/proxectonos-gl-conformer-ctc-large-onnx",
+  "judge_revision": "068c91434250b78bfee134fcffeec23bb890a730",
+  "voices": {
+    "OpenVoiceOS/phoonnx_gl-ES_miro_unicode": {
+      "voice": "OpenVoiceOS/phoonnx_gl-ES_miro_unicode",
+      "revision": "b5b070fe358fdc3c9ff146d2ef3a67616f789fd0",
+      "sentences": 24,
+      "utmos_median": 3.607,
+      "utmos_p10": 3.2,
+      "cer_median": 0.107,
+      "cer_mean": 0.135
+    }
+  },
+  "tools": {
+    "phoonnx": "1.93.1a2",
+    "ovos-plugin-manager": "2.12.5a1",
+    "ovos-stt-plugin-onnx-asr": "0.6.1a2",
+    "onnx-asr": "0.12.0",
+    "speechonnxmetrics": "0.0.2a3",
+    "speakeronnx": "0.0.2a3",
+    "onnxruntime": "1.30.0"
+  }
+}

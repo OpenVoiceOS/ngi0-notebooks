@@ -1,0 +1,43 @@
+{
+  "lang": "pt-PT",
+  "judge": "OpenVoiceOS/yuriyvnv-parakeet-tdt-0.6b-pt-onnx",
+  "judge_revision": "7d4181938f5d0890ac9731cca3c0336b92913b57",
+  "voices": {
+    "OpenVoiceOS/phoonnx_pt-PT_miro_tugaphone": {
+      "voice": "OpenVoiceOS/phoonnx_pt-PT_miro_tugaphone",
+      "revision": "0de46f57d00587e027e8c196b7170a268bf424b1",
+      "sentences": 24,
+      "utmos_median": 3.446,
+      "utmos_p10": 3.002,
+      "cer_median": 0.319,
+      "cer_mean": 0.36
+    },
+    "OpenVoiceOS/phoonnx_pt-PT_dii_tugaphone": {
+      "voice": "OpenVoiceOS/phoonnx_pt-PT_dii_tugaphone",
+      "revision": "9a9d9fbb5b666d089caad01626d220fb174cdc2c",
+      "sentences": 24,
+      "utmos_median": 3.763,
+      "utmos_p10": 3.41,
+      "cer_median": 0.248,
+      "cer_mean": 0.287
+    },
+    "OpenVoiceOS/phoonnx_pt-PT_miro_unicode": {
+      "voice": "OpenVoiceOS/phoonnx_pt-PT_miro_unicode",
+      "revision": "022c02388e552e2827ff31745cf1461a7ddd4f37",
+      "sentences": 24,
+      "utmos_median": 3.569,
+      "utmos_p10": 3.231,
+      "cer_median": 0.168,
+      "cer_mean": 0.251
+    }
+  },
+  "tools": {
+    "phoonnx": "1.93.1a2",
+    "ovos-plugin-manager": "2.12.5a1",
+    "ovos-stt-plugin-onnx-asr": "0.6.1a2",
+    "onnx-asr": "0.12.0",
+    "speechonnxmetrics": "0.0.2a3",
+    "speakeronnx": "0.0.2a3",
+    "onnxruntime": "1.30.0"
+  }
+}

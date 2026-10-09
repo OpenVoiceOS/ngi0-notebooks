@@ -1,0 +1,25 @@
+{
+  "lang": "sv-SE",
+  "judge": "nemo-parakeet-tdt-0.6b-v3",
+  "judge_revision": "8f23f0c03c8761650bdb5b40aaf3e40d2c15f1ce",
+  "voices": {
+    "OpenVoiceOS/phoonnx_sv-SE_miro_espeak": {
+      "voice": "OpenVoiceOS/phoonnx_sv-SE_miro_espeak",
+      "revision": "00a1032a05dd0c46d5979b032c75a2fb6cfc98bd",
+      "sentences": 24,
+      "utmos_median": 3.445,
+      "utmos_p10": 3.232,
+      "cer_median": 0.065,
+      "cer_mean": 0.099
+    }
+  },
+  "tools": {
+    "phoonnx": "1.93.1a2",
+    "ovos-plugin-manager": "2.12.5a1",
+    "ovos-stt-plugin-onnx-asr": "0.6.1a2",
+    "onnx-asr": "0.12.0",
+    "speechonnxmetrics": "0.0.2a3",
+    "speakeronnx": "0.0.2a3",
+    "onnxruntime": "1.30.0"
+  }
+}

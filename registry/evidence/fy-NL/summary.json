@@ -1,0 +1,34 @@
+{
+  "lang": "fy-NL",
+  "judge": null,
+  "judge_revision": null,
+  "voices": {
+    "OpenVoiceOS/phoonnx_fy-NL_miro_unicode": {
+      "voice": "OpenVoiceOS/phoonnx_fy-NL_miro_unicode",
+      "revision": "f1b0b1d9c26ecbed10545a935f4d9d685a4632f8",
+      "sentences": 24,
+      "utmos_median": 3.158,
+      "utmos_p10": 2.949,
+      "cer_median": null,
+      "cer_mean": null
+    },
+    "OpenVoiceOS/phoonnx_fy-NL_dii_unicode": {
+      "voice": "OpenVoiceOS/phoonnx_fy-NL_dii_unicode",
+      "revision": "b1e18fb73313979b0bf1a9837b7c9d33d0ab9fa5",
+      "sentences": 24,
+      "utmos_median": 3.243,
+      "utmos_p10": 2.898,
+      "cer_median": null,
+      "cer_mean": null
+    }
+  },
+  "tools": {
+    "phoonnx": "1.93.1a2",
+    "ovos-plugin-manager": "2.12.5a1",
+    "ovos-stt-plugin-onnx-asr": "0.6.1a2",
+    "onnx-asr": "0.12.0",
+    "speechonnxmetrics": "0.0.2a3",
+    "speakeronnx": "0.0.2a3",
+    "onnxruntime": "1.30.0"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "lang": "es-CO",
+  "judge": "OpenVoiceOS/stt_es_fastconformer_hybrid_large_pc_onnx",
+  "judge_revision": "8d1aff0e061f8a681b5cb3a39670e6335647abdf",
+  "voices": {
+    "OpenVoiceOS/phoonnx_es-CO_miro_espeak": {
+      "voice": "OpenVoiceOS/phoonnx_es-CO_miro_espeak",
+      "revision": "e1f7dcaaee53d74406fdf617d49a9ac15753efd3",
+      "sentences": 24,
+      "utmos_median": 3.508,
+      "utmos_p10": 3.138,
+      "cer_median": 0.119,
+      "cer_mean": 0.127
+    },
+    "OpenVoiceOS/phoonnx_es-CO_dii_espeak": {
+      "voice": "OpenVoiceOS/phoonnx_es-CO_dii_espeak",
+      "revision": "76b6cba26141d42a2f4ba02dbe25dfbc0672dc8a",
+      "sentences": 24,
+      "utmos_median": 3.749,
+      "utmos_p10": 3.475,
+      "cer_median": 0.099,
+      "cer_mean": 0.124
+    }
+  },
+  "tools": {
+    "phoonnx": "1.93.1a2",
+    "ovos-plugin-manager": "2.12.5a1",
+    "ovos-stt-plugin-onnx-asr": "0.6.1a2",
+    "onnx-asr": "0.12.0",
+    "speechonnxmetrics": "0.0.2a3",
+    "speakeronnx": "0.0.2a3",
+    "onnxruntime": "1.30.0"
+  }
+}

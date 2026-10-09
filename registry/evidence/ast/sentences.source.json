@@ -1,0 +1,8 @@
+{
+  "lang": "ast",
+  "n": 24,
+  "dataset": "TigreGotico/tts_vc_mcv-scripted-v23.0_ast_miro",
+  "revision": "df1f19ae0325dd711c92d48b371fa5d012f56b06",
+  "file": "metadata.csv",
+  "note": "the voice's own training corpus, not held out"
+}

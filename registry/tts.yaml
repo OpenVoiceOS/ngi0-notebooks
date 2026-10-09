@@ -1,4 +1,308 @@
 # Language registry for the TTS dataset notebooks.
 # Format and admission rules: docs/registry.md.
 # An entry holds only a donor, corpora and judge seats that passed admission.
-entries: []
+# Candidates are measured donors that wait for the listening check; no notebook uses them on its own.
+entries:
+  - lang: an
+    name: "Aragonese"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_an_miro_unicode"
+        pip: "phoonnx"
+        revision: "31cf76cbde9e3967ebd02586a6721362f647077e"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.446
+        utmos_p10: 3.028
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/an/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_an_dii_unicode"
+        pip: "phoonnx"
+        revision: "4c3fd73467175f338c325cbaa710f004c1fe008c"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.558
+        utmos_p10: 2.919
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/an/README.md"
+  - lang: ar
+    name: "Arabic"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_ar_dii_espeak"
+        pip: "phoonnx"
+        revision: "a5b2c6bc0d1a7a04d951e6352d55c1324f8e6bc5"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.027
+        utmos_p10: 2.587
+        cer_median: 0.022
+        judge: "OpenVoiceOS/stt_ar_fastconformer_hybrid_large_pcd_v1.0_onnx"
+        listening_check: "pending"
+        evidence: "evidence/ar/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_ar_miro_espeak_V2"
+        pip: "phoonnx"
+        revision: "8c5783a11d450ffad2ed99fc7c6dc8d6c8f86ccb"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.134
+        utmos_p10: 2.796
+        cer_median: 0.0
+        judge: "OpenVoiceOS/stt_ar_fastconformer_hybrid_large_pcd_v1.0_onnx"
+        listening_check: "pending"
+        evidence: "evidence/ar/README.md"
+  - lang: ast
+    name: "Asturian"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_ast_miro_unicode"
+        pip: "phoonnx"
+        revision: "80c19977e400ff6c8a61a42f097c6cbddd7502e4"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.058
+        utmos_p10: 2.759
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/ast/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_ast_dii_unicode"
+        pip: "phoonnx"
+        revision: "5a8d91080966ac3f5da00077f50d641db2191bd0"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.136
+        utmos_p10: 2.677
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/ast/README.md"
+  - lang: ca
+    name: "Catalan"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_ca_miro_espeak"
+        pip: "phoonnx"
+        revision: "66161af4e61601420198d37a416e8d228db8939e"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.485
+        utmos_p10: 3.157
+        cer_median: 0.202
+        judge: "OpenVoiceOS/nvidia-ca-conformer-transducer-large-onnx"
+        listening_check: "pending"
+        evidence: "evidence/ca/README.md"
+  - lang: da-DK
+    name: "Danish"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_da-DK_miro_espeak"
+        pip: "phoonnx"
+        revision: "1bea1ac3d5537f6df80db2b703ab0c20283f0a24"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.674
+        utmos_p10: 3.38
+        cer_median: 0.346
+        judge: "nemo-parakeet-tdt-0.6b-v3"
+        listening_check: "pending"
+        evidence: "evidence/da-DK/README.md"
+  - lang: es-CO
+    name: "Spanish, Colombian"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_es-CO_miro_espeak"
+        pip: "phoonnx"
+        revision: "e1f7dcaaee53d74406fdf617d49a9ac15753efd3"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.508
+        utmos_p10: 3.138
+        cer_median: 0.119
+        judge: "OpenVoiceOS/stt_es_fastconformer_hybrid_large_pc_onnx"
+        listening_check: "pending"
+        evidence: "evidence/es-CO/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_es-CO_dii_espeak"
+        pip: "phoonnx"
+        revision: "76b6cba26141d42a2f4ba02dbe25dfbc0672dc8a"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.749
+        utmos_p10: 3.475
+        cer_median: 0.099
+        judge: "OpenVoiceOS/stt_es_fastconformer_hybrid_large_pc_onnx"
+        listening_check: "pending"
+        evidence: "evidence/es-CO/README.md"
+  - lang: es-ES
+    name: "Spanish, European"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_es-ES_dii_espeak"
+        pip: "phoonnx"
+        revision: "626210a1d0247b358d2297bfadcef9d42194ecc7"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.541
+        utmos_p10: 3.006
+        cer_median: 0.036
+        judge: "OpenVoiceOS/stt_es_fastconformer_hybrid_large_pc_onnx"
+        listening_check: "pending"
+        evidence: "evidence/es-ES/README.md"
+  - lang: eu-ES
+    name: "Basque"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_eu-ES_miro_espeak"
+        pip: "phoonnx"
+        revision: "c01bd6012d8d745e2d78a1984374d7be47c710b3"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.567
+        utmos_p10: 3.304
+        cer_median: 0.029
+        judge: "OpenVoiceOS/hitz-eu-conformer-transducer-large-v2-onnx"
+        listening_check: "pending"
+        evidence: "evidence/eu-ES/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_eu-ES_dii_espeak"
+        pip: "phoonnx"
+        revision: "c5cc1b5a36b3fc9eaf33448cf2f620afc3c8e9b4"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.869
+        utmos_p10: 3.308
+        cer_median: 0.015
+        judge: "OpenVoiceOS/hitz-eu-conformer-transducer-large-v2-onnx"
+        listening_check: "pending"
+        evidence: "evidence/eu-ES/README.md"
+  - lang: fy-NL
+    name: "Western Frisian"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_fy-NL_miro_unicode"
+        pip: "phoonnx"
+        revision: "f1b0b1d9c26ecbed10545a935f4d9d685a4632f8"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.158
+        utmos_p10: 2.949
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/fy-NL/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_fy-NL_dii_unicode"
+        pip: "phoonnx"
+        revision: "b1e18fb73313979b0bf1a9837b7c9d33d0ab9fa5"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.243
+        utmos_p10: 2.898
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/fy-NL/README.md"
+  - lang: gl-ES
+    name: "Galician"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_gl-ES_miro_unicode"
+        pip: "phoonnx"
+        revision: "b5b070fe358fdc3c9ff146d2ef3a67616f789fd0"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.607
+        utmos_p10: 3.2
+        cer_median: 0.107
+        judge: "OpenVoiceOS/proxectonos-gl-conformer-ctc-large-onnx"
+        listening_check: "pending"
+        evidence: "evidence/gl-ES/README.md"
+  - lang: oc
+    name: "Occitan"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_oc_miro_unicode"
+        pip: "phoonnx"
+        revision: "01b43071d9145d856d77fbbc16ffece1b0bc943e"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.363
+        utmos_p10: 2.938
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/oc/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_oc_dii_unicode"
+        pip: "phoonnx"
+        revision: "ac2504a560cb8d3928be8e4ef74913db29270d3f"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.488
+        utmos_p10: 3.033
+        cer_median: null
+        judge: null
+        listening_check: "pending"
+        evidence: "evidence/oc/README.md"
+  - lang: pt-PT
+    name: "Portuguese, European"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_pt-PT_miro_tugaphone"
+        pip: "phoonnx[pt]"
+        revision: "0de46f57d00587e027e8c196b7170a268bf424b1"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.446
+        utmos_p10: 3.002
+        cer_median: 0.319
+        judge: "OpenVoiceOS/yuriyvnv-parakeet-tdt-0.6b-pt-onnx"
+        listening_check: "pending"
+        evidence: "evidence/pt-PT/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_pt-PT_dii_tugaphone"
+        pip: "phoonnx[pt]"
+        revision: "9a9d9fbb5b666d089caad01626d220fb174cdc2c"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.763
+        utmos_p10: 3.41
+        cer_median: 0.248
+        judge: "OpenVoiceOS/yuriyvnv-parakeet-tdt-0.6b-pt-onnx"
+        listening_check: "pending"
+        evidence: "evidence/pt-PT/README.md"
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_pt-PT_miro_unicode"
+        pip: "phoonnx"
+        revision: "022c02388e552e2827ff31745cf1461a7ddd4f37"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.569
+        utmos_p10: 3.231
+        cer_median: 0.168
+        judge: "OpenVoiceOS/yuriyvnv-parakeet-tdt-0.6b-pt-onnx"
+        listening_check: "pending"
+        evidence: "evidence/pt-PT/README.md"
+  - lang: sv-SE
+    name: "Swedish"
+    candidates:
+      - plugin: "ovos-tts-plugin-phoonnx"
+        voice: "OpenVoiceOS/phoonnx_sv-SE_miro_espeak"
+        pip: "phoonnx"
+        revision: "00a1032a05dd0c46d5979b032c75a2fb6cfc98bd"
+        licence: "cc-by-nc-nd-4.0"
+        sentences: 24
+        utmos_median: 3.445
+        utmos_p10: 3.232
+        cer_median: 0.065
+        judge: "nemo-parakeet-tdt-0.6b-v3"
+        listening_check: "pending"
+        evidence: "evidence/sv-SE/README.md"

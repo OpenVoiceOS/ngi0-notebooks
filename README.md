@@ -71,6 +71,15 @@ the manifest format and the language registry are described in:
 - [docs/registry.md](docs/registry.md): the per-language registry of admitted donors, corpora and
   judges ([registry/tts.yaml](registry/tts.yaml)).
 
+`tts_dataset_gen.ipynb` and `tts_corpus_ingest.ipynb` run with nothing configured. The first
+renders six built-in prompts with a demo donor and prints the variables that select a real donor
+and prompts; the second ingests a 73-row public LibriSpeech slice from the Hugging Face Hub and
+prints the variable that selects a real corpus. The registry lists the published phoonnx voices
+of thirteen languages and varieties as measured candidates (naturalness and, where a recogniser
+covers the language, a round-trip error rate) under
+[registry/evidence](registry/evidence); none is admitted as a donor until a native speaker has
+confirmed the variety by ear.
+
 ## TTS voice datasets
 
 TigreGotico publishes single-speaker TTS datasets for OpenVoiceOS, for two
@@ -241,7 +250,8 @@ notebooks/
 docs/
   *.md             - pipeline, manifest, registry and data-source reference
 registry/
-  tts.yaml         - admitted donors, corpora and judges per language
+  tts.yaml         - admitted donors, corpora and judges per language, and measured candidates
+  evidence/        - sentence sets and scores behind each candidate
 requirements/
   *.txt            - one file per notebook, PyPI names only
 .github/workflows/

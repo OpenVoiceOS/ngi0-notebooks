@@ -1,0 +1,8 @@
+{
+  "lang": "fy-NL",
+  "n": 24,
+  "dataset": "TigreGotico/tts-vc-mcv-scripted-v24.0-fy-nl-miro",
+  "revision": "ee6d8f60a9e3bdf906c1a4f9a86e64909a02aef5",
+  "file": "metadata.csv",
+  "note": "the voice's own training corpus, not held out"
+}

@@ -1,0 +1,8 @@
+{
+  "lang": "ar",
+  "n": 24,
+  "dataset": "TigreGotico/tts-train-synthetic-miro_ar-SA",
+  "revision": "1693cdc0da1c9c47c82ae09e6447321ae67c8195",
+  "file": "metadata.csv",
+  "note": "the voice's own training corpus, not held out"
+}

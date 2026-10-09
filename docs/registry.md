@@ -27,6 +27,19 @@ recognisers that scored an entry's admission.
       url: <corpus page>
       enhancement: <enhancer, when the audio needs one>
       evidence: <link>
+  candidates:                # measured donors that still lack the listening check
+    - plugin: <OVOS TTS plugin>
+      voice: <voice id>
+      pip: <package that provides the plugin, as pip installs it>
+      revision: <model revision that was measured>
+      licence: <licence of the voice>
+      sentences: <number of sentences rendered>
+      utmos_median: <number>
+      utmos_p10: <number>
+      cer_median: <number, or null when no judge covers the language>
+      judge: <recogniser that produced cer_median, or null>
+      listening_check: pending
+      evidence: <relative link to the measurement files>
   judges:                    # OVOS STT plugins that scored this entry's admission
     - plugin: <ovos-stt-plugin-...>
       config: {}
@@ -46,6 +59,25 @@ A donor, a corpus or a judge seat enters the registry only with evidence:
 - **Judge seats.** Each seat reads the language's test sentences. The seats together must read
   the donor renderings and the real recordings with low error. English and other languages each
   get their own seats.
+
+## Candidates
+
+A donor that has been measured but has not had the listening check is not admitted. The entry
+lists it under `candidates`, with the numbers that were measured and a link to the files that
+produced them. The notebooks never read `candidates` as a donor: when a language has no admitted
+donor, [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb) prints the candidates of that
+language with the variables that select one, and a person decides. A candidate moves to `donor`
+when a native speaker has confirmed by ear that the variety is the one the entry names, and the
+`evidence` link then also covers that confirmation.
+
+The evidence for a candidate is a directory under `registry/evidence/<language>/`. It holds the
+sentence set, the per-sentence scores of every voice measured for that language, and a README that
+names the model revisions, tool versions and judge. [`tts_dataset_gen.ipynb`](../notebooks/tts_dataset_gen.ipynb)
+renders the sentences and [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb) scores them. A
+language that no non-Whisper recogniser covers gets naturalness scores only, and its candidates
+carry `cer_median: null` and `judge: null`. A score from a recogniser that has not itself been
+checked against real recordings of the language shows how a voice compares with the other voices
+of the same language; it is not an absolute error rate.
 
 [tts-data-sources.md](tts-data-sources.md) lists the candidates for each language. The registry
 holds only what was admitted.

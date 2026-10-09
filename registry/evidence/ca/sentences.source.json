@@ -1,0 +1,7 @@
+{
+  "lang": "ca",
+  "n": 24,
+  "dataset": "OpenVoiceOS/ovos-intents",
+  "revision": "23ffd44a229198b041f57067c6828a1f8e75b760",
+  "file": "ca-ES/test.jsonl"
+}

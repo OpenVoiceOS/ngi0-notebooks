@@ -1,0 +1,34 @@
+{
+  "lang": "eu-ES",
+  "judge": "OpenVoiceOS/hitz-eu-conformer-transducer-large-v2-onnx",
+  "judge_revision": "23bff741ab85892314d1bde3e0680b600baeedbc",
+  "voices": {
+    "OpenVoiceOS/phoonnx_eu-ES_miro_espeak": {
+      "voice": "OpenVoiceOS/phoonnx_eu-ES_miro_espeak",
+      "revision": "c01bd6012d8d745e2d78a1984374d7be47c710b3",
+      "sentences": 24,
+      "utmos_median": 3.567,
+      "utmos_p10": 3.304,
+      "cer_median": 0.029,
+      "cer_mean": 0.094
+    },
+    "OpenVoiceOS/phoonnx_eu-ES_dii_espeak": {
+      "voice": "OpenVoiceOS/phoonnx_eu-ES_dii_espeak",
+      "revision": "c5cc1b5a36b3fc9eaf33448cf2f620afc3c8e9b4",
+      "sentences": 24,
+      "utmos_median": 3.869,
+      "utmos_p10": 3.308,
+      "cer_median": 0.015,
+      "cer_mean": 0.08
+    }
+  },
+  "tools": {
+    "phoonnx": "1.93.1a2",
+    "ovos-plugin-manager": "2.12.5a1",
+    "ovos-stt-plugin-onnx-asr": "0.6.1a2",
+    "onnx-asr": "0.12.0",
+    "speechonnxmetrics": "0.0.2a3",
+    "speakeronnx": "0.0.2a3",
+    "onnxruntime": "1.30.0"
+  }
+}
