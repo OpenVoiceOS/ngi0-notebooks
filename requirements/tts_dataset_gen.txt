@@ -1,9 +1,6 @@
-# CPU pipeline. No default donor: the donor plugin package itself (e.g.
-# ovos-tts-plugin-edge-tts for the smoke path, or ovos-tts-plugin-phoonnx / phoonnx for an
-# offline candidate) is named through DONOR_PLUGIN/DONOR_PIP or an admitted registry entry, and
-# installed by the notebook's own install cells (docs/registry.md).
-PyYAML>=6.0
-ovos-plugin-manager>=2.12.4a1
+# CPU CI path and the post-processing stages. The default donor, omnivoice, needs a GPU and torch
+# (Kaggle and Colab preinstall a matching torch); the notebook installs omnivoice itself, and a
+# DONOR_MODEL donor (phoonnx or an OVOS TTS plugin) is installed by the notebook's own install cell.
 nest-asyncio>=1.6.0
 tqdm>=4.70.1
 librosa>=0.10.2
@@ -11,4 +8,3 @@ soundfile>=0.14.0
 numpy>=2.0
 audiosronnx>=0.9.0a2
 onnxruntime>=1.30.0
-ovos-tts-plugin-edge-tts>=0.3.5a1
