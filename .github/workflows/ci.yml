@@ -77,6 +77,12 @@ jobs:
         run: |
           python - << 'EOF' >> "$GITHUB_OUTPUT"
           import glob, json, os, sys
+          # These speak with OmniVoice, which needs a GPU; they run on Kaggle, not here.
+          GPU_ONLY = {
+              "arena_prediction_runner", "interop_mcp_utcp_clients", "speaker_verification",
+              "train_vits", "tts2ww_full_pipeline", "tts_enhance", "tts_measure",
+              "tts_publish", "tts_voice_convert",
+          }
           stems = sorted(
               os.path.splitext(os.path.basename(p))[0]
               for p in glob.glob("notebooks/*.ipynb")
@@ -85,7 +91,7 @@ jobs:
           if missing:
               print(f"missing requirements/<stem>.txt for: {missing}", file=sys.stderr)
               sys.exit(1)
-          print("matrix=" + json.dumps(stems))
+          print("matrix=" + json.dumps([s for s in stems if s not in GPU_ONLY]))
           EOF
 
   compile:
@@ -151,11 +157,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # arena_prediction_runner, interop_mcp_utcp_clients and speaker_verification
+        # also keep their outputs, but speak with OmniVoice on a GPU; they run on Kaggle.
         notebook:
-          - arena_prediction_runner
           - bus_message_validation
-          - interop_mcp_utcp_clients
-          - speaker_verification
     env:
       # A neutral, non-home HOME so a plugin's cache directory (vosk's model,
       # for example) resolves under /tmp instead of the runner account's home

@@ -9,8 +9,11 @@ runnable, honest about what it needs, and clean in git history.
 - Every notebook installs into its own kernel the same way, in one line per
   install cell: `%pip install --quiet --pre "<spec>" "<spec>" ...`, every
   spec double-quoted (an unquoted spec with a shell metacharacter, such as a
-  version range, is silently mangled by the shell `%pip` delegates to). This
-  is the only install mechanism used in a notebook body: not `!pip`, not
+  version range, is silently mangled by the shell `%pip` delegates to). The
+  notebooks that commit outputs from a Kaggle run (`arena_prediction_runner`,
+  `interop_mcp_utcp_clients`, `speaker_verification`) write `%pip install
+  --quiet --quiet --progress-bar off --pre ...` instead, so the saved outputs
+  hold no download progress bars. This is the only install mechanism used in a notebook body: not `!pip`, not
   `subprocess`/`uv` invoked against `sys.executable`, and not a bare `pip
   install`. The one exception is `train_vits.ipynb`'s training step, which
   creates and installs into a **separate** virtual environment outside the
@@ -41,11 +44,14 @@ The first cell of every notebook is a single markdown cell with:
    row ever states one.
 4. A line stating exactly `CI: linted, compiled under Python 3.11 and 3.12,
    and executed on the smoke path.`, since every notebook in `notebooks/` is
-   linted, compiled and smoke-run by `ci.yml`, and no notebook is exempt (the
-   four notebooks that keep their outputs are additionally re-executed in full by the
-   `evidence` job). A sentence of real detail may follow it in the same
-   paragraph (for example, which branch the SMOKE path takes, or what the
-   full run needs that CI does not exercise).
+   linted, compiled and smoke-run by `ci.yml` (the notebooks that keep their
+   outputs are additionally re-executed in full by the `evidence` job). The
+   exception is a notebook that speaks with OmniVoice: OmniVoice needs a GPU
+   and the CI runners have none, so `ci.yml` lists it as GPU-only and its line
+   reads `CI: linted and compiled under Python 3.11 and 3.12.`, followed by
+   why it is run on Kaggle instead. A sentence of real detail may follow it
+   in the same paragraph (for example, which branch the SMOKE path takes, or
+   what the full run needs that CI does not exercise).
 
 The three wake-word notebooks (`synthetic_ww_dataset`, `kaggle_quickstart_ww`,
 `tts2ww_full_pipeline`) are written for people who do not program, so their
@@ -96,8 +102,10 @@ Notebook outputs are stripped before commit (`nbstripout`) with one
 exception: `arena_prediction_runner`, `bus_message_validation`,
 `interop_mcp_utcp_clients` and `speaker_verification` commit their outputs on
 purpose, so that a reader sees what a full run produces without running it.
-Do not add a fifth notebook to that list without discussing it with a
-maintainer first.
+CI re-executes `bus_message_validation` in its `evidence` job; the other three
+speak with OmniVoice, need a GPU, and keep the outputs of a Kaggle run with
+the committed code. Do not add a fifth notebook to that list without
+discussing it with a maintainer first.
 
 ## Running the smoke path locally
 
@@ -113,17 +121,17 @@ papermill notebooks/<notebook-stem>.ipynb /tmp/out.ipynb \
     -p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1
 ```
 
-A CPU machine is enough for every notebook's `SMOKE=True` path, including the
-ones that train (`train_vits` and `kaggle_quickstart_ww`): the smoke path runs to
-its last cell on CPU, the same as every other notebook here. A GPU is only needed
-for a **full** (`SMOKE=False`) run of those two, where CPU would still finish but
-too slowly to produce a usable model in practice.
+A CPU machine is enough for the `SMOKE=True` path of every notebook that CI
+smoke-runs, including `kaggle_quickstart_ww`, which trains. The notebooks that
+speak with OmniVoice need a GPU even on their smoke path; `ci.yml` lists them,
+and they are run on Kaggle with a GPU selected.
 
 ## Before opening a PR
 
 1. `pre-commit run --all-files` (installs `nbstripout` and `check-json`, see
    `.pre-commit-config.yaml`).
 2. Run the smoke path for every notebook you touched and confirm the exit
-   code.
+   code; for a notebook that speaks with OmniVoice, run it on Kaggle with a
+   GPU.
 3. Keep the README's notebook index in sync: task, hardware, wall time, and
    CI status per notebook.

@@ -9,12 +9,10 @@ librosa>=0.10.2
 soundfile>=0.14.0
 numpy>=2.0
 tqdm>=4.70.1
-# Only needed for the built-in demo path (MANIFEST_PATH left empty):
-edge-tts>=7.2.8
-nest-asyncio>=1.6.0
-# ffmpeg must be available as a system binary (only for the built-in demo)
-# The round trip (STT_MODULE): SMOKE defaults to ovos-stt-plugin-vosk, which
-# CI's smoke job installs and runs against the demo manifest; a non-SMOKE run
-# naming a different STT_MODULE needs that package installed instead.
+# Only needed for the built-in demo path (MANIFEST_PATH left empty), which
+# speaks its clips with OmniVoice on a GPU and needs a torch that matches it:
+omnivoice>=0.2.1
+# The round trip (STT_MODULE): SMOKE defaults to ovos-stt-plugin-vosk; a
+# non-SMOKE run naming a different STT_MODULE needs that package instead.
 ovos-plugin-manager>=2.12.4a1
 ovos-stt-plugin-vosk>=0.2.8a2
