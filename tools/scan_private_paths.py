@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scan every notebook, allowlisted evidence notebooks included, for a
+"""Scan every notebook, including the four that keep their outputs, for a
 maintainer's private path, host or identifier surviving in its source, its
 committed outputs or its metadata (papermill records the machine that ran it
 there, not in a cell).
