@@ -1,8 +1,7 @@
 # Contributing
 
-This repository holds the NGI0 Commons Fund deliverable notebooks for
-OpenVoiceOS. Every notebook must stay runnable, honest about what it needs,
-and clean in git history.
+This repository holds the OpenVoiceOS notebooks. Every notebook must stay
+runnable, honest about what it needs, and clean in git history.
 
 ## Dependencies
 
@@ -32,57 +31,35 @@ and clean in git history.
 The first cell of every notebook is a single markdown cell with:
 
 1. `# <Title>`
-2. The NGI0 Commons Fund badge, linked to the project page:
-   `[![NGI0 Commons Fund](../ngi.png)](https://nlnet.nl/project/OpenVoiceOS)`
-3. The funding sentence, verbatim and in full, as its own paragraph (not a
-   blockquote):
-
-   This project was funded through the NGI0 Commons Fund, a fund
-   established by NLnet with financial support from the European
-   Commission's Next Generation Internet programme, under the aegis of DG
-   Communications Networks, Content and Technology under grant agreement
-   No 101135429. Additional funding is made available by the Swiss State
-   Secretariat for Education, Research and Innovation (SERI).
-
-   Grant agreement 101135429 is the European Commission's agreement with
-   NLnet for NGI0 Commons Fund, not an NLnet grant to this project; never
-   call it an "NLnet grant".
-4. A one-line AI-assistance disclosure, as a blockquote: "This notebook was
-   written with AI assistance (Claude, via Claude Code). Verify outputs
-   before relying on them." One wording, used everywhere; it never names a
-   specific model and never adds a second sentence.
-5. A one-line purpose statement (a notebook with more to say about its own
+2. A one-line purpose statement (a notebook with more to say about its own
    pipeline, inputs or outputs may add as much prose, and as many of its own
    tables, as it needs after this point; the summary table below still
    appears, even when a fuller explanation follows it).
-6. A table with rows Inputs, Outputs, Runtime, Hardware, Cost (header row
+3. A table with rows Inputs, Outputs, Runtime, Hardware, Cost (header row
    `| Field | Value |`). The Cost row states time or hardware, the same as
    Runtime and Hardware — none of the notebooks here spend money, so no Cost
    row ever states one.
-7. A line stating exactly `CI: linted, compiled under Python 3.11 and 3.12,
+4. A line stating exactly `CI: linted, compiled under Python 3.11 and 3.12,
    and executed on the smoke path.`, since every notebook in `notebooks/` is
    linted, compiled and smoke-run by `ci.yml`, and no notebook is exempt (the
-   four evidence notebooks are additionally re-executed in full by the
+   four notebooks that keep their outputs are additionally re-executed in full by the
    `evidence` job). A sentence of real detail may follow it in the same
    paragraph (for example, which branch the SMOKE path takes, or what the
    full run needs that CI does not exercise).
 
 The three wake-word notebooks (`synthetic_ww_dataset`, `kaggle_quickstart_ww`,
 `tts2ww_full_pipeline`) are written for people who do not program, so their
-first cell differs from the template in three ways. It opens with the title
+first cell differs from the template in two ways. It opens with the title
 and the Open in Kaggle and Open in Colab badges, then a "Start here" section
 in plain words: what the notebook does, how long it takes, whether it needs a
-GPU, and the one thing to set (usually nothing). The funding badge, the
-funding sentence and the AI-assistance disclosure move unchanged to the last
-cell, above the licence line. And `SMOKE` defaults to `True` where a full run
-is long, so that Run All with no edits finishes in minutes; the full run is a
-one-word change in the parameters cell. `docs/tester-guide.md` describes these
+GPU, and the one thing to set (usually nothing). And `SMOKE` defaults to
+`True` where a full run is long, so that Run All with no edits finishes in
+minutes; the full run is a one-word change in the parameters cell. `docs/tester-guide.md` describes these
 three notebooks for a first-time tester.
 
-The last cell of every notebook ends with exactly `Licensed under Apache-2.0.`
-
-The funding sentence and the licence line each appear exactly once, in the
-places above, nowhere else in the notebook.
+The last cell of every notebook is a markdown cell with the funding credit
+from the Credits section of `README.md`, the one-line AI-assistance note, and
+the closing line `Licensed under Apache-2.0.`
 
 ## The parameters cell
 
@@ -118,9 +95,9 @@ the value as a new variable — it is simply never read.
 Notebook outputs are stripped before commit (`nbstripout`) with one
 exception: `arena_prediction_runner`, `bus_message_validation`,
 `interop_mcp_utcp_clients` and `speaker_verification` commit their outputs on
-purpose, as evidence that the grant deliverable ran. Do not add a fifth
-notebook to that list without discussing it with a maintainer first. Every
-addition is either evidence or noise, never both.
+purpose, so that a reader sees what a full run produces without running it.
+Do not add a fifth notebook to that list without discussing it with a
+maintainer first.
 
 ## Running the smoke path locally
 

@@ -35,10 +35,10 @@ jobs:
               sys.exit(1)
           print(f"\n{len(glob.glob('notebooks/*.ipynb'))} notebooks validated.")
           EOF
-      - name: Verify outputs are stripped (evidence notebooks allowlisted)
+      - name: Verify outputs are stripped (four notebooks keep theirs)
         run: |
-          # These four notebooks commit their outputs on purpose, as evidence
-          # that the WP deliverable ran; every other notebook must be stripped.
+          # These four notebooks commit their outputs on purpose, so a reader
+          # sees a full run's results; every other notebook must be stripped.
           ALLOWLIST="arena_prediction_runner bus_message_validation interop_mcp_utcp_clients speaker_verification"
           fail=0
           for nb in notebooks/*.ipynb; do
@@ -61,7 +61,7 @@ jobs:
           exit $fail
       - name: Scan every notebook for private paths and identifiers
         # nbstripout --verify above only looks at the non-allowlisted notebooks;
-        # the four evidence notebooks commit their outputs on purpose and are
+        # the four notebooks that keep their outputs are
         # never scanned for a maintainer's home directory or address without this.
         run: python tools/scan_private_paths.py
 
@@ -159,7 +159,7 @@ jobs:
     env:
       # A neutral, non-home HOME so a plugin's cache directory (vosk's model,
       # for example) resolves under /tmp instead of the runner account's home
-      # and the committed evidence never depends on who or where ran it.
+      # and the committed outputs never depend on who or where ran them.
       HOME: /tmp/evidence-home
     steps:
       - uses: actions/checkout@v4
@@ -177,7 +177,7 @@ jobs:
           uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
           uv pip install --prerelease=allow -r requirements/${{ matrix.notebook }}.txt
       - name: Execute the notebook in place, from a neutral HOME
-        # This is the WP deliverable's own run, not the CI smoke path: no
+        # This is the notebook's full run, not the CI smoke path: no
         # SMOKE/N_SAMPLES/EPOCHS override, so it runs whatever the notebook's
         # own parameters cell declares as its full-run default.
         run: |
