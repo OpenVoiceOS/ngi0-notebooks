@@ -6,8 +6,9 @@ listening when it hears a phrase such as "hey jarvis". You open a notebook
 in your browser, press one button, wait, and read the result at the bottom.
 You do not install anything on your own computer.
 
-The times below are rough: "a few minutes on a machine without a GPU". They
-were not timed on Kaggle or Colab, and nothing was timed on a GPU.
+Most times below are rough: "a few minutes on a machine without a GPU". The
+time of synthetic_ww_dataset was measured on a Kaggle T4 GPU; the others were
+not timed on Kaggle or Colab.
 
 ## Opening a notebook on Kaggle
 
@@ -34,13 +35,17 @@ before you close the tab.
 
 ## What each notebook does
 
-**synthetic_ww_dataset** builds a small folder of spoken examples. A free
-online text-to-speech service says the phrase "hey mycroft" twenty times in
-five voices, and says ten similar-sounding phrases that must not wake an
-assistant. It needs internet and no GPU, and it takes a few minutes. You
-set nothing. At the end the last cell lists the folder `synth_ww_output` and
-prints `Dataset ready`. If you want another phrase, change `WAKE_WORD` in the
-Settings cell before you press Run All.
+**synthetic_ww_dataset** builds a folder of training examples. A speech
+generator, OmniVoice, says the phrase "hey mycroft" about two thousand times,
+each time in a new voice, and the notebook adds ordinary speech, sounds and
+music that must not wake an assistant. Run it with the Accelerator set to a
+GPU and internet on; it took 27 minutes on a Kaggle T4. You set nothing.
+At the end it prints how many clips and voices it made and from which sources,
+then `Dataset ready`; the folder is `synth_ww_output/run_1`, under the Output
+tab on Kaggle. If you want another phrase, change `WAKE_WORD` in the Settings
+cell before you press Run All. To make more data, run it again with a
+different `RUN_ID` in the second cell, and give all the folders to
+kaggle_quickstart_ww through its `DATASET_DIRS`.
 
 **kaggle_quickstart_ww** trains a wake-word model for the phrase "hey mycroft" (or
 any phrase you type). A speech generator, OmniVoice, speaks the phrase in about
@@ -74,7 +79,7 @@ cell; it took more than 45 minutes on a machine without a GPU.
 
 | Notebook | Runs as is | Time without a GPU | GPU | Must set |
 |---|---|---|---|---|
-| synthetic_ww_dataset | yes | a few minutes | no | nothing (internet on) |
+| synthetic_ww_dataset | yes | needs a GPU (27 minutes on a Kaggle T4); the smoke check takes a minute | yes | nothing (internet on) |
 | kaggle_quickstart_ww | yes | needs a GPU for the full run (about an hour); the smoke check takes a few minutes | yes, for the full run | nothing (internet on) |
 | tts2ww_full_pipeline | yes, quick demo | a few minutes | no | nothing (internet on) |
 
