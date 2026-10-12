@@ -1,4 +1,10 @@
-# edge-tts calls the Microsoft Edge read-aloud service: outbound internet is required
-edge-tts>=7.2.8
-nest_asyncio>=1.6.0
-# ffmpeg must be available as a system binary
+# The CI smoke path speaks the phrase with espeak-ng and needs neither torch nor
+# omnivoice. The real run needs a GPU, a torch that matches it (Kaggle and Colab
+# preinstall one, so the notebook never installs it) and omnivoice, which the
+# notebook installs itself.
+numpy>=2.0
+soundfile>=0.14.0
+scipy>=1.11
+huggingface_hub>=0.30
+pyarrow>=15
+# espeak-ng must be available as a system binary for the smoke path

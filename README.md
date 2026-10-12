@@ -30,10 +30,15 @@ Never used a notebook before? [docs/tester-guide.md](docs/tester-guide.md) walks
 through opening the wake-word notebooks on Kaggle or Colab and what each one
 should show at the end.
 
-- **Wake word**: three standalone notebooks, each run on its own.
+- **Wake word**: three notebooks, each of which runs on its own.
   [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) builds a
-  small labelled wake-word dataset (positives and adversarial negatives,
-  written as a `path,label` metadata CSV) on CPU.
+  labelled wake-word dataset on a GPU: about two thousand clips of the phrase,
+  each in a new OmniVoice voice (voice design or cloning of a LibriSpeech
+  speaker), negatives of ordinary speech, sound and music from the
+  `TigreGotico/notwakeword-datasets` collection and AudioSet, and a split into
+  training and test voices that share no voice. It writes `metadata.csv`
+  (`path,label,split,voice_id,source`) and the `path,label` lists `train.csv`
+  and `test.csv` that wakeforge's trainer reads.
   [`kaggle_quickstart_ww.ipynb`](notebooks/kaggle_quickstart_ww.ipynb) generates
   spoken examples of a phrase ("hey mycroft" by default) in about two thousand
   voices with OmniVoice, trains a WakeHuBERT wake-word head (a small GRU on the
@@ -44,6 +49,14 @@ should show at the end.
   and music; the full run needs a GPU and does not use `wakeforge`.
   [`tts2ww_full_pipeline.ipynb`](notebooks/tts2ww_full_pipeline.ipynb) builds a
   larger dataset with augmentation.
+
+  The first two notebooks also chain. To generate data in bulk, run
+  `synthetic_ww_dataset` several times, in parallel, each with a different
+  `RUN_ID`; then set `DATASET_DIRS` in `kaggle_quickstart_ww` to their output
+  folders. The quickstart checks that the folders are for one phrase and share
+  no voice across the split, skips its own voice generation, and trains and
+  measures as before. On Kaggle, attach the finished runs with Add Input,
+  Notebook output, and set `DATASET_DIRS = "/kaggle/input"`.
 - **TTS voice**: build or expand a voice dataset with
   [`tts_dataset_gen.ipynb`](notebooks/tts_dataset_gen.ipynb) (synthetic speech from OmniVoice in one
   voice, on a GPU) or
@@ -62,9 +75,8 @@ should show at the end.
   [`arena_prediction_runner.ipynb`](notebooks/arena_prediction_runner.ipynb)
   locally on CPU.
 
-`synthetic_ww_dataset.ipynb` needs outbound internet access to reach the
-Edge TTS service, and its local install needs the `nest_asyncio` package (see
-"Running locally" below).
+`synthetic_ww_dataset.ipynb` needs internet access and, for its real run, a
+GPU; its `SMOKE` path is for CI only and speaks the phrase with `espeak-ng`.
 
 ---
 
@@ -154,7 +166,7 @@ and hardware; no full-run number is stated here because none was measured.
 | [`speaker_verification.ipynb`](notebooks/speaker_verification.ipynb) | WP2: Speaker verification & enrollment | CPU | 8 s | executed |
 | [`bus_message_validation.ipynb`](notebooks/bus_message_validation.ipynb) | WP1: Bus message schema validation | CPU | 2 s | executed |
 | [`arena_prediction_runner.ipynb`](notebooks/arena_prediction_runner.ipynb) | WP4: STT arena prediction slice | CPU | 8 s | executed |
-| [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) | WP2: Synthetic wake-word mini-dataset | CPU | 7 s | executed |
+| [`synthetic_ww_dataset.ipynb`](notebooks/synthetic_ww_dataset.ipynb) | WP2: Synthetic wake-word dataset (OmniVoice positives, speaker-disjoint split) | GPU (T4 or better) for a full run; CPU for the smoke path | 24 s, on a Kaggle CPU | executed |
 
 The `smoke` CI job runs every notebook in `notebooks/` on every push, with
 `SMOKE=True` and a handful of samples; the matrix is discovered from the
