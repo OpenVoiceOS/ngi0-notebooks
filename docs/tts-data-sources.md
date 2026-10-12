@@ -524,7 +524,7 @@ No open corpus or human-like TTS is known.
 
 | Engine | Variety | Open weights | Basis |
 |---|---|---|---|
-| [Azure neural voices](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts) through [ovos-tts-plugin-edge-tts](https://pypi.org/project/ovos-tts-plugin-edge-tts/) | European (pt-PT locale) | no | not measured |
+| [Azure neural voices](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts) | European (pt-PT locale) | no | not measured |
 | [Piper](https://github.com/rhasspy/piper/blob/master/VOICES.md) (tugão, medium) | European | yes | not measured |
 
 ### Romani (rom)

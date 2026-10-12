@@ -1,7 +1,6 @@
 # Pre-release channel: pip install --pre -r this file
 huggingface_hub>=0.36.0
-# Only needed for the built-in demo path (no manifest given):
-edge-tts>=7.2.8
-nest-asyncio>=1.6.0
 soundfile>=0.14.0
-# ffmpeg must be available as a system binary (only for the built-in demo)
+# Only needed for the built-in demo path (no manifest given), which speaks its
+# clips with OmniVoice on a GPU and needs a torch that matches it:
+omnivoice>=0.2.1

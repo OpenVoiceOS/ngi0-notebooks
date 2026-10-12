@@ -6,9 +6,9 @@ listening when it hears a phrase such as "hey jarvis". You open a notebook
 in your browser, press one button, wait, and read the result at the bottom.
 You do not install anything on your own computer.
 
-Most times below are rough: "a few minutes on a machine without a GPU". The
-time of synthetic_ww_dataset was measured on a Kaggle T4 GPU; the others were
-not timed on Kaggle or Colab.
+Most times below are rough. The times of synthetic_ww_dataset and of the
+tts2ww_full_pipeline quick demo were measured on a Kaggle T4 GPU; the others
+were not timed on Kaggle or Colab.
 
 ## Opening a notebook on Kaggle
 
@@ -64,16 +64,17 @@ performs in a home. You also get the model file `best_f1.onnx` and
 in the wakeforge sense. `SMOKE = True` in the second cell runs a few-minute
 check that only proves the steps run.
 
-**tts2ww_full_pipeline** builds a larger practice set. It uses several online
-text-to-speech voices to say your phrase, adds similar-sounding phrases that
-must not wake the assistant, and can add noise and room echo when you give it
-folders of sounds. By default it runs a quick demo with 32 examples; it
-needs internet, no GPU, and a few minutes. You set nothing. At the end a summary
-table lists how many files each stage wrote, and a final line names the
-folder it wrote. Stages that need folders you did not
-provide say they were skipped; that is normal. The full set, 900 examples per
-phrase, is chosen by changing `SMOKE = True` to `SMOKE = False` in the second
-cell; it took more than 45 minutes on a machine without a GPU.
+**tts2ww_full_pipeline** builds a larger practice set of your phrase. The
+OmniVoice speech generator says it in a new voice for every clip, each voice
+designed from a short description such as "female, young adult, moderate
+pitch", and the notebook can add noise and room echo when you give it folders
+of sounds. Every clip says the phrase: the notebook makes no examples that
+must not wake the assistant. By default it runs a quick demo with 32 examples;
+it needs internet and a GPU, and took under three minutes on a Kaggle T4. You set nothing. At the end a
+summary table lists how many files each stage wrote, and a final line names
+the folder it wrote. Stages that need folders you did not provide say they
+were skipped; that is normal. The full set, 900 examples per phrase, is chosen
+by changing `SMOKE = True` to `SMOKE = False` in the second cell.
 
 ## At a glance
 
@@ -81,7 +82,7 @@ cell; it took more than 45 minutes on a machine without a GPU.
 |---|---|---|---|---|
 | synthetic_ww_dataset | yes | needs a GPU (27 minutes on a Kaggle T4); the smoke check takes a minute | yes | nothing (internet on) |
 | kaggle_quickstart_ww | yes | needs a GPU for the full run (about an hour); the smoke check takes a few minutes | yes, for the full run | nothing (internet on) |
-| tts2ww_full_pipeline | yes, quick demo | a few minutes | no | nothing (internet on) |
+| tts2ww_full_pipeline | yes, quick demo | needs a GPU (under three minutes on a Kaggle T4) | yes | nothing (internet on) |
 
 ## If something goes wrong
 

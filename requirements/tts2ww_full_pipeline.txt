@@ -1,8 +1,7 @@
-requests>=2.32
 click>=8.1
-ovos_tts_plugin_edge_tts>=0.3.5a1
-ovos_tts_plugin_google_tx>=1.0.5a4
-ovos_tts_plugin_piper>=0.2.6a2
+# OmniVoice speaks every clip on a GPU and needs a torch that matches it
+# (Kaggle and Colab preinstall one)
+omnivoice>=0.2.1
 voiceclonnx>=0.0.3a3
 onnxruntime>=1.30.0
 rich>=13.7
