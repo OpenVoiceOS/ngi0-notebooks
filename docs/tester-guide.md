@@ -37,9 +37,13 @@ before you close the tab.
 
 **synthetic_ww_dataset** builds a folder of training examples. A speech
 generator, OmniVoice, says the phrase "hey mycroft" about two thousand times,
-each time in a new voice, and the notebook adds ordinary speech, sounds and
-music that must not wake an assistant. Run it with the Accelerator set to a
-GPU and internet on; it took 27 minutes on a Kaggle T4. You set nothing.
+and the notebook adds ordinary speech, sounds and music that must not wake an
+assistant. Most voices are invented from a short description; the rest copy a
+real person from a single spoken word. Voices are distinct as far as the
+notebook can tell: the split cannot exclude that two descriptions sound alike,
+and copied voices are kept apart by their speaker ids. Run it with the
+Accelerator set to a GPU and internet on; it took 21 minutes on a Kaggle T4.
+You set nothing.
 At the end it prints how many clips and voices it made and from which sources,
 then `Dataset ready`; the folder is `synth_ww_output/run_1`, under the Output
 tab on Kaggle. If you want another phrase, change `WAKE_WORD` in the Settings
@@ -49,7 +53,7 @@ kaggle_quickstart_ww through its `DATASET_DIRS`.
 
 **kaggle_quickstart_ww** trains a wake-word model for the phrase "hey mycroft" (or
 any phrase you type). A speech generator, OmniVoice, speaks the phrase in about
-two thousand new voices; the notebook adds ordinary speech, sound and music from
+two thousand voices; the notebook adds ordinary speech, sound and music from
 public datasets, trains a small model, retrains it on the speech and sound it
 wrongly likes, chooses a detection threshold on a separate two-hour stream, and
 loads the model through the OVOS wake-word plugin. Run it with the Accelerator
@@ -80,7 +84,7 @@ by changing `SMOKE = True` to `SMOKE = False` in the second cell.
 
 | Notebook | Runs as is | Time without a GPU | GPU | Must set |
 |---|---|---|---|---|
-| synthetic_ww_dataset | yes | needs a GPU (27 minutes on a Kaggle T4); the smoke check takes a minute | yes | nothing (internet on) |
+| synthetic_ww_dataset | yes | needs a GPU (21 minutes on a Kaggle T4); the smoke check takes a minute | yes | nothing (internet on) |
 | kaggle_quickstart_ww | yes | needs a GPU for the full run (about an hour); the smoke check takes a few minutes | yes, for the full run | nothing (internet on) |
 | tts2ww_full_pipeline | yes, quick demo | needs a GPU (under three minutes on a Kaggle T4) | yes | nothing (internet on) |
 
