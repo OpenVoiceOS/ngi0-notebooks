@@ -29,6 +29,66 @@ runnable, honest about what it needs, and clean in git history.
 - Each notebook has its own `requirements/<notebook-stem>.txt`. Add a new
   dependency there, not only inline in the notebook.
 
+## Notebook style
+
+The readers are end users, and many have never programmed. A notebook is
+written so that such a reader can press Run All and understand what they got.
+`kaggle_quickstart_ww` is the worked example: copy its shape.
+
+**Cells, in this order.**
+
+1. One markdown cell: `# <Title>`, the Open in Kaggle and Open in Colab
+   badges, then `## Start here` in three to five short sentences: what you
+   get, how long it takes, whether it needs a GPU, and the one thing to
+   change.
+2. The Settings cell, tagged `parameters` (see the next section). It holds
+   only what a beginner would change, each with a short comment, and
+   whichever of `SMOKE`, `N_SAMPLES` and `EPOCHS` apply.
+3. An "Advanced settings" cell with every other setting, each a plain
+   variable with its default.
+4. Numbered steps. Each is a heading `## Step N — <what happens>`, at most
+   two short sentences, then the code.
+5. `## What you got`: where the result is, how to use it in OVOS, and the
+   measured numbers with one sentence on how to read them.
+6. The closing markdown cell: the funding credit from the Credits section of
+   `README.md`, the one-line AI-assistance note, and the line
+   `Licensed under Apache-2.0.`
+
+**Prose.** Short sentences and everyday words. A technical word gets a gloss
+of about five words where it first appears. Say what a step does, not how it
+was designed. Keep a caveat only if it changes what the reader does: for
+example, that the numbers describe one run. Detail for a curious reader goes
+into one collapsible `<details>` block per step, or is cut. No dates and no
+account of how the notebook changed.
+
+**Code.** Keep every check that protects the result, such as an assertion that
+no voice is in both the training and the test data. Remove branches that
+cannot run, helpers that repeat each other and checks that cannot trigger.
+Settings are plain variables, not environment variables.
+
+Helper code that a beginner should not have to read goes into hidden cells.
+A hidden cell has the metadata `{"jupyter": {"source_hidden": true},
+"_kg_hide-input": true, "cellView": "form"}` and starts with the line
+`#@title Code for step N: <what it defines>`. JupyterLab and Kaggle collapse
+such a cell and Colab shows only the title; `nbstripout` keeps the metadata.
+The visible cell of a step then calls the helpers by name, one short
+commented line each.
+
+**Output.** Each step prints one line in plain words, such as `Step 3 done:
+...`, and the last code cell prints a summary. Tables and traces print only
+when the Advanced setting `SHOW_DETAILS` is `True`. An error a beginner can
+cause says what to click: no GPU, no internet, a wrong folder.
+
+The hardware a notebook needs goes in the Needs column of the notebook index
+in `README.md`; how long it takes goes in its "Start here". A notebook that
+opens with a
+`| Field | Value |` summary table and a `CI:` line follows an older template;
+give it this shape when you rework it, and do not start a notebook that way.
+
+A notebook may default `SMOKE` to `True` when its full run takes hours, so
+that Run All with no edits finishes in minutes; its "Start here" then says
+that the full run is a one-word change. `docs/tester-guide.md` describes the
+wake-word notebooks for a first-time tester.
 ## Header and footer template
 
 The first cell of every notebook is a single markdown cell with:
@@ -138,5 +198,5 @@ and they are run on Kaggle with a GPU selected.
 2. Run the smoke path for every notebook you touched and confirm the exit
    code; for a notebook that speaks with OmniVoice, run it on Kaggle with a
    GPU.
-3. Keep the README's notebook index in sync: task, hardware, wall time, and
-   CI status per notebook.
+3. Keep the README's notebook index in sync: what each notebook does and what
+   it needs.
