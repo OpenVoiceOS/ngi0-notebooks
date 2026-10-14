@@ -63,6 +63,11 @@ GPU, and the one thing to set (usually nothing). And `SMOKE` defaults to
 minutes; the full run is a one-word change in the parameters cell. `docs/tester-guide.md` describes these
 three notebooks for a first-time tester.
 
+`ww_train_streaming` has the same badges and "Start here" section, but it
+trains on a dataset made by `synthetic_ww_dataset`, so the one thing to set is
+`DATASET_DIRS`. `SMOKE` defaults to `False`, and Run All with `DATASET_DIRS`
+empty stops with a message that says what to set.
+
 The last cell of every notebook is a markdown cell with the funding credit
 from the Credits section of `README.md`, the one-line AI-assistance note, and
 the closing line `Licensed under Apache-2.0.`

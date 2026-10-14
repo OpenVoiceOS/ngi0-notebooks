@@ -1,0 +1,16 @@
+# The streaming wake-word trainer. It needs the OVOS wake-word plugin
+# (ovos-ww-plugin-wakeforge), which loads the trained model and runs the
+# streaming featurizer. It does not need the separate wakeforge training
+# toolkit; torch trains the model here. Kaggle and Colab preinstall a matching
+# torch, so the notebook never installs one; CI and a local run take it from
+# this file.
+ovos-ww-plugin-wakeforge>=0.18.0a1
+torch>=2.11.0
+onnx>=1.22.0
+onnxruntime>=1.30.0
+numpy>=2.0
+soundfile>=0.14.0
+scipy>=1.11
+huggingface_hub>=0.30
+pyarrow>=15
+# espeak-ng must be available as a system binary for the smoke path
