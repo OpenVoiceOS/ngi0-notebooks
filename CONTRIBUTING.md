@@ -89,6 +89,48 @@ A notebook may default `SMOKE` to `True` when its full run takes hours, so
 that Run All with no edits finishes in minutes; its "Start here" then says
 that the full run is a one-word change. `docs/tester-guide.md` describes the
 wake-word notebooks for a first-time tester.
+## Header and footer template
+
+The first cell of every notebook is a single markdown cell with:
+
+1. `# <Title>`
+2. A one-line purpose statement (a notebook with more to say about its own
+   pipeline, inputs or outputs may add as much prose, and as many of its own
+   tables, as it needs after this point; the summary table below still
+   appears, even when a fuller explanation follows it).
+3. A table with rows Inputs, Outputs, Runtime, Hardware, Cost (header row
+   `| Field | Value |`). The Cost row states time or hardware, the same as
+   Runtime and Hardware — none of the notebooks here spend money, so no Cost
+   row ever states one.
+4. A line stating exactly `CI: linted, compiled under Python 3.11 and 3.12,
+   and executed on the smoke path.`, since every notebook in `notebooks/` is
+   linted, compiled and smoke-run by `ci.yml` (the notebooks that keep their
+   outputs are additionally re-executed in full by the `evidence` job). The
+   exception is a notebook that speaks with OmniVoice: OmniVoice needs a GPU
+   and the CI runners have none, so `ci.yml` lists it as GPU-only and its line
+   reads `CI: linted and compiled under Python 3.11 and 3.12.`, followed by
+   why it is run on Kaggle instead. A sentence of real detail may follow it
+   in the same paragraph (for example, which branch the SMOKE path takes, or
+   what the full run needs that CI does not exercise).
+
+The three wake-word notebooks (`synthetic_ww_dataset`, `kaggle_quickstart_ww`,
+`tts2ww_full_pipeline`) are written for people who do not program, so their
+first cell differs from the template in two ways. It opens with the title
+and the Open in Kaggle and Open in Colab badges, then a "Start here" section
+in plain words: what the notebook does, how long it takes, whether it needs a
+GPU, and the one thing to set (usually nothing). And `SMOKE` defaults to
+`True` where a full run is long, so that Run All with no edits finishes in
+minutes; the full run is a one-word change in the parameters cell. `docs/tester-guide.md` describes these
+three notebooks for a first-time tester.
+
+`ww_train_streaming` has the same badges and "Start here" section, but it
+trains on a dataset made by `synthetic_ww_dataset`, so the one thing to set is
+`DATASET_DIRS`. `SMOKE` defaults to `False`, and Run All with `DATASET_DIRS`
+empty stops with a message that says what to set.
+
+The last cell of every notebook is a markdown cell with the funding credit
+from the Credits section of `README.md`, the one-line AI-assistance note, and
+the closing line `Licensed under Apache-2.0.`
 
 ## The parameters cell
 
