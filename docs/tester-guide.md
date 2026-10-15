@@ -97,7 +97,8 @@ session times out, press Run All again; nothing needs to be repaired by hand.
 
 If `kaggle_quickstart_ww` stops with a red error that begins with "The real run needs a GPU" or
 mentions the Accelerator, switch the Accelerator to a GPU in the Kaggle settings
-and press Run All again.
+and press Run All again. On Colab, open the Runtime menu, choose Change runtime
+type, pick a T4 GPU, Save, and choose Run all again.
 
 If it stops with a message that the disk is almost full, get a fresh disk. On
 Colab choose Runtime, then Disconnect and delete runtime, and open the

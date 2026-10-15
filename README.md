@@ -23,7 +23,7 @@ Notebooks for [OpenVoiceOS](https://openvoiceos.org): wake words, text-to-speech
 | [`bus_message_validation`](notebooks/bus_message_validation.ipynb) | Check OVOS bus messages against their schemas | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/bus_message_validation.ipynb) |
 | [`arena_prediction_runner`](notebooks/arena_prediction_runner.ipynb) | Run a speech recogniser over a test set for the plugin arena | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/arena_prediction_runner.ipynb) |
 
-On Kaggle, turn on **Internet** and, for a GPU notebook, pick a **GPU** accelerator in the notebook settings. New to notebooks? Read the [tester guide](docs/tester-guide.md); the TTS dataset steps and their order are in [docs/pipeline.md](docs/pipeline.md).
+On Kaggle, turn on **Internet** and, for a GPU notebook, pick a **GPU** accelerator in the notebook settings. On Colab, Internet is always on; for a GPU notebook open the **Runtime** menu, choose **Change runtime type**, pick a **T4 GPU** and **Save**. New to notebooks? Read the [tester guide](docs/tester-guide.md); the TTS dataset steps and their order are in [docs/pipeline.md](docs/pipeline.md).
 
 Licensed under the [Apache License 2.0](LICENSE). To change a notebook, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
