@@ -1,9 +1,11 @@
 # GPU training notebook. phoonnx[train] and torch are installed by the
-# notebook into its own venv (see section "Install dependencies"); this file
-# covers only what the outer kernel needs: uv itself, downloading the
-# dataset, and speaking the smoke-path fixture with OmniVoice, which needs a
-# GPU and a torch that matches it (Kaggle and Colab preinstall one).
+# notebook into its own venv (see "Step 2 · Install"); this file covers only
+# what the outer kernel needs: uv itself, downloading the base voice and the
+# dataset, reading and resampling the clips, and speaking the smoke-path
+# fixture with OmniVoice, which needs a GPU and a torch that matches it
+# (Kaggle and Colab preinstall one).
 uv>=0.4.0
 huggingface_hub>=0.36.0
 omnivoice>=0.2.1
 soundfile>=0.14.0
+scipy>=1.10.0
