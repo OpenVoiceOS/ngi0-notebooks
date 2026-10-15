@@ -28,7 +28,7 @@ from `STT_MODULE`, an explicit OVOS STT plugin name.
 | 7 | [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb): measure | converted manifest | converted manifest with scores added |
 | 8 | [`tts_select.ipynb`](../notebooks/tts_select.ipynb): select | converted manifest with scores | selection file for training |
 | 9 | [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb): publish | manifest and selection | Hugging Face dataset: audio, `metadata.csv` and the full manifest |
-| 10 | [`train_vits.ipynb`](../notebooks/train_vits.ipynb) | published dataset (`metadata.csv`) | TTS model |
+| 10 | [`train_vits.ipynb`](../notebooks/train_vits.ipynb) | folders written by `tts_dataset_gen`, or a published dataset (`metadata.csv`) | TTS model |
 
 Steps 5 and 8 are optional. When you skip step 5, voice conversion takes every row.
 
