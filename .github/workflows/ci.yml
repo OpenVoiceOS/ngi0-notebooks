@@ -11,7 +11,7 @@ jobs:
     name: nbformat + nbstripout lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -71,7 +71,7 @@ jobs:
     outputs:
       matrix: ${{ steps.list.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: List every notebook and require its requirements file
         id: list
         run: |
@@ -103,7 +103,7 @@ jobs:
       matrix:
         python-version: ["3.11", "3.12"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -120,7 +120,7 @@ jobs:
       matrix:
         notebook: ${{ fromJSON(needs.discover.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y ffmpeg sox espeak-ng
       - name: Install uv
@@ -167,7 +167,7 @@ jobs:
       # and the committed outputs never depend on who or where ran them.
       HOME: /tmp/evidence-home
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y ffmpeg sox espeak-ng
       - name: Install uv
