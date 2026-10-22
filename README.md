@@ -1,29 +1,53 @@
 # OpenVoiceOS Notebooks
 
-Notebooks for [OpenVoiceOS](https://openvoiceos.org): wake words, text-to-speech voices and datasets, intents and more. Press a button to open a notebook on Kaggle, then **Run All**.
+These notebooks make wake words and text-to-speech voices for [OpenVoiceOS](https://openvoiceos.org), an open source
+voice assistant, and test some of its parts. Each notebook runs for free in your browser on Kaggle. Click "Open in
+Kaggle", turn on Internet (and a GPU when the table says so), and click Run All. You do not need to install anything.
+
+New to notebooks? The [getting started guide](docs/getting-started.md) explains Kaggle and Colab step by step. The
+[documentation index](docs/index.md) lists every guide. You can also let an AI coding agent run the notebooks for
+you: see [Use an AI coding agent](docs/ai-agents.md).
+
+## Wake words
+
+A wake word is the phrase that makes the assistant start to listen, for example "hey mycroft". Start with
+`kaggle_quickstart_ww`: it makes a wake-word model for any phrase, from start to end. [Train a wake word](docs/wake-words.md)
+explains this group.
 
 | Notebook | What it does | Needs | Run |
 |---|---|---|---|
 | [`kaggle_quickstart_ww`](notebooks/kaggle_quickstart_ww.ipynb) | Train a wake-word model for any phrase, start to finish | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/kaggle_quickstart_ww.ipynb) |
-| [`synthetic_ww_dataset`](notebooks/synthetic_ww_dataset.ipynb) | Make a wake-word dataset; run several in parallel and train the quickstart on them | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/synthetic_ww_dataset.ipynb) |
+| [`synthetic_ww_dataset`](notebooks/synthetic_ww_dataset.ipynb) | Make a wake-word dataset. Run it several times, and train the quickstart on all the runs | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/synthetic_ww_dataset.ipynb) |
 | [`ww_train_streaming`](notebooks/ww_train_streaming.ipynb) | Train a streaming wake-word model from a dataset made by `synthetic_ww_dataset` | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/ww_train_streaming.ipynb) |
-| [`tts2ww_full_pipeline`](notebooks/tts2ww_full_pipeline.ipynb) | Build a larger wake-word practice set with noise and room echo | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts2ww_full_pipeline.ipynb) |
-| [`tts_dataset_gen`](notebooks/tts_dataset_gen.ipynb) | Make a TTS dataset by synthesising text prompts in one voice | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_dataset_gen.ipynb) |
+| [`tts2ww_full_pipeline`](notebooks/tts2ww_full_pipeline.ipynb) | Make a larger set of examples of your phrase, with noise and room echo | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts2ww_full_pipeline.ipynb) |
+
+## Text-to-speech voices
+
+A text-to-speech (TTS) voice reads text aloud. Start with `tts_dataset_gen`, which makes a dataset in one voice, and
+then `train_vits`, which trains the voice. [Train a TTS voice](docs/pipeline.md) explains this group, with two
+complete tutorials.
+
+| Notebook | What it does | Needs | Run |
+|---|---|---|---|
+| [`tts_dataset_gen`](notebooks/tts_dataset_gen.ipynb) | Make a dataset: a speech model reads about 2,000 sentences in your language, in one voice | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_dataset_gen.ipynb) |
+| [`train_vits`](notebooks/train_vits.ipynb) | Train the voice, starting from a finished voice, and export it as an `.onnx` file | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/train_vits.ipynb) |
 | [`asr2tts`](notebooks/asr2tts.ipynb) | Turn transcribed recordings, such as Common Voice, into a single-voice TTS dataset | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/asr2tts.ipynb) |
-| [`tts_corpus_ingest`](notebooks/tts_corpus_ingest.ipynb) | Read a speech corpus into a dataset manifest | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_corpus_ingest.ipynb) |
-| [`tts_enhance`](notebooks/tts_enhance.ipynb) | Denoise and clean every clip of a dataset | CPU; GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_enhance.ipynb) |
-| [`tts_voice_convert`](notebooks/tts_voice_convert.ipynb) | Convert every clip of a dataset to a target voice | CPU; GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_voice_convert.ipynb) |
-| [`tts_measure`](notebooks/tts_measure.ipynb) | Score every clip of a dataset for quality | GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_measure.ipynb) |
+| [`tts_corpus_ingest`](notebooks/tts_corpus_ingest.ipynb) | Read existing recordings into a list of clips for the next notebooks | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_corpus_ingest.ipynb) |
+| [`tts_enhance`](notebooks/tts_enhance.ipynb) | Remove noise and restore the sound of every clip | CPU, or a GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_enhance.ipynb) |
+| [`tts_measure`](notebooks/tts_measure.ipynb) | Give every clip quality scores | GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_measure.ipynb) |
 | [`tts_select`](notebooks/tts_select.ipynb) | Keep the best clips of a dataset | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_select.ipynb) |
+| [`tts_voice_convert`](notebooks/tts_voice_convert.ipynb) | Convert every clip of a dataset to a target voice | CPU, or a GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_voice_convert.ipynb) |
 | [`tts_publish`](notebooks/tts_publish.ipynb) | Publish a finished dataset to Hugging Face | GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_publish.ipynb) |
-| [`train_vits`](notebooks/train_vits.ipynb) | Train a TTS voice and export it to ONNX | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/train_vits.ipynb) |
+
+## Other notebooks
+
+| Notebook | What it does | Needs | Run |
+|---|---|---|---|
 | [`ovos_intent_eval_and_train`](notebooks/ovos_intent_eval_and_train.ipynb) | Measure the published intent classifiers, language by language | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/ovos_intent_eval_and_train.ipynb) |
 | [`speaker_verification`](notebooks/speaker_verification.ipynb) | Enrol a speaker and verify them by voice | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/speaker_verification.ipynb) |
 | [`interop_mcp_utcp_clients`](notebooks/interop_mcp_utcp_clients.ipynb) | Call the OVOS TTS and STT servers through MCP and UTCP | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/interop_mcp_utcp_clients.ipynb) |
 | [`bus_message_validation`](notebooks/bus_message_validation.ipynb) | Check OVOS bus messages against their schemas | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/bus_message_validation.ipynb) |
-| [`arena_prediction_runner`](notebooks/arena_prediction_runner.ipynb) | Run a speech recogniser over a test set for the plugin arena | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/arena_prediction_runner.ipynb) |
-
-On Kaggle, turn on **Internet** and, for a GPU notebook, pick a **GPU** accelerator in the notebook settings. On Colab, Internet is always on; for a GPU notebook open the **Runtime** menu, choose **Change runtime type**, pick a **T4 GPU** and **Save**. New to notebooks? Read the [tester guide](docs/tester-guide.md); the TTS dataset steps and their order are in [docs/pipeline.md](docs/pipeline.md).
+| [`arena_prediction_runner`](notebooks/arena_prediction_runner.ipynb) | Run a speech recogniser over a test set, for the OVOS plugin comparison (the plugin arena) | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/arena_prediction_runner.ipynb) |
 
 Licensed under the [Apache License 2.0](LICENSE). To change a notebook, see [CONTRIBUTING.md](CONTRIBUTING.md).
 

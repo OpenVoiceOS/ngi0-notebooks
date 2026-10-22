@@ -1,55 +1,76 @@
+<!-- For AI agents: read AGENTS.md at the root of this repository. -->
+
 # Manifest format
 
-A manifest is a JSON Lines file: one JSON object per line, and one line per clip. A sidecar file
-with the same name and the suffix `.meta.json` records the notebooks that wrote the manifest, each
-by its plain stem (for example `asr2tts`, not `asr2tts.ipynb` or `tts_measure (demo)`).
+The TTS dataset notebooks pass a list of audio clips from one notebook to the next. This list is a file called a
+manifest. You need this page only if you want to read a manifest yourself, or write one with your own tools. To use the
+notebooks, read [the TTS dataset pipeline](pipeline.md) instead.
 
-Audio paths are relative to the manifest's directory. So you can move or upload a dataset as one
-directory.
+A manifest is a JSON Lines file: each line is one JSON object, and each object describes one clip. Next to the manifest
+there is a second file with the same name and the extension `.meta.json`. Its `notebooks` key lists the notebooks
+that wrote the manifest, by their names without `.ipynb`, for example `["asr2tts"]`.
 
-## Row fields
+The path to each audio file is relative to the folder of the manifest. So you can move or upload a dataset as one
+folder, and the paths still work.
+
+## Fields of a clip
 
 | Field | Type | Written by | Meaning |
 |---|---|---|---|
-| `id` | string | the step that creates the row | Unique in the manifest. It does not change in later steps. |
-| `text` | string | prompts, corpus ingest | The text of record for the clip. |
-| `lang` | string | prompts, corpus ingest | BCP-47 tag with the variety, for example `pt-PT` or `ca-ES-valencia`. |
-| `audio` | string | synthesis, ingest, enhancement, conversion | Path to a WAV file, relative to the manifest. |
-| `duration_s` | number | the step that writes `audio` | Audio duration in seconds. |
-| `sample_rate` | integer | the step that writes `audio` | Sample rate of the WAV file. |
-| `source` | object | synthesis, ingest | Where the speech comes from: `{"kind": "tts", "plugin": ..., "voice": ..., "version": ...}` or `{"kind": "corpus", "name": ..., "url": ..., "item": ...}`. |
-| `speaker` | string | ingest | The source speaker, where the corpus names one. |
-| `parent_id` | string | enhancement, conversion | The `id` of the row that this audio was made from. |
-| `identity` | string | conversion | The target voice name: any value in `IDENTITIES` (`miro` and `dii` for the published TTS voice datasets), a notebook's own reference-voice names (`asr2tts` writes its `REF_VOICES_DIR` file stems, for example `ref_a`), or `demo` for a notebook's built-in demo. |
-| `provenance` | object | enhancement | The engine and options behind each enhancement stage applied: `{"denoise": {"engine": ..., "options": ...} or null, "enhance": {"engine": ..., "options": ...} or null}`. |
-| `selected` | boolean | publish | Whether the row passed selection and was copied into the published dataset. |
-| `scores` | object | measure | One key for each measurement (see below). |
+| `id` | string | the notebook that makes the clip | A name for the clip. It is unique in the manifest, and no later notebook changes it. |
+| `text` | string | `tts_dataset_gen`, `tts_corpus_ingest`, `asr2tts` | The words spoken in the clip. |
+| `lang` | string | `tts_dataset_gen`, `tts_corpus_ingest`, `asr2tts` | The language code, with the country or dialect when there is one, for example `pt-PT` or `ca-ES-valencia`. The format is BCP-47. |
+| `audio` | string | every notebook that makes audio | The path to the WAV file, relative to the manifest. |
+| `duration_s` | number | every notebook that makes audio | The length of the audio, in seconds. |
+| `sample_rate` | integer | every notebook that makes audio | The sample rate of the WAV file. |
+| `source` | object | `tts_dataset_gen`, `tts_corpus_ingest`, `asr2tts` | Where the speech comes from. For a speech model: `{"kind": "tts", "plugin": ..., "voice": ..., "version": ...}`. For recordings: `{"kind": "corpus", "name": ..., "url": ..., "item": ...}`. |
+| `speaker` | string | `tts_corpus_ingest` | The original speaker, when the recordings name one. |
+| `parent_id` | string | `tts_enhance`, `tts_voice_convert`, `asr2tts` | The `id` of the clip that this clip was made from. |
+| `identity` | string | `tts_voice_convert`, `asr2tts` | The name of the target voice. `tts_voice_convert` uses the names in `IDENTITIES`: `identity_a` and `identity_b` by default, or names you choose, such as `miro` and `dii`. `asr2tts` uses the file names of its reference recordings, for example `ref_a`. A built-in demo uses `demo`. |
+| `provenance` | object | `tts_enhance` | Which tool cleaned the clip, and with which options: `{"denoise": {"engine": ..., "options": ...} or null, "enhance": {"engine": ..., "options": ...} or null}`. |
+| `selected` | boolean | `tts_publish` | True when the clip passed the selection and went into the published dataset. |
+| `scores` | object | `tts_measure`, `asr2tts` | The quality measurements of the clip. The next section lists them. |
 
-A step adds fields. It does not change a field that an earlier step wrote. A step that makes new
-audio (enhancement, conversion) writes new rows, and each new row points to its parent row with
+A notebook adds fields, but it does not change a field that an earlier notebook wrote. A notebook that makes new
+audio, such as `tts_enhance` or `tts_voice_convert`, writes new clips. Each new clip names the clip it was made from in
 `parent_id`.
 
 ## Scores
 
-Each key in `scores` names one measurement:
+Each key in `scores` is one measurement. The naturalness scores (UTMOS, DNSMOS and NISQA) each estimate the mark that
+human listeners would give the clip, from 1 to 5. A key that ends in `cos` is a cosine similarity: a number that
+compares two sets of measurements, where 1 means the same and 0 means not related.
 
 | Key | Meaning |
 |---|---|
-| `utmos`, `dnsmos_sig`, `dnsmos_bak`, `dnsmos_ovrl`, `nisqa_mos` | Naturalness estimates from speechonnxmetrics |
-| `spk_cos` | Cosine similarity between the clip's speaker embedding and the identity reference |
-| `echo_cos` | Cosine similarity between the clip's loudness envelope and the reference's envelope. A high value means that the clip is the reference itself. |
-| `len_diff_s` | Converted duration minus parent duration, in seconds |
-| `hyp` | The transcript from the recogniser named in `STT_MODULE` |
-| `cer` | Character error rate of `hyp` against `text`, after text normalisation |
-| `read_wer` | Word error rate between the readings of the clip and of its parent |
+| `utmos`, `nisqa_mos` | How natural the whole clip sounds, from [speechonnxmetrics](https://pypi.org/project/speechonnxmetrics/). Higher is better. |
+| `dnsmos_sig`, `dnsmos_bak`, `dnsmos_ovrl` | DNSMOS marks for the voice, for the background noise, and for the clip overall. Higher is better. |
+| `spk_cos` | How close the voice of the clip is to the reference recording of the target voice. Higher is closer. |
+| `spk_cos_source` | How close the original recording is to the target voice, before the voice change. Compare it with `spk_cos` to see how much the voice change helped. |
+| `echo_cos` | How close the loudness pattern of the clip is to that of the reference recording. A value near 1 means that the clip is a copy of the reference recording, not new speech. The example rules in `tts_select` remove a clip at 0.85 or more. |
+| `len_diff_s` | The length of the clip minus the length of the clip it was made from, in seconds. |
+| `hyp` | The words that the speech recogniser heard. `tts_measure` uses the recogniser in `STT_MODULE`. `asr2tts` uses `ASR_MODEL` or `ASR_STT_MODULE`. |
+| `cer` | The character error rate: the part of the characters in `hyp` that differ from `text`. Case and punctuation are ignored. Lower is better. |
+| `read_wer` | The part of the words that differ between two transcripts: of this clip, and of the clip it was made from. Lower is better. |
 
-The `.meta.json` sidecar records the instrument behind each key: the package, its version and the
-model. A measurement that a step could not make is absent, not zero.
+The `.meta.json` file records the tool behind each score: the package, its version and the model. When a notebook
+cannot make a measurement, the key is absent. It is never written as zero.
 
-`asr2tts` fills `dnsmos_sig`, `dnsmos_bak`, `dnsmos_ovrl` (and `nisqa_mos` when selected), `hyp` and `cer` on its source rows, and `spk_cos`, `utmos`, `hyp` and `cer` on its converted rows (the transcript check runs on the converted audio too, which is what a TTS model trains on). The DNSMOS and NISQA values of a source row describe its denoised clip before trimming and normalising. Its sidecar also carries `gates` (the threshold, counts and hours of each gate) and `distributions` (n, p10, p50 and p90 of each score).
+`asr2tts` writes scores at two points. On each original recording, it writes `dnsmos_sig`, `dnsmos_bak`, `dnsmos_ovrl`,
+and `nisqa_mos` when you select it, together with `hyp` and `cer`. These DNSMOS and NISQA values describe the recording
+after noise removal. `asr2tts` measures them before it cuts the silence and makes the loudness equal. On each clip in the target voice, it
+writes `spk_cos_source`, `spk_cos`, `utmos`, `hyp` and `cer`. Its `.meta.json` file also has two more keys. `gates`
+gives, for each quality check, its limit, the number of clips before and after the check, the number of clips
+that failed, and the hours before and after. `distributions`
+gives, for each score, the number of clips and the 10th, 50th and 90th percentiles.
 
 ## Selection files
 
-A selection file is a JSON Lines file of kept `id` values. Its `.meta.json` sidecar records each
-rule and the number of rows that the rule removed. A trainer reads a manifest and a selection
-together.
+`tts_select` writes a selection file. It is a JSON Lines file with one kept `id` on each line. Its `.meta.json` file
+records each rule and the number of clips that the rule removed. `tts_voice_convert` and `tts_publish` read a manifest
+and a selection file together.
+
+---
+
+[Index](index.md) · [Getting started](getting-started.md) · [Wake words](wake-words.md) · [TTS voice](pipeline.md) ·
+[Speech sources](tts-approaches.md) · [AI coding agents](ai-agents.md)
