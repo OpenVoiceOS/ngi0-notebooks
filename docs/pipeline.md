@@ -35,15 +35,10 @@ see that they work.
 
 The output of one notebook is the input of the next. On Kaggle, run the first notebook with Save Version, Save & Run
 All. When the version is complete, open the next notebook, click Add Input, select Notebook output, and add the first
-notebook. Its files are then under `/kaggle/input/`. Files under `/kaggle/input/` cannot be changed. Some notebooks
-write their result beside their input file, so copy the input to the writable folder first. Add a code cell with this
-line, and run it:
-
-```
-!cp -r /kaggle/input/<name of the first notebook> /kaggle/working/
-```
-
-Then use the paths under `/kaggle/working/` in the settings cell.
+notebook. Its files are then under `/kaggle/input/`, and a notebook cannot write there. Three notebooks write their
+result beside their input by default, so on Kaggle set their output to a folder under `/kaggle/working/`:
+`OUTPUT_DIR` in `tts_measure`, `ENH_OUTPUT_DIR` in `tts_enhance`, and `SELECTION_PATH` in `tts_select`. If you
+forget, the notebook stops at once and tells you which setting to change.
 
 ## Tutorial 1: a voice from a language only
 
@@ -73,6 +68,15 @@ the [phoonnx](https://github.com/TigreGotico/phoonnx) catalog or an OVOS TTS plu
 [`train_vits.ipynb`](../notebooks/train_vits.ipynb) does not train a voice from zero. It downloads a finished voice in
 your language from the [phoonnx voices](https://huggingface.co/collections/TigreGotico/phoonnx-tts-models), and it
 trains that voice further on your clips. This needs much less time and data than a voice from zero.
+
+The setting `BASE` chooses the voice to start from. The default, `auto`, takes a phoonnx voice in your language, or a
+[Piper](https://huggingface.co/datasets/rhasspy/piper-checkpoints) voice when there is no phoonnx voice. You can also
+set `BASE` to a Piper folder yourself, for example `rhasspy/piper-checkpoints/en/en_US/lessac/medium`. If no voice
+exists in your language, `auto` stops and lists your choices. Then start from a voice in another language,
+preferably a related one. A voice in any language is a better start than a voice from zero, because it already knows
+how to make speech sounds. The new voice can use only the speech sounds that the start voice knows. If more than 2
+percent of the sounds in your text are missing from it, the notebook stops and says so. Then choose a voice of a
+closer language. `BASE = "none"` trains from zero, and needs much more data and time.
 
 1. Open `train_vits.ipynb` and turn on Internet and a GPU.
 2. Click Add Input, select Notebook output, and add your finished `tts_dataset_gen` run.
@@ -141,8 +145,7 @@ lists the scores of every clip, and `gate_summary.json` tells how many clips eac
 
 `train_vits` reads a dataset from Hugging Face. So publish the result first:
 
-1. Open [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb) and add your `asr2tts` run as input. Copy it to
-   `/kaggle/working/` as "Before you start" shows.
+1. Open [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb) and add your `asr2tts` run as input.
 2. Set `MANIFEST_PATH` to the `manifest.jsonl` of the run.
 3. Set `HF_REPO` to the name of a new dataset on your Hugging Face account, for example `yourname/my-voice-pt-PT`.
 4. Set `HF_TOKEN` to a Hugging Face token with write access, and set `HF_PUSH = "1"`.
@@ -181,13 +184,16 @@ Set `CORPUS_LANG` to the language, for example `pt-PT`. To keep only some speake
 
 [`tts_enhance.ipynb`](../notebooks/tts_enhance.ipynb) is optional. It restores the sound of each clip, and it can also
 remove noise. Set `ENH_MANIFEST` to the manifest from step 1-2a or 2b. Set `DENOISE_ENGINE`, for example to `gtcrn`, to
-remove noise as well. The notebook writes `<name>.enhanced.jsonl` beside the input, and the new clips to `enhanced/`.
+remove noise as well. The notebook writes `<name>.enhanced.jsonl` and the new clips, in `enhanced/`, beside the
+input. On Kaggle, set `ENH_OUTPUT_DIR` to a folder under `/kaggle/working/`, for example `/kaggle/working/enhanced`.
 The original clips stay.
 
 ### Step 4: measure
 
 [`tts_measure.ipynb`](../notebooks/tts_measure.ipynb) gives each clip quality scores. Set `MANIFEST_PATH` to the
-manifest. The notebook writes `<name>.scored.jsonl` beside the input.
+manifest. The notebook writes `<name>.scored.jsonl` beside the input. On Kaggle, set `OUTPUT_DIR` to a folder under
+`/kaggle/working/`, for example `/kaggle/working/measured`. The notebook then copies the audio there too, so the
+scored manifest and its clips stay in one folder.
 
 Every clip gets naturalness scores (UTMOS and DNSMOS). A speech recognition check also runs when you set
 `STT_MODULE` to the name of an OVOS speech-to-text plugin, for example `ovos-stt-plugin-vosk`. The check writes the
@@ -199,7 +205,8 @@ notebook does not compute `cer`.
 [`tts_select.ipynb`](../notebooks/tts_select.ipynb) is optional. It keeps the clips that pass your rules, and writes
 the list of kept clips to a selection file. It never deletes audio, so you can try other rules without measuring again.
 
-Set `MANIFEST_PATH` to the scored manifest, and `RULES` to a list of rules. Each rule reads one score and compares it
+Set `MANIFEST_PATH` to the scored manifest, and `RULES` to a list of rules. On Kaggle, also set `SELECTION_PATH` to a
+file under `/kaggle/working/`, for example `/kaggle/working/selection.jsonl`. Each rule reads one score and compares it
 with a value. For example, this rule keeps clips where the speech recogniser got at most 10 percent of the characters
 wrong:
 
