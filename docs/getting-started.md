@@ -34,26 +34,67 @@ When you run a notebook on your own computer, you can also keep your settings ou
 file called `.env` in the folder where the notebook runs, one setting on each line, for example
 `WAKE_WORD=hey computer`. A value in `.env` replaces the value in the Settings cell.
 
-To run the notebook, there are two ways:
+## Accounts and tokens
 
-- Click Run All. The notebook runs while the page is open. Use this for a short run.
-- Click Save Version, and select Save & Run All. Kaggle runs the notebook in the background, and you can close the
-  page. When the version is complete, its files are in the Output tab of the version. Use this for a run of more than
-  a few minutes.
+Most notebooks need only a Kaggle account or a Google account for Colab. Some steps need more:
 
-A Kaggle session stops after 12 hours. If Kaggle stops a session, the files of that session are lost. So a single run
-must end within 12 hours.
+| You want to | You need | Where to get it |
+|---|---|---|
+| Put a dataset on Hugging Face (`tts_publish`) | A Hugging Face token with write access | [Hugging Face tokens](https://huggingface.co/settings/tokens), see below |
+| Train from a private dataset on Hugging Face (`train_vits`) | A Hugging Face token with read access | [Hugging Face tokens](https://huggingface.co/settings/tokens), see below |
+| Use Common Voice recordings (`asr2tts`) | A free Mozilla Data Collective account, and an API key to let the notebook download them | See below |
+| Let an AI coding agent run notebooks on Kaggle | A Kaggle API token | [Use an AI coding agent](ai-agents.md) |
 
-## Open a notebook on Google Colab
+To get a Hugging Face token:
 
-Make a Google account. Some notebooks have an "Open in Colab" button at the top: click it. For a notebook with no
-such button, open [Colab](https://colab.research.google.com), select File > Open notebook > GitHub, and paste the
-link of the notebook on GitHub. Internet is always on in Colab.
-For a GPU, open the Runtime menu, select Change runtime type, select T4 GPU and click Save. Then open the Runtime menu
-and select Run all.
+1. Make a free account at [huggingface.co](https://huggingface.co/join).
+2. Open the [Access Tokens](https://huggingface.co/settings/tokens) page of your account settings.
+3. Click Create new token. Select Write to put datasets on Hugging Face, or Read to only download them.
+4. Type a name for the token, for example `notebooks`, and click Create token.
+5. Copy the token. It starts with `hf_`. Hugging Face shows it only once, so keep it in a safe place.
 
-Colab deletes all files when the session ends. Before you close the page, download the files you want to keep from the
-file panel on the left.
+To get a Mozilla Data Collective API key:
+
+1. Make a free account at [mozilladatacollective.com](https://mozilladatacollective.com).
+2. Open your Profile, and select API.
+3. Create an API key, and copy it. Keep it in a safe place.
+
+Before you download a dataset, with the key or on the website, open the page of the dataset and accept its terms. You
+do this once for each dataset. Without it, the download stops with the message "Terms must be accepted before
+downloading".
+
+### Keep a token secret
+
+Do not type a token or a key into the Settings cell. A saved notebook keeps it, and other people who open the notebook
+can read it. Give it to the notebook as a secret instead. The examples below are for the Hugging Face token
+`HF_TOKEN`. For the Mozilla Data Collective key, do the same with the name `MDC_API_KEY`.
+
+- On Kaggle, open the Add-ons menu and select Secrets. Add a secret with the label `HF_TOKEN` and your token as its
+  value, and turn it on for this notebook.
+- On Colab, click the key icon on the left. Add a secret with the name `HF_TOKEN` and your token as its value, and turn
+  on Notebook access.
+- On your own computer, write the line `HF_TOKEN=` followed by your token in the `.env` file.
+
+## Run a notebook on your own computer
+
+You need Python 3.11 or 3.12 and the program [uv](https://docs.astral.sh/uv/). Download this repository, and open a
+terminal in its folder. Each notebook has a list of the programs it needs in the folder `requirements`. Install them
+for the notebook that you want to run, here `asr2tts`:
+
+```bash
+uv venv .venv --python 3.12
+uv pip install -p .venv --prerelease=allow pip jupyter papermill -r requirements/asr2tts.txt
+```
+
+Then start Jupyter with `.venv/bin/jupyter lab`, open the notebook, and click Run All. To run all cells without
+opening the notebook, write your settings in a `.env` file in a folder of your choice, and type:
+
+```bash
+.venv/bin/papermill notebooks/asr2tts.ipynb asr2tts-result.ipynb --cwd <your folder>
+```
+
+The results go into that folder, and `asr2tts-result.ipynb` holds the notebook with the output of each cell. A
+notebook that needs a GPU needs an NVIDIA graphics card in your computer.
 
 ## Use the result of one notebook in the next
 

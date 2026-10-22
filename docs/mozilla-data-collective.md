@@ -8,13 +8,15 @@ notebooks. [Where the speech comes from](tts-approaches.md) explains when to use
 reads them.
 
 To download a dataset, make a free account on Mozilla Data Collective, open the page of the dataset, and accept its
-terms. Then upload the extracted folder to Kaggle as a dataset, or to Colab.
+terms. Then download it on that page, and upload the extracted folder to Kaggle as a dataset, or to Colab. For a
+Common Voice dataset, `asr2tts` can also download it for you: set `MDC_DATASET` to the ID of the dataset, and give
+the notebook your API key. [Accounts and tokens](getting-started.md#accounts-and-tokens) explains how to get the key.
 
 The column "Made for" tells you what the uploader made the dataset for:
 
 - **speech recognition**: many speakers, read or spontaneous. Change them to one voice with
-  [`asr2tts`](../notebooks/asr2tts.ipynb). A Common Voice Scripted Speech dataset has a `clips/` folder and a
-  `validated.tsv` file, and `asr2tts` reads it with `COMMON_VOICE_DIR`. For a dataset with another layout, use
+  [`asr2tts`](../notebooks/asr2tts.ipynb). A Common Voice Scripted Speech dataset has a `clips/` folder and lists
+  of clips such as `validated.tsv` or `train.tsv`, and `asr2tts` reads it with `MDC_DATASET` or `COMMON_VOICE_DIR`. For a dataset with another layout, use
   `RAW_AUDIO_SOURCE` and `METADATA_CSV`.
 - **TTS**: recordings made for a TTS voice, usually of one speaker. Read them with
   [`tts_corpus_ingest`](../notebooks/tts_corpus_ingest.ipynb).

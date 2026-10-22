@@ -146,9 +146,12 @@ and [Speech datasets on Mozilla Data Collective](mozilla-data-collective.md) lis
 
 1. Open [`asr2tts.ipynb`](../notebooks/asr2tts.ipynb). It runs on a CPU, so you do not need a GPU.
 2. Give it the recordings, in one of two ways:
-   - For Common Voice, download the Scripted Speech dataset of the language from
-     [Mozilla Data Collective](https://mozilladatacollective.com), extract it, and add it as a Kaggle dataset. Set
-     `COMMON_VOICE_DIR` to the folder that holds `clips/` and `validated.tsv`.
+   - For Common Voice, find the Scripted Speech dataset of your language on
+     [Mozilla Data Collective](https://mozilladatacollective.com), and accept its terms on its page. Set `MDC_DATASET`
+     to the ID of the dataset, the last part of the address of its page. Give the notebook your Mozilla Data Collective
+     API key as the secret `MDC_API_KEY`, as [Accounts and tokens](getting-started.md#accounts-and-tokens) explains.
+     The notebook then downloads the dataset. You can also download and extract the dataset yourself, add it as a
+     Kaggle dataset, and set `COMMON_VOICE_DIR` to the folder that holds `clips/`.
    - For other recordings, set `RAW_AUDIO_SOURCE` to the folder of audio files, and `METADATA_CSV` to the file that
      holds the text of each file.
 3. Make a folder with one short, clean recording of the target voice, as a WAV file. Set `REF_VOICES_DIR` to
@@ -174,11 +177,18 @@ lists the scores of every clip, and `gate_summary.json` tells how many clips eac
 1. Open [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb) and add your `asr2tts` run as input.
 2. Set `MANIFEST_PATH` to the `manifest.jsonl` of the run.
 3. Set `HF_REPO` to the name of a new dataset on your Hugging Face account, for example `yourname/my-voice-pt-PT`.
-4. Set `HF_TOKEN` to a Hugging Face token with write access, and set `HF_PUSH = "1"`.
-5. Run the notebook.
+4. Get a Hugging Face token with write access, and give it to the notebook as a secret.
+   [Accounts and tokens](getting-started.md#accounts-and-tokens) explains both steps. Do not type the token into the
+   Settings cell.
+5. Set `LICENSE` to the licence of your dataset, for example `cc-by-4.0`. Your licence cannot give more rights than
+   the licence of your recordings, so read that licence on the page of the source dataset. To name the owner of the
+   dataset on its page, set `OWNER` to your name. When `OWNER` is empty, the page names no owner.
+6. Set `HF_PUSH = True`.
+7. Run the notebook.
 
 Then train as in Tutorial 1, with one change: set `HF_DATASET` to the name of your published dataset, instead of
-`DATASET_DIRS`.
+`DATASET_DIRS`. If the dataset is private, give `train_vits` your token as a secret, in the same way as for
+`tts_publish`.
 
 ## Every step on its own
 
