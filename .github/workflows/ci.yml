@@ -59,6 +59,8 @@ jobs:
             fi
           done
           exit $fail
+      - name: Check the Settings cell of every notebook
+        run: python tools/check_settings.py
       - name: Scan every notebook for private paths and identifiers
         # nbstripout --verify above only looks at the non-allowlisted notebooks;
         # the four notebooks that keep their outputs are
@@ -146,8 +148,9 @@ jobs:
           if [ "${{ matrix.notebook }}" = "kaggle_quickstart_ww" ]; then
             n_samples=32
           fi
-          papermill --log-output notebooks/${{ matrix.notebook }}.ipynb /tmp/out.ipynb \
-            -p SMOKE True -p N_SAMPLES $n_samples -p EPOCHS 1
+          # Every notebook reads its settings from environment variables of the same name
+          SMOKE=True N_SAMPLES=$n_samples EPOCHS=1 \
+            papermill --log-output notebooks/${{ matrix.notebook }}.ipynb /tmp/out.ipynb
 
   evidence:
     name: Execute evidence notebook (${{ matrix.notebook }})
@@ -184,7 +187,7 @@ jobs:
       - name: Execute the notebook in place, from a neutral HOME
         # This is the notebook's full run, not the CI smoke path: no
         # SMOKE/N_SAMPLES/EPOCHS override, so it runs whatever the notebook's
-        # own parameters cell declares as its full-run default.
+        # own Settings cell declares as its full-run default.
         run: |
           source .venv/bin/activate
           papermill --log-output notebooks/${{ matrix.notebook }}.ipynb notebooks/${{ matrix.notebook }}.ipynb

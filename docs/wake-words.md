@@ -24,7 +24,7 @@ The times are for a Kaggle T4 GPU.
 
 1. Open [`kaggle_quickstart_ww`](../notebooks/kaggle_quickstart_ww.ipynb) with its "Open in Kaggle" button.
 2. In the Settings panel, set Internet to on and Accelerator to GPU T4.
-3. In the first code cell, set `WAKE_WORD` to your phrase, and `LANGUAGE` to its language.
+3. In the Settings cell, set `WAKE_WORD` to your phrase, and `WW_LANGUAGE` to its language.
 4. Click Save Version, select Save & Run All, and wait until the version is complete.
 
 The notebook makes the voices, trains the model, and tests it on speech, sounds and music that must not wake the
