@@ -87,7 +87,7 @@ give it this shape when you rework it, and do not start a notebook that way.
 
 A notebook may default `SMOKE` to `True` when its full run takes hours, so
 that Run All with no edits finishes in minutes; its "Start here" then says
-that the full run is a one-word change. `docs/tester-guide.md` describes the
+that the full run is a one-word change. `docs/wake-words.md` describes the
 wake-word notebooks for a first-time tester.
 ## Header and footer template
 
@@ -120,7 +120,7 @@ and the Open in Kaggle and Open in Colab badges, then a "Start here" section
 in plain words: what the notebook does, how long it takes, whether it needs a
 GPU, and the one thing to set (usually nothing). And `SMOKE` defaults to
 `True` where a full run is long, so that Run All with no edits finishes in
-minutes; the full run is a one-word change in the parameters cell. `docs/tester-guide.md` describes these
+minutes; the full run is a one-word change in the parameters cell. `docs/wake-words.md` describes these
 three notebooks for a first-time tester.
 
 `ww_train_streaming` has the same badges and "Start here" section, but it
