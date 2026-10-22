@@ -86,18 +86,20 @@ The setting `BASE` chooses the voice to start from. The default, `auto`, takes a
 set `BASE` to a Piper folder yourself, for example `rhasspy/piper-checkpoints/en/en_US/lessac/medium`. If no voice
 exists in your language, `auto` stops and lists your choices. Then start from a voice in another language,
 preferably a related one. A voice in any language is a better start than a voice from zero, because it already knows
-how to make speech sounds. The new voice can use only the speech sounds that the start voice knows. If more than 2
-percent of the sounds in your text are missing from it, the notebook stops and says so. Then choose a voice of a
-closer language. `BASE = "none"` trains from zero, and needs much more data and time.
+how to make speech sounds. `BASE = "none"` trains from zero, and needs much more data and time.
 
 A voice reads the sounds of a word, not its letters. A phonemizer turns the text into these sounds, and the setting
 `PHONEMIZER` in the "Advanced settings" cell chooses it. We recommend
 [orthography2ipa](https://github.com/TigreGotico/orthography2ipa) (o2i). The notebook uses `espeak` by default, because
-Piper voices are trained with espeak. `train_vits` continues a base voice only with the phonemizer that the base voice
-was trained with, and stops with a message when they differ. So `BASE = "auto"` starts from a Piper voice only with
-espeak, and with another phonemizer it looks for a phoonnx voice trained with that phonemizer. Note that
-espeak is under the GPL licence: a voice trained with espeak needs espeak to speak, so it brings a GPL dependency into
-the software that uses it.
+Piper voices are trained with espeak. Note that espeak is under the GPL licence: a voice trained with espeak needs
+espeak to speak, so it brings a GPL dependency into the software that uses it.
+
+The phonemizer does not limit the choice of the base voice. The part of a voice that reads the sounds is its encoder.
+When the base voice was trained with the same phonemizer, the training keeps its encoder, and the new voice learns
+faster. With another phonemizer, the training discards the encoder, learns a new one, and keeps the rest of the voice.
+
+The training also discards the encoder when more than 2 percent of the sounds in your text are missing from the base
+voice. `auto` prefers a voice trained with your phonemizer, when one exists in your language.
 
 1. Open `train_vits.ipynb` and turn on Internet and a GPU.
 2. Click Add Input, select Notebook output, and add your finished `tts_dataset_gen` run.
