@@ -64,25 +64,27 @@ the licence.
 
 ## Change the settings of a notebook
 
-Each notebook has its settings in its first code cells. The comment on each line explains the setting, and the
-guides in `docs/` explain them in more detail. Some notebooks have a second cell called "Advanced settings", for
-example `train_vits`, where `BASE`, `BASE_CKPT_URL` and `BASE_CONFIG_URL` are.
+Each notebook has all its settings in one cell, the Settings cell: the first code cell that a person sees. Each line
+reads one setting, for example `TTS_LANG = setting("TTS_LANG", "en")`, and its comment explains it. The guides in
+`docs/` explain the settings in more detail.
 
-Every setting can come from an environment variable of the same name, and an environment variable wins over the
-value in the notebook. The one exception is `LANG`, which every shell sets: the notebook comment names the variable
-to use instead, for example `TRAIN_LANG` in `train_vits`.
+A setting comes from the environment variable with the same name. When that variable is not set, it comes from a line
+`NAME=value` in a file `.env` in the folder where the notebook runs. When neither exists, the value in the cell is
+used. So you never need to change the notebook to change a setting.
 
-- **On the person's computer**, set the environment variables before you run the notebook.
-- **On Kaggle**, a notebook gets no environment variables from you. Add one code cell at the top of your copy, and
-  leave the other cells as they are:
+- **On the person's computer**, set the environment variables before you run the notebook, or write a `.env` file in
+  its working folder.
+- **On Kaggle**, a notebook gets no environment variables and no `.env` file from you. Add one code cell at the top
+  of your copy, and leave the other cells as they are:
 
   ```python
   import os
   os.environ.update({"TTS_LANG": "pt-PT", "N_PROMPTS": "2000", "SMOKE": "False"})
   ```
 
-Give every value as a string. The notebook converts it to the type of the setting: `"True"` or `"False"` for a yes or
-no setting, digits for a number.
+Give every value as text. The notebook converts it to the type of the setting: `True` or `False` for a yes or no
+setting, digits for a number, and JSON for a list, for example `'["pt-PT", "pt-BR"]'`. A value that does not fit
+stops the notebook with an error that names the setting.
 
 `SMOKE = True` runs a short test on a CPU with a few clips. It checks that the notebook runs, and its output is not a
 dataset or a model. Set `SMOKE` to `False` for real work.
@@ -134,10 +136,11 @@ round, and `BASE_CONFIG_URL` to the `.json` file beside its `.onnx` file. Use fu
 ## Run a notebook on the person's computer
 
 A notebook that needs no GPU can run on the person's computer. Make a virtual environment with uv, install
-`papermill` and `ipykernel` in it, set the environment variables, and run the notebook:
+`papermill` and `ipykernel` in it, set the environment variables or write a `.env` file in the working folder, and
+run the notebook:
 
 ```
-TTS_LANG=pt-PT SMOKE=False papermill notebooks/tts_select.ipynb <work folder>/tts_select.out.ipynb --cwd <work folder>
+MANIFEST_PATH=<work folder>/measured/manifest.jsonl papermill notebooks/tts_select.ipynb <work folder>/tts_select.out.ipynb --cwd <work folder>
 ```
 
 Each notebook installs its own packages in its first cells. Give the run a working folder outside the repository.

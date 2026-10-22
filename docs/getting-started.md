@@ -19,10 +19,20 @@ Open the notebook list in the [README](../README.md), and click the "Open in Kag
 opens a copy of the notebook in your account. Open the Settings panel on the right. Set Internet to on. If the
 notebook needs a GPU, set Accelerator to GPU T4.
 
-Each notebook has a settings cell near the top. Most notebooks work with no changes. A setting looks like
-`WAKE_WORD = "hey mycroft"` or like `os.environ.setdefault("TTS_LANG", "en")`. To change a setting, change the last
-value on its line, and keep the quotes around it. Some notebooks also have an "Advanced settings" cell, with settings
-that most people do not change.
+Each notebook has all its settings in one cell, the Settings cell. It is the first code cell that you see. Most
+notebooks work with no changes. A setting looks like this:
+
+```python
+WAKE_WORD = setting("WAKE_WORD", "hey mycroft")   # the phrase that wakes the assistant
+```
+
+To change a setting, change the last value on its line, here `"hey mycroft"`, and keep the quotes around it. The text
+after `#` explains the setting. The settings that most people do not change are at the end of the cell, after the line
+`# ── Advanced ──`.
+
+When you run a notebook on your own computer, you can also keep your settings outside the notebook. Write them in a
+file called `.env` in the folder where the notebook runs, one setting on each line, for example
+`WAKE_WORD=hey computer`. A value in `.env` replaces the value in the Settings cell.
 
 To run the notebook, there are two ways:
 

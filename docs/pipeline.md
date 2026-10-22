@@ -39,8 +39,8 @@ On Kaggle, open a notebook with its "Open in Kaggle" button. Open the Settings p
 on, and for a GPU notebook set Accelerator to GPU T4. On Colab, open the Runtime menu, select Change runtime type,
 select T4 GPU and click Save.
 
-Each notebook has a settings cell near the top. A setting looks like `TTS_LANG = "en"` or like
-`os.environ.setdefault("TTS_LANG", "en")`. To change it, change the last value on its line, and keep the quotes.
+Each notebook has all its settings in one cell, the Settings cell, at the top. A setting looks like
+`TTS_LANG = setting("TTS_LANG", "en")`. To change it, change the last value on its line, and keep the quotes.
 Every setting has a default value. When you give them no input, the separate notebooks run a short demo, so you can
 see that they work.
 
@@ -89,7 +89,7 @@ preferably a related one. A voice in any language is a better start than a voice
 how to make speech sounds. `BASE = "none"` trains from zero, and needs much more data and time.
 
 A voice reads the sounds of a word, not its letters. A phonemizer turns the text into these sounds, and the setting
-`PHONEMIZER` in the "Advanced settings" cell chooses it. We recommend
+`PHONEMIZER` in the Advanced part of the Settings cell chooses it. We recommend
 [orthography2ipa](https://github.com/TigreGotico/orthography2ipa) (o2i). The notebook uses `espeak` by default, because
 Piper voices are trained with espeak. Note that espeak is under the GPL licence: a voice trained with espeak needs
 espeak to speak, so it brings a GPL dependency into the software that uses it.

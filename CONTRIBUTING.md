@@ -41,11 +41,11 @@ written so that such a reader can press Run All and understand what they got.
    badges, then `## Start here` in three to five short sentences: what you
    get, how long it takes, whether it needs a GPU, and the one thing to
    change.
-2. The Settings cell, tagged `parameters` (see the next section). It holds
-   only what a beginner would change, each with a short comment, and
-   whichever of `SMOKE`, `N_SAMPLES` and `EPOCHS` apply.
-3. An "Advanced settings" cell with every other setting, each a plain
-   variable with its default.
+2. A hidden cell, `#@title Code that reads the settings`. It is the same in
+   every notebook (see "The Settings cell" below).
+3. The Settings cell, with every setting of the notebook. The settings that a
+   beginner changes come first, each with a short comment. The other settings
+   follow under the comment line `# ── Advanced ──`.
 4. Numbered steps. Each is a heading `## Step N — <what happens>`, at most
    two short sentences, then the code.
 5. `## What you got`: where the result is, how to use it in OVOS, and the
@@ -64,7 +64,8 @@ account of how the notebook changed.
 **Code.** Keep every check that protects the result, such as an assertion that
 no voice is in both the training and the test data. Remove branches that
 cannot run, helpers that repeat each other and checks that cannot trigger.
-Settings are plain variables, not environment variables.
+A setting is read only in the Settings cell. Later cells use the variable, and
+never read `os.environ` for a setting.
 
 Helper code that a beginner should not have to read goes into hidden cells.
 A hidden cell has the metadata `{"jupyter": {"source_hidden": true},
@@ -105,7 +106,7 @@ The first cell of every notebook is a single markdown cell with:
 4. A line stating exactly `CI: linted, compiled under Python 3.11 and 3.12,
    and executed on the smoke path.`, since every notebook in `notebooks/` is
    linted, compiled and smoke-run by `ci.yml` (the notebooks that keep their
-   outputs are additionally re-executed in full by the `evidence` job). The
+   outputs are also re-executed in full by the `evidence` job). The
    exception is a notebook that speaks with OmniVoice: OmniVoice needs a GPU
    and the CI runners have none, so `ci.yml` lists it as GPU-only and its line
    reads `CI: linted and compiled under Python 3.11 and 3.12.`, followed by
@@ -120,7 +121,7 @@ and the Open in Kaggle and Open in Colab badges, then a "Start here" section
 in plain words: what the notebook does, how long it takes, whether it needs a
 GPU, and the one thing to set (usually nothing). And `SMOKE` defaults to
 `True` where a full run is long, so that Run All with no edits finishes in
-minutes; the full run is a one-word change in the parameters cell. `docs/wake-words.md` describes these
+minutes; the full run is a one-word change in the Settings cell. `docs/wake-words.md` describes these
 three notebooks for a first-time tester.
 
 `ww_train_streaming` has the same badges and "Start here" section, but it
@@ -132,34 +133,49 @@ The last cell of every notebook is a markdown cell with the funding credit
 from the Credits section of `README.md`, the one-line AI-assistance note, and
 the closing line `Licensed under Apache-2.0.`
 
-## The parameters cell
+## The Settings cell
 
-The second cell of every notebook is a code cell tagged `parameters`
-(Jupyter/papermill convention). CI calls every notebook the same way
-(`-p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1`), so the parameters cell defines
-whichever of `SMOKE`, `N_SAMPLES` and `EPOCHS` change what the notebook does:
+Each line of the Settings cell reads one setting:
 
 ```python
-SMOKE = False
-N_SAMPLES = 32
-EPOCHS = 1
+TTS_LANG = setting("TTS_LANG", "en")   # the language of the sentences
+SMOKE = setting("SMOKE", False)        # True: a short test run
 ```
 
-and, where the notebook trains or loads one identifiable model, `MODEL_ID`
-with the notebook's real default (`kaggle_quickstart_ww` has neither
-`MODEL_ID` nor an equivalent: under `SMOKE` it shrinks the data, not the model). When `SMOKE` is `True`, the notebook takes the
-smallest realistic path through its own logic: it slices a dataset to
-`N_SAMPLES` rows, trains for `EPOCHS` step or epoch, and swaps in the
-smallest available model where one is configurable. A notebook whose smoke
-path still needs a GPU says so in its header instead of pretending
-otherwise.
+`setting()` comes from the hidden cell before it. It returns the environment
+variable with the same name, else the line `NAME=value` in a file `.env` in
+the working folder, else the value in the cell. It converts the text of an
+environment variable to the type of that value: `True` or `False`, a number,
+or a JSON list or object. A value that does not fit stops the notebook with
+an error that names the setting.
 
-A notebook whose work does not scale with one of these three (a fixed
-handful of payloads, a fixed handful of MCP calls, three fixed synthetic
-voices) does not declare a dead variable for it: the parameters cell says so
-in a comment instead, naming which of the three do not apply and why.
-Passing `-p SMOKE True` to such a notebook still works — papermill injects
-the value as a new variable — it is simply never read.
+So a person changes the value in the cell,
+and CI or an AI agent sets environment variables, with no change to the
+notebook.
+
+The name of a setting is unique to this repository. A name that a shell or
+Kaggle sets, such as `LANG`, `HOME` or `PATH`, is never a setting: use
+`TRAIN_LANG` or `WW_LANG`. `tools/check_settings.py` checks the hidden cell,
+the Settings cell, and that no cell reads a setting from `os.environ`.
+
+CI runs every notebook with the environment variables `SMOKE=True`,
+`N_SAMPLES=4` and `EPOCHS=1`. So the Settings cell holds whichever of these
+three change what the notebook does, and, where the notebook trains or loads
+one identifiable model, `MODEL_ID` with the notebook's real default
+(`kaggle_quickstart_ww` has neither `MODEL_ID` nor an equivalent: under
+`SMOKE` it shrinks the data, not the model).
+
+When `SMOKE` is `True`, the
+notebook takes the smallest realistic path through its own logic: it slices a
+dataset to `N_SAMPLES` rows, trains for `EPOCHS` step or epoch, and swaps in
+the smallest available model where one is configurable. A notebook whose
+smoke path still needs a GPU says so in its header.
+
+A notebook whose work does not scale with one of these three (a fixed handful
+of payloads, a fixed handful of MCP calls, three fixed synthetic voices) does
+not declare a setting for it. A comment in its Settings cell names the three
+that do not apply, and why. The environment variable is then simply never
+read.
 
 ## Outputs
 
@@ -182,8 +198,7 @@ uv venv .venv --python 3.12
 source .venv/bin/activate
 uv pip install --prerelease=allow pip jupyter papermill ipykernel nest_asyncio
 uv pip install --prerelease=allow -r requirements/<notebook-stem>.txt
-papermill notebooks/<notebook-stem>.ipynb /tmp/out.ipynb \
-    -p SMOKE True -p N_SAMPLES 4 -p EPOCHS 1
+SMOKE=True N_SAMPLES=4 EPOCHS=1 papermill notebooks/<notebook-stem>.ipynb /tmp/out.ipynb
 ```
 
 A CPU machine is enough for the `SMOKE=True` path of every notebook that CI
