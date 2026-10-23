@@ -1,6 +1,6 @@
 # Pre-release channel: pip install --pre -r this file
 onnxruntime>=1.30.0
-speakeronnx>=0.0.2a3
+speakeronnx>=0.0.3a1
 speechonnxmetrics>=0.0.2a3
 # librosa>=1.0.0 and numpy>=2.5.3 both require Python>=3.12; this notebook
 # only calls librosa.load and a handful of stable numpy array ops, so both
