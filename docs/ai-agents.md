@@ -13,16 +13,9 @@ notebooks, sends them to Kaggle, waits for each run, and passes the result of on
 
 ## Choose an agent
 
-[Mistral Vibe](https://github.com/mistralai/mistral-vibe) is the coding agent of Mistral AI, a European company. It is
-free software under the Apache 2.0 licence, and it uses the Mistral models. Other agents work too, for example Aider,
-OpenCode, Goose, Codex CLI, Gemini CLI and Claude Code. Some agents need an account or a paid plan with their
-provider.
-
-To install Mistral Vibe, first install [uv](https://docs.astral.sh/uv/), and then run this command:
-
-```
-uv tool install mistral-vibe
-```
+Any coding agent that can read files and run commands works, for example Aider, Claude Code, Codex CLI, Gemini CLI,
+Goose, Mistral Vibe or OpenCode. Some agents need an account or a paid plan with their provider. Install the agent as
+its own documentation explains.
 
 ## Prepare once
 
@@ -32,13 +25,13 @@ These steps need a person, because they need your accounts. Do them once, before
    no GPU and no Internet to a notebook.
 2. On the [Kaggle settings page](https://www.kaggle.com/settings/api), create an API token. Store it in the file
    `~/.kaggle/access_token`, or in the environment variable `KAGGLE_API_TOKEN`.
-3. Install the Kaggle command-line tool with `uv tool install kaggle`, and check it with `kaggle kernels list --mine`.
+3. Install [uv](https://docs.astral.sh/uv/). Then install the Kaggle command-line tool with `uv tool install kaggle`,
+   and check it with `kaggle kernels list --mine`.
 4. Clone this repository, and start the agent in its folder:
 
 ```
 git clone https://github.com/OpenVoiceOS/ngi0-notebooks
 cd ngi0-notebooks
-vibe
 ```
 
 The file [`AGENTS.md`](../AGENTS.md) at the root of the repository tells the agent how to run the notebooks. Many
