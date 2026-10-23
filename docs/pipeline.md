@@ -123,9 +123,12 @@ round continues from the last checkpoint of the first round.
 
 1. Make a copy of your `train_vits` notebook.
 2. Click Add Input, select Notebook output, and add the first round. Keep the `tts_dataset_gen` input as well.
-3. Find the newest `.ckpt` file in `/kaggle/input/<first round>/train_vits_out/checkpoints/`. Set `BASE_CKPT_URL` to
-   its full path.
-4. Find the `.json` file that the first round wrote beside its `.onnx` file. Set `BASE_CONFIG_URL` to its full path.
+3. Find the line `Checkpoint to continue from later` at the end of the output of the first round. It names a `.ckpt`
+   file under `/kaggle/working/train_vits_out/checkpoints/`. In the second round, the same file is under
+   `/kaggle/input/notebooks/<your Kaggle user>/<first round>/train_vits_out/checkpoints/`. Set `BASE_CKPT_URL` to
+   that full path.
+4. Find the `.json` file that the first round wrote beside its `.onnx` file, in `train_vits_out/exported/`. Set
+   `BASE_CONFIG_URL` to its full path under `/kaggle/input/` in the same way.
 5. Keep `DATASET_DIRS` and `MAX_TRAIN_HOURS = 11` as in the first round.
 6. Click Save Version, select Save & Run All, and wait until the version is complete.
 

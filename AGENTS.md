@@ -133,8 +133,11 @@ write beside their input by default, so set `OUTPUT_DIR`, `ENH_OUTPUT_DIR` and `
 
 A Kaggle session stops after 12 hours, and a session that Kaggle stops keeps no output. Set every limit so that the
 run ends before that. For `train_vits`, use two rounds of `MAX_TRAIN_HOURS = 11`. The second round has the first round
-in `kernel_sources`, and sets `BASE_CKPT_URL` to the newest `.ckpt` file in `train_vits_out/checkpoints/` of the first
-round, and `BASE_CONFIG_URL` to the `.json` file beside its `.onnx` file. Use full paths under `/kaggle/input/`.
+in `kernel_sources`. It sets `BASE_CKPT_URL` to the checkpoint that the first round prints on its line `Checkpoint to
+continue from later`, and `BASE_CONFIG_URL` to the `.json` file beside its `.onnx` file in `train_vits_out/exported/`.
+Use full paths under `/kaggle/input/`: an earlier run appears as
+`/kaggle/input/notebooks/<kaggle-user>/<slug>/`, so the checkpoint is at
+`/kaggle/input/notebooks/<kaggle-user>/<slug>/train_vits_out/checkpoints/lightning_logs/version_<N>/checkpoints/<name>.ckpt`.
 
 ## Run a notebook on the person's computer
 
