@@ -1,7 +1,7 @@
 # OpenVoiceOS Notebooks
 
 These notebooks make wake words and text-to-speech voices for [OpenVoiceOS](https://openvoiceos.org), an open source
-voice assistant, and test some of its parts. Each notebook runs for free in your browser on Kaggle. Click "Open in
+voice assistant. Each notebook runs for free in your browser on Kaggle. Click "Open in
 Kaggle", turn on Internet (and a GPU when the table says so), and click Run All. You do not need to install anything.
 
 New to notebooks? The [getting started guide](docs/getting-started.md) explains Kaggle and Colab step by step. The

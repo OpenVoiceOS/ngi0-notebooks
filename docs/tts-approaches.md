@@ -53,9 +53,9 @@ rooms with noise and echo, and at different speeds, so `asr2tts` removes many cl
 option, when no TTS voice speaks the language or when the only voice has a poor quality. The voice change keeps the
 pronunciation and the accent of the speakers, so choose recordings of the dialect that you want.
 
-[Common Voice](https://commonvoice.mozilla.org) is the largest source of such recordings. You download its datasets
-from [Mozilla Data Collective](https://mozilladatacollective.com), and `asr2tts` reads them with the setting
-`COMMON_VOICE_DIR`. OpenVoiceOS used Mozilla Data Collective for its Aragonese and Asturian datasets.
+[Common Voice](https://commonvoice.mozilla.org) is the largest source of such recordings. Its datasets are on
+[Mozilla Data Collective](https://mozilladatacollective.com). `asr2tts` downloads one with the setting `MDC_DATASET`,
+or reads a dataset that you downloaded with `COMMON_VOICE_DIR`. OpenVoiceOS used Mozilla Data Collective for its Aragonese and Asturian datasets.
 [Speech datasets on Mozilla Data Collective](mozilla-data-collective.md) lists all its free speech datasets, for
 more than 400 languages.
 

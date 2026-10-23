@@ -4,7 +4,7 @@
 
 The TTS dataset notebooks pass a list of audio clips from one notebook to the next. This list is a file called a
 manifest. You need this page only if you want to read a manifest yourself, or write one with your own tools. To use the
-notebooks, read [the TTS dataset pipeline](pipeline.md) instead.
+notebooks, read [Train a TTS voice](pipeline.md) instead.
 
 A manifest is a JSON Lines file: each line is one JSON object, and each object describes one clip. Next to the manifest
 there is a second file with the same name and the extension `.meta.json`. Its `notebooks` key lists the notebooks
