@@ -28,5 +28,5 @@ voiceclonnx>=0.0.3a3
 # else is needed. An OVOS STT plugin for the transcript gate (ASR_STT_MODULE) is
 # installed by the notebook only when one is named.
 speechonnxmetrics[audio,speaker,asr]>=0.0.2a3
-speakeronnx>=0.0.2a3
+speakeronnx>=0.0.3a1
 onnx-asr>=0.12.0
