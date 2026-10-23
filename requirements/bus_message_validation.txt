@@ -1,3 +1,0 @@
-# Pre-release channel: pip install --pre -r this file
-ovos-pydantic-models>=0.3.1a1
-pydantic>=2.0

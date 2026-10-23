@@ -8,13 +8,6 @@ repos:
         # metadata.kernelspec.name strips the kernel name papermill needs to
         # pick a kernel, and every notebook then fails
         # `ValueError: No kernel name found in notebook and no override provided.`
-        exclude: >
-          (?x)^(
-            notebooks/arena_prediction_runner\.ipynb|
-            notebooks/bus_message_validation\.ipynb|
-            notebooks/interop_mcp_utcp_clients\.ipynb|
-            notebooks/speaker_verification\.ipynb
-          )$
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:

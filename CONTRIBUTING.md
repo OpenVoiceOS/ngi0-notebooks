@@ -9,11 +9,7 @@ runnable, honest about what it needs, and clean in git history.
 - Every notebook installs into its own kernel the same way, in one line per
   install cell: `%pip install --quiet --pre "<spec>" "<spec>" ...`, every
   spec double-quoted (an unquoted spec with a shell metacharacter, such as a
-  version range, is silently mangled by the shell `%pip` delegates to). The
-  notebooks that commit outputs from a Kaggle run (`arena_prediction_runner`,
-  `interop_mcp_utcp_clients`, `speaker_verification`) write `%pip install
-  --quiet --quiet --progress-bar off --pre ...` instead, so the saved outputs
-  hold no download progress bars. This is the only install mechanism used in a notebook body: not `!pip`, not
+  version range, is silently mangled by the shell `%pip` delegates to). This is the only install mechanism used in a notebook body: not `!pip`, not
   `subprocess`/`uv` invoked against `sys.executable`, and not a bare `pip
   install`. The one exception is `train_vits.ipynb`'s training step, which
   creates and installs into a **separate** virtual environment outside the
@@ -105,8 +101,7 @@ The first cell of every notebook is a single markdown cell with:
    row ever states one.
 4. A line stating exactly `CI: linted, compiled under Python 3.11 and 3.12,
    and executed on the smoke path.`, since every notebook in `notebooks/` is
-   linted, compiled and smoke-run by `ci.yml` (the notebooks that keep their
-   outputs are also re-executed in full by the `evidence` job). The
+   linted, compiled and smoke-run by `ci.yml`. The
    exception is a notebook that speaks with OmniVoice: OmniVoice needs a GPU
    and the CI runners have none, so `ci.yml` lists it as GPU-only and its line
    reads `CI: linted and compiled under Python 3.11 and 3.12.`, followed by
@@ -171,22 +166,14 @@ dataset to `N_SAMPLES` rows, trains for `EPOCHS` step or epoch, and swaps in
 the smallest available model where one is configurable. A notebook whose
 smoke path still needs a GPU says so in its header.
 
-A notebook whose work does not scale with one of these three (a fixed handful
-of payloads, a fixed handful of MCP calls, three fixed synthetic voices) does
-not declare a setting for it. A comment in its Settings cell names the three
-that do not apply, and why. The environment variable is then simply never
-read.
+A notebook whose work does not scale with one of these three does not declare
+a setting for it. A comment in its Settings cell names the ones that do not
+apply, and why. The environment variable is then simply never read.
 
 ## Outputs
 
-Notebook outputs are stripped before commit (`nbstripout`) with one
-exception: `arena_prediction_runner`, `bus_message_validation`,
-`interop_mcp_utcp_clients` and `speaker_verification` commit their outputs on
-purpose, so that a reader sees what a full run produces without running it.
-CI re-executes `bus_message_validation` in its `evidence` job; the other three
-speak with OmniVoice, need a GPU, and keep the outputs of a Kaggle run with
-the committed code. Do not add a fifth notebook to that list without
-discussing it with a maintainer first.
+Notebook outputs are stripped before commit (`nbstripout`). CI fails on a notebook that
+keeps its outputs.
 
 ## Running the smoke path locally
 
