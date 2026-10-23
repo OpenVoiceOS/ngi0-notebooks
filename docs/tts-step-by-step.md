@@ -83,7 +83,8 @@ notebook shows a set of rules for this step.
 
 [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb) puts one voice on Hugging Face. Set `MANIFEST_PATH` to the
 manifest of that voice, and `SELECTION_PATH` to the selection file from step 8. Without a selection file, it publishes
-every clip. Set `HF_REPO`, `OWNER`, `LICENSE` and `HF_PUSH = True`, and give the notebook a token, as in Tutorial 2.
+every clip. When the clips carry a voice identity, it publishes only the clips of that voice. If the manifest holds more
+than one voice, set `IDENTITY` to the voice to publish. Set `HF_REPO`, `OWNER`, `LICENSE` and `HF_PUSH = True`, and give the notebook a token, as in Tutorial 2.
 
 ## Step 10: train
 

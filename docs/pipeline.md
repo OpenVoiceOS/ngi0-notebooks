@@ -175,7 +175,9 @@ lists the scores of every clip, and `gate_summary.json` tells how many clips eac
 `train_vits` reads a dataset from Hugging Face. So publish the result first:
 
 1. Open [`tts_publish.ipynb`](../notebooks/tts_publish.ipynb) and add your `asr2tts` run as input.
-2. Set `MANIFEST_PATH` to the `manifest.jsonl` of the run.
+2. Set `MANIFEST_PATH` to the `manifest.jsonl` of the run. The manifest also lists the original recordings, but the
+   notebook publishes only the clips in the target voice. If `REF_VOICES_DIR` held more than one voice, set
+   `IDENTITY` to the name of the voice to publish: the name of its WAV file, without `.wav`.
 3. Set `HF_REPO` to the name of a new dataset on your Hugging Face account, for example `yourname/my-voice-pt-PT`.
 4. Get a Hugging Face token with write access, and give it to the notebook as a secret.
    [Accounts and tokens](getting-started.md#accounts-and-tokens) explains both steps. Do not type the token into the
