@@ -57,6 +57,9 @@ short demo of 32 examples. For the full set of 900 examples for each phrase, set
 2. On the device, install the plugin with `pip install --pre ovos-ww-plugin-wakeforge`.
 3. Add the settings from `ovos_config.json` to `~/.config/mycroft/mycroft.conf`.
 
+A streaming model of `ww_train_streaming` is the file `ww_streaming_output/<phrase>_streaming.onnx`, with its own
+`ovos_config.json`. Use it in the same way.
+
 The last section of `kaggle_quickstart_ww` prints these settings, and explains the test numbers. The numbers describe
 one run with voices made by a computer, so they do not tell how the model behaves in your home. Test the model with
 your own voice and in your own room.

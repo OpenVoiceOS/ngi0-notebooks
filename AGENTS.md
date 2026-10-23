@@ -10,9 +10,10 @@ what the person prepared before you started.
 - Never change the files in `notebooks/` to do a run. For Kaggle, copy the notebook to a work folder outside the
   repository, and change the copy. Change `notebooks/` only when the person asks for a change to the notebook itself, and follow
   [CONTRIBUTING.md](CONTRIBUTING.md).
-- Never write a Hugging Face token, a Kaggle token or another secret into a notebook, a cell or a file that you push.
-  Kaggle keeps the source of every version. To publish to Hugging Face, run `tts_publish` on the person's computer
-  with the token in the environment variable `HF_TOKEN`.
+- Never write a Hugging Face token, a Mozilla Data Collective key, a Kaggle token or another secret into a notebook, a
+  cell or a file that you push. Kaggle keeps the source of every version. On the person's computer, give a token as
+  an environment variable or in `.env`: `HF_TOKEN` for `tts_publish` and `train_vits`, `MDC_API_KEY` for `asr2tts`.
+  On Kaggle, the notebook reads the Kaggle secret with the same name, and only the person can add that secret.
 - Keep every Kaggle notebook private: leave `is_private` out of `kernel-metadata.json`, or set it to `true`.
 - Ask the person before you start a run that uses more than one hour of GPU time, and tell them how many GPU hours
   the whole task needs. Kaggle gives a limited number of GPU hours each week.
@@ -34,8 +35,9 @@ Galician". Then guide them through it, in this order.
 3. **Gather the data.** Find the sources for the language in [docs/tts-data-sources.md](docs/tts-data-sources.md) and
    [docs/mozilla-data-collective.md](docs/mozilla-data-collective.md). Show the person the candidates with their
    size and licence, and let them choose. A download from Mozilla Data Collective needs the person's account: ask
-   them to accept the terms of the dataset on its page, and to create an API key, or to download the file and give
-   you its path.
+   them to accept the terms of the dataset on its page, and to create an API key. With the key, set `MDC_DATASET` in
+   `asr2tts` to the ID of the dataset, and the notebook downloads it. Without a key, the person downloads the file and
+   gives you its path for `COMMON_VOICE_DIR`.
 4. **Plan the runs.** Before you start, show the list of runs, which notebook each run uses, and the GPU hours of
    each. Start when the person agrees.
 5. **Run, check and report** each step as this file explains. Stop and ask when a run fails in a way that the
@@ -86,8 +88,9 @@ Give every value as text. The notebook converts it to the type of the setting: `
 setting, digits for a number, and JSON for a list, for example `'["pt-PT", "pt-BR"]'`. A value that does not fit
 stops the notebook with an error that names the setting.
 
-`SMOKE = True` runs a short test on a CPU with a few clips. It checks that the notebook runs, and its output is not a
-dataset or a model. Set `SMOKE` to `False` for real work.
+`SMOKE = True` runs a short test with a few clips. It checks that the notebook runs, and its output is not a dataset
+or a model. Some notebooks need a GPU even for this test: `train_vits`, and the notebooks that make a demo with OmniVoice. Set
+`SMOKE` to `False` for real work: `tts2ww_full_pipeline` has `SMOKE = True` by default.
 
 ## Run a notebook on Kaggle
 
@@ -136,7 +139,7 @@ round, and `BASE_CONFIG_URL` to the `.json` file beside its `.onnx` file. Use fu
 ## Run a notebook on the person's computer
 
 A notebook that needs no GPU can run on the person's computer. Make a virtual environment with uv, install
-`papermill` and `ipykernel` in it, set the environment variables or write a `.env` file in the working folder, and
+`pip`, `jupyter` and `papermill` in it (the notebooks install their packages with `%pip`), set the environment variables or write a `.env` file in the working folder, and
 run the notebook:
 
 ```

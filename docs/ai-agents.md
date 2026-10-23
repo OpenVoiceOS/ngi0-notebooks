@@ -57,9 +57,9 @@ gives the settings as environment variables.
 
 ## Keep control
 
-- **Your tokens.** Never let the agent write a Hugging Face token or a Kaggle token into a notebook that it sends to
-  Kaggle or to a public place. A notebook keeps the text of its cells. Publish a dataset from your own computer,
-  where the token stays in an environment variable.
+- **Your tokens.** Never let the agent write a Hugging Face token, a Mozilla Data Collective key or a Kaggle token
+  into a notebook that it sends to Kaggle or to a public place. A notebook keeps the text of its cells. Give the
+  tokens as secrets or in a `.env` file, as [Accounts and tokens](getting-started.md#accounts-and-tokens) explains.
 - **Your GPU hours.** Kaggle gives a limited number of GPU hours each week. Tell the agent how many hours it can
   use, and check the runs on your Kaggle page.
 - **The result.** Listen to some clips of each dataset, and to the samples of each trained voice. An agent cannot

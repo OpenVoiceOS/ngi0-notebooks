@@ -77,52 +77,40 @@ when the Advanced setting `SHOW_DETAILS` is `True`. An error a beginner can
 cause says what to click: no GPU, no internet, a wrong folder.
 
 The hardware a notebook needs goes in the Needs column of the notebook index
-in `README.md`; how long it takes goes in its "Start here". A notebook that
-opens with a
-`| Field | Value |` summary table and a `CI:` line follows an older template;
-give it this shape when you rework it, and do not start a notebook that way.
+in `README.md`; how long it takes goes in its "Start here". Most notebooks
+open with the header below; give a notebook the shape above when you rework
+it, and start a new notebook with that shape.
 
 A notebook may default `SMOKE` to `True` when its full run takes hours, so
 that Run All with no edits finishes in minutes; its "Start here" then says
 that the full run is a one-word change. `docs/wake-words.md` describes the
 wake-word notebooks for a first-time tester.
-## Header and footer template
 
-The first cell of every notebook is a single markdown cell with:
+## The header of most notebooks
 
-1. `# <Title>`
-2. A one-line purpose statement (a notebook with more to say about its own
-   pipeline, inputs or outputs may add as much prose, and as many of its own
-   tables, as it needs after this point; the summary table below still
-   appears, even when a fuller explanation follows it).
-3. A table with rows Inputs, Outputs, Runtime, Hardware, Cost (header row
-   `| Field | Value |`). The Cost row states time or hardware, the same as
-   Runtime and Hardware — none of the notebooks here spend money, so no Cost
-   row ever states one.
-4. A line stating exactly `CI: linted, compiled under Python 3.11 and 3.12,
-   and executed on the smoke path.`, since every notebook in `notebooks/` is
-   linted, compiled and smoke-run by `ci.yml`. The
-   exception is a notebook that speaks with OmniVoice: OmniVoice needs a GPU
-   and the CI runners have none, so `ci.yml` lists it as GPU-only and its line
-   reads `CI: linted and compiled under Python 3.11 and 3.12.`, followed by
-   why it is run on Kaggle instead. A sentence of real detail may follow it
-   in the same paragraph (for example, which branch the SMOKE path takes, or
-   what the full run needs that CI does not exercise).
+Most notebooks open with a single markdown cell with:
 
-The three wake-word notebooks (`synthetic_ww_dataset`, `kaggle_quickstart_ww`,
-`tts2ww_full_pipeline`) are written for people who do not program, so their
-first cell differs from the template in two ways. It opens with the title
-and the Open in Kaggle and Open in Colab badges, then a "Start here" section
-in plain words: what the notebook does, how long it takes, whether it needs a
-GPU, and the one thing to set (usually nothing). And `SMOKE` defaults to
-`True` where a full run is long, so that Run All with no edits finishes in
-minutes; the full run is a one-word change in the Settings cell. `docs/wake-words.md` describes these
-three notebooks for a first-time tester.
+1. `# <Title>`.
+2. For a notebook that people who do not program run first, such as the
+   wake-word notebooks, `tts_dataset_gen` and `train_vits`, the Open in Kaggle
+   and Open in Colab badges and a "Start here" section in plain words: what the notebook does, how long it takes,
+   whether it needs a GPU, and the one thing to set.
+3. A one-line purpose statement, and as much prose about its inputs and
+   outputs as it needs.
+4. A table with rows Inputs, Outputs, Runtime, Hardware, Cost (header row
+   `| Field | Value |`). The Cost row states time or hardware: none of the
+   notebooks here spend money.
+5. A line `CI: linted, compiled under Python 3.11 and 3.12, and executed on
+   the smoke path.` A notebook that `ci.yml` lists as GPU-only reads `CI:
+   linted and compiled under Python 3.11 and 3.12.`, followed by why it runs
+   on Kaggle instead.
 
-`ww_train_streaming` has the same badges and "Start here" section, but it
-trains on a dataset made by `synthetic_ww_dataset`, so the one thing to set is
-`DATASET_DIRS`. `SMOKE` defaults to `False`, and Run All with `DATASET_DIRS`
-empty stops with a message that says what to set.
+`tts2ww_full_pipeline` defaults `SMOKE` to `True`, because its full run takes
+hours; its "Start here" says that the full run is a one-word change. The
+other notebooks default `SMOKE` to `False`. `ww_train_streaming` trains on a
+dataset made by `synthetic_ww_dataset`, so the one thing to set is
+`DATASET_DIRS`; Run All with `DATASET_DIRS` empty stops with a message that
+says what to set.
 
 The last cell of every notebook is a markdown cell with the funding credit
 from the Credits section of `README.md`, the one-line AI-assistance note, and
@@ -155,10 +143,7 @@ the Settings cell, and that no cell reads a setting from `os.environ`.
 
 CI runs every notebook with the environment variables `SMOKE=True`,
 `N_SAMPLES=4` and `EPOCHS=1`. So the Settings cell holds whichever of these
-three change what the notebook does, and, where the notebook trains or loads
-one identifiable model, `MODEL_ID` with the notebook's real default
-(`kaggle_quickstart_ww` has neither `MODEL_ID` nor an equivalent: under
-`SMOKE` it shrinks the data, not the model).
+three change what the notebook does.
 
 When `SMOKE` is `True`, the
 notebook takes the smallest realistic path through its own logic: it slices a
