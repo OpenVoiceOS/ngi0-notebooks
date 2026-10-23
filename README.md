@@ -39,16 +39,6 @@ complete tutorials.
 | [`tts_voice_convert`](notebooks/tts_voice_convert.ipynb) | Convert every clip of a dataset to a target voice | CPU, or a GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_voice_convert.ipynb) |
 | [`tts_publish`](notebooks/tts_publish.ipynb) | Publish a finished dataset to Hugging Face | GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_publish.ipynb) |
 
-## Other notebooks
-
-| Notebook | What it does | Needs | Run |
-|---|---|---|---|
-| [`ovos_intent_eval_and_train`](notebooks/ovos_intent_eval_and_train.ipynb) | Measure the published intent classifiers, language by language | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/ovos_intent_eval_and_train.ipynb) |
-| [`speaker_verification`](notebooks/speaker_verification.ipynb) | Enrol a speaker and verify them by voice | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/speaker_verification.ipynb) |
-| [`interop_mcp_utcp_clients`](notebooks/interop_mcp_utcp_clients.ipynb) | Call the OVOS TTS and STT servers through MCP and UTCP | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/interop_mcp_utcp_clients.ipynb) |
-| [`bus_message_validation`](notebooks/bus_message_validation.ipynb) | Check OVOS bus messages against their schemas | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/bus_message_validation.ipynb) |
-| [`arena_prediction_runner`](notebooks/arena_prediction_runner.ipynb) | Run a speech recogniser over a test set, for the OVOS plugin comparison (the plugin arena) | GPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/arena_prediction_runner.ipynb) |
-
 Licensed under the [Apache License 2.0](LICENSE). To change a notebook, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Credits

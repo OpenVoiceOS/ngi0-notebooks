@@ -1,6 +1,0 @@
-# Pre-release channel: pip install --pre -r this file
-# OmniVoice runs on a GPU and needs a torch that matches it (Kaggle and Colab preinstall one)
-omnivoice>=0.2.1
-soundfile>=0.14.0
-ovos-stt-plugin-vosk>=0.2.8a2
-ovos-plugin-manager>=2.12.4a1

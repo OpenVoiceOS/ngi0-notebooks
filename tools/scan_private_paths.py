@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-"""Scan every notebook, including the four that keep their outputs, for a
-maintainer's private path, host or identifier surviving in its source, its
-committed outputs or its metadata (papermill records the machine that ran it
-there, not in a cell).
+"""Scan every notebook for a maintainer's private path, host or identifier
+surviving in its source, its outputs or its metadata (papermill records the
+machine that ran it there, not in a cell).
 
-The lint job's `nbstripout --verify` step skips the four allowlisted notebooks
-entirely, so nothing else in CI reads what they commit. This scans the raw
-notebook JSON text of every `notebooks/*.ipynb`, allowlist or not, for:
+This scans the raw notebook JSON text of every `notebooks/*.ipynb` for:
 
 - a home directory: `/home/`, `/root/`, `/media/`, `/run/media`, `/Users/`,
   `C:\\Users`

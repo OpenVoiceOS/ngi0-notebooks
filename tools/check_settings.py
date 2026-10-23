@@ -4,7 +4,7 @@
 The first code cell is the hidden helper, byte for byte the text of tools/settings_helper.py. The second code cell is
 the Settings cell, and it is the only cell that calls setting() with a fixed name. A later cell may call setting()
 with a name built at run time, such as REFERENCE_<voice name>. No cell reads a setting from os.environ, and no cell
-calls os.environ.setdefault(). A notebook in NO_SETTINGS has no settings, so it has neither cell.
+calls os.environ.setdefault().
 """
 import glob
 import json
@@ -15,7 +15,6 @@ from pathlib import Path
 HELPER = (Path(__file__).parent / "settings_helper.py").read_text(encoding="utf-8")
 SETTINGS_FIRST_LINE = "# Settings: change the values below."
 SETTING_LINE = re.compile(r'^([A-Z][A-Z0-9_]*) = setting\("([A-Z][A-Z0-9_]*)", ')
-NO_SETTINGS = {"bus_message_validation"}
 SHELL_NAMES = {"LANG", "HOME", "PATH", "USER", "TMPDIR", "PWD", "SHELL", "TERM"}
 
 
@@ -23,10 +22,6 @@ def check(path):
     errors = []
     cells = [c for c in json.load(open(path, encoding="utf-8"))["cells"] if c["cell_type"] == "code"]
     sources = ["".join(c["source"]) for c in cells]
-    if Path(path).stem in NO_SETTINGS:
-        if any(re.search(r"\bsetting\(", src) for src in sources):
-            return ["the notebook is in NO_SETTINGS, but a cell calls setting()"]
-        return []
     if len(cells) < 2 or sources[0] != HELPER:
         return ["the first code cell is not the text of tools/settings_helper.py"]
     if not cells[0].get("metadata", {}).get("jupyter", {}).get("source_hidden"):
