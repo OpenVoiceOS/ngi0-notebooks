@@ -70,6 +70,10 @@ gives, for each score, the number of clips and the 10th, 50th and 90th percentil
 records each rule and the number of clips that the rule removed. `tts_voice_convert` and `tts_publish` read a manifest
 and a selection file together.
 
+A published dataset holds one voice. When clips in the manifest have an `identity`, `tts_publish` publishes only the
+clips of one identity, and never the clips that they were made from. Its setting `IDENTITY` chooses the identity
+when there is more than one.
+
 ---
 
 [Index](index.md) · [Getting started](getting-started.md) · [Wake words](wake-words.md) · [TTS voice](pipeline.md) ·
