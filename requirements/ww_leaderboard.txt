@@ -1,0 +1,7 @@
+# ww_leaderboard: reads published arena results and scores them with the arena's code.
+# The arena itself is not on PyPI; the notebook downloads one fixed commit of it with git.
+pydantic>=2
+huggingface_hub>=0.30
+pyarrow>=15
+pandas>=2
+matplotlib>=3.8
