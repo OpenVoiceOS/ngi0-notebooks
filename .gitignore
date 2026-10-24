@@ -25,6 +25,14 @@ asr2tts_workspace/
 tts_dataset/
 benchmark_reports/
 notebooks/benchmark_reports/
+ww_leaderboard_work/
+ww_leaderboard_output/
+benchmarks/ww_leaderboard_work/
+benchmarks/ww_leaderboard_output/
+ww_benchmark_work/
+ww_benchmark_output/
+benchmarks/ww_benchmark_work/
+benchmarks/ww_benchmark_output/
 exported_models_*/
 notebooks/exported_models_*/
 ovos-intents-*/

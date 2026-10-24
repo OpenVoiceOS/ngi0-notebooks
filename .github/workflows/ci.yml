@@ -23,7 +23,8 @@ jobs:
           python - << 'EOF'
           import glob, sys, nbformat
           errors = []
-          for path in sorted(glob.glob("notebooks/*.ipynb")):
+          paths = sorted(glob.glob("notebooks/*.ipynb") + glob.glob("benchmarks/*.ipynb"))
+          for path in paths:
               try:
                   nb = nbformat.read(path, as_version=4)
                   nbformat.validate(nb)
@@ -33,12 +34,12 @@ jobs:
           if errors:
               print("\n".join(errors))
               sys.exit(1)
-          print(f"\n{len(glob.glob('notebooks/*.ipynb'))} notebooks validated.")
+          print(f"\n{len(paths)} notebooks validated.")
           EOF
       - name: Verify outputs are stripped
         run: |
           fail=0
-          for nb in notebooks/*.ipynb; do
+          for nb in notebooks/*.ipynb benchmarks/*.ipynb; do
             if ! nbstripout --verify "$nb"; then
               echo "  FAIL (has outputs) $nb"
               fail=1
@@ -69,15 +70,21 @@ jobs:
               "train_vits", "tts2ww_full_pipeline", "tts_enhance", "tts_measure",
               "tts_publish", "tts_voice_convert",
           }
-          stems = sorted(
-              os.path.splitext(os.path.basename(p))[0]
-              for p in glob.glob("notebooks/*.ipynb")
+          # A matrix entry is the notebook path without .ipynb, such as benchmarks/ww_leaderboard
+          notebooks = sorted(
+              os.path.splitext(p)[0]
+              for p in glob.glob("notebooks/*.ipynb") + glob.glob("benchmarks/*.ipynb")
           )
+          stems = [os.path.basename(n) for n in notebooks]
+          clashes = sorted({s for s in stems if stems.count(s) > 1})
+          if clashes:
+              print(f"two notebooks share the stem {clashes}, and so one requirements file", file=sys.stderr)
+              sys.exit(1)
           missing = [s for s in stems if not os.path.isfile(f"requirements/{s}.txt")]
           if missing:
               print(f"missing requirements/<stem>.txt for: {missing}", file=sys.stderr)
               sys.exit(1)
-          print("matrix=" + json.dumps([s for s in stems if s not in GPU_ONLY]))
+          print("matrix=" + json.dumps([n for n in notebooks if os.path.basename(n) not in GPU_ONLY]))
           EOF
 
   compile:
@@ -124,15 +131,15 @@ jobs:
           # raises ModuleNotFoundError.
           uv pip install --prerelease=allow pip
           uv pip install --prerelease=allow jupyter papermill ipykernel nest_asyncio
-          uv pip install --prerelease=allow -r requirements/${{ matrix.notebook }}.txt
+          uv pip install --prerelease=allow -r "requirements/$(basename ${{ matrix.notebook }}).txt"
       - name: Run smoke path
         run: |
           source .venv/bin/activate
           n_samples=4
-          if [ "${{ matrix.notebook }}" = "kaggle_quickstart_ww" ]; then
+          if [ "${{ matrix.notebook }}" = "notebooks/kaggle_quickstart_ww" ]; then
             n_samples=32
           fi
           # Every notebook reads its settings from environment variables of the same name
           SMOKE=True N_SAMPLES=$n_samples EPOCHS=1 \
-            papermill --log-output notebooks/${{ matrix.notebook }}.ipynb /tmp/out.ipynb
+            papermill --log-output ${{ matrix.notebook }}.ipynb /tmp/out.ipynb
 

@@ -53,5 +53,5 @@ def main(paths: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    paths = sys.argv[1:] or sorted(glob.glob("notebooks/*.ipynb"))
+    paths = sys.argv[1:] or sorted(glob.glob("notebooks/*.ipynb") + glob.glob("benchmarks/*.ipynb"))
     sys.exit(main(paths))
