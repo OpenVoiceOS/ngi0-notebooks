@@ -1,0 +1,22 @@
+# ww_benchmark: runs every wake-word plugin on the plugin arena's test sets.
+# The arena itself is not on PyPI; the notebook downloads one fixed commit of it with git.
+# openWakeWord installs in the notebook itself, with --no-deps, as its plugin documents.
+ovoscope>=1.6.0a1
+ovos-plugin-manager>=2.0.0
+pydantic>=2
+huggingface_hub>=0.30
+numpy>=1.26
+soundfile>=0.12
+scipy>=1.11
+av>=12
+pyarrow>=15
+pandas>=2
+matplotlib>=3.8
+ovos-ww-plugin-precise-onnx>=0.1.2a1
+ovos-ww-plugin-microwakeword>=0.0.3a1
+ovos-ww-plugin-vosk>=0.1.13a1
+ovos-ww-plugin-wakeforge>=0.18.0a1
+ovos-ww-plugin-efficientword-net>=0.0.1a2
+ovos-ww-plugin-local-wake>=0.0.1a2
+ovos-vad-plugin-silero>=0.1.3a2
+ovos-ww-verifier-plugin-speaker>=0.0.4a3

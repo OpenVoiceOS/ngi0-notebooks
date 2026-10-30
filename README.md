@@ -1,6 +1,6 @@
 # OpenVoiceOS Notebooks
 
-These notebooks make wake words and text-to-speech voices for [OpenVoiceOS](https://openvoiceos.org), an open source
+These notebooks make and measure wake words and text-to-speech voices for [OpenVoiceOS](https://openvoiceos.org), an open source
 voice assistant. Each notebook runs for free in your browser on Kaggle. Click "Open in
 Kaggle", turn on Internet (and a GPU when the table says so), and click Run All. You do not need to install anything.
 
@@ -38,6 +38,18 @@ complete tutorials.
 | [`tts_select`](notebooks/tts_select.ipynb) | Keep the best clips of a dataset | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_select.ipynb) |
 | [`tts_voice_convert`](notebooks/tts_voice_convert.ipynb) | Convert every clip of a dataset to a target voice | CPU, or a GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_voice_convert.ipynb) |
 | [`tts_publish`](notebooks/tts_publish.ipynb) | Publish a finished dataset to Hugging Face | GPU for the demo | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/notebooks/tts_publish.ipynb) |
+
+## Benchmarks
+
+The notebooks in [`benchmarks/`](benchmarks/) measure OpenVoiceOS plugins with the
+[plugin arena](https://github.com/OpenVoiceOS/ovos-plugin-arena), which publishes its results on Hugging Face.
+[Benchmarks](docs/benchmarks.md) explains them.
+
+| Notebook | What it does | Needs | Run |
+|---|---|---|---|
+| [`ww_leaderboard`](benchmarks/ww_leaderboard.ipynb) | Read the published wake-word results of the boards that the arena lists, score them again with the arena's code, and compare the plugins | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/benchmarks/ww_leaderboard.ipynb) |
+| [`ww_benchmark`](benchmarks/ww_benchmark.ipynb) | Install every wake-word plugin, run each one on the same test clips, and score it with the arena's code | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/benchmarks/ww_benchmark.ipynb) |
+| [`intent_benchmark`](benchmarks/intent_benchmark.ipynb) | Install the intent pipeline plugins, train each intent fighter on the arena's intent test sets, and score it with the arena's code | CPU | [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/OpenVoiceOS/ngi0-notebooks/blob/dev/benchmarks/intent_benchmark.ipynb) |
 
 Licensed under the [Apache License 2.0](LICENSE). To change a notebook, see [CONTRIBUTING.md](CONTRIBUTING.md).
 

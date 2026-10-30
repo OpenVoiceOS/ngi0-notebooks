@@ -55,7 +55,7 @@ def check(path):
 
 
 def main():
-    paths = sorted(glob.glob("notebooks/*.ipynb"))
+    paths = sorted(glob.glob("notebooks/*.ipynb") + glob.glob("benchmarks/*.ipynb"))
     failed = 0
     for path in paths:
         errors = check(path)

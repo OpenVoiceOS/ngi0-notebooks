@@ -13,6 +13,7 @@ for free in your browser, on Kaggle or Google Colab. This page tells you which g
 | Make a wake word, the phrase that makes the assistant listen | [Train a wake word](wake-words.md) |
 | Make a voice that reads text aloud | [Train a TTS voice](pipeline.md) |
 | Let an AI coding agent do the work for you | [Use an AI coding agent](ai-agents.md) |
+| Compare the wake-word and intent plugins, or measure them yourself | [Benchmarks](benchmarks.md) |
 
 ## TTS voices in detail
 

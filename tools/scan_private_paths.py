@@ -3,7 +3,7 @@
 surviving in its source, its outputs or its metadata (papermill records the
 machine that ran it there, not in a cell).
 
-This scans the raw notebook JSON text of every `notebooks/*.ipynb` for:
+This scans the raw notebook JSON text of every `notebooks/*.ipynb` and `benchmarks/*.ipynb` for:
 
 - a home directory: `/home/`, `/root/`, `/media/`, `/run/media`, `/Users/`,
   `C:\\Users`
@@ -51,5 +51,5 @@ def main(paths: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    paths = sys.argv[1:] or sorted(glob.glob("notebooks/*.ipynb"))
+    paths = sys.argv[1:] or sorted(glob.glob("notebooks/*.ipynb") + glob.glob("benchmarks/*.ipynb"))
     sys.exit(main(paths))
