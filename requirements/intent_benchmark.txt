@@ -1,0 +1,20 @@
+# intent_benchmark: runs the intent pipelines of the plugin arena on the arena's intent test sets.
+# The arena itself is not on PyPI; the notebook downloads one fixed commit of it with git.
+# These are the packages of the %pip install line in the notebook's step 1.
+ovos-plugin-manager>=2.0.0
+ovos-core>=3.2.0a1
+ovos-spec-tools>=1.11.0a1
+pydantic>=2
+huggingface_hub>=0.30
+datasets>=2.20
+pyarrow>=15
+pandas>=2
+ovos-padatious>=2.3.2a1
+padacioso>=2.5.4a1
+ovos-adapt-parser>=1.6.8a1
+nebulento>=0.10.6a1
+palavreado>=1.7.6a1
+linha-fina>=0.4.4a2
+jurebes>=0.4.1a1
+ovos-markov-pipeline-plugin>=0.5.2a2
+ovos-m2v-pipeline>=0.38.0a1
