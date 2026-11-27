@@ -513,7 +513,7 @@ No recordings or TTS voices that you can download are known.
 
 | Recordings | Variety | Speakers and hours | Licence |
 |---|---|---|---|
-| [FalAR](https://huggingface.co/datasets/inesc-id/FalAR) | European | 1,180 speakers, about 4.9k h of parliamentary sessions, 16 kHz; the rooms carry heavy echo, so the audio needs enhancement (for example [callenhancer](https://huggingface.co/TigreGotico/audiosronnx-callenhancer)) before use | "cc-by-4.0" |
+| [FalAR](https://huggingface.co/datasets/inesc-id/FalAR) | European | 1,180 speakers, about 4.9k h of parliamentary sessions, 16 kHz; the rooms carry heavy echo, so the audio needs enhancement (for example [callenhancer](https://huggingface.co/AudioSRonnx/callenhancer)) before use | "cc-by-4.0" |
 | [Tugão 1.0](https://mozilladatacollective.com/datasets/cmiui8v3101cpnv074qwggdsj) | European | 1 speaker, about 1.5 h | "CC0-1.0" |
 
 **TTS voices**
